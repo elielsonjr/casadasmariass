@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <script>
+        if (localStorage.getItem('marias_age_verified') !== 'true') {
+            window.location.href = 'index.html';
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suporte e Contato | Casa das Marias</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style sheet -->
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <!-- Mobile Sidebar Drawer (Fatal Model Style) -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <aside class="sidebar-drawer" id="sidebar-drawer">
+        <div class="drawer-close-btn" id="drawer-close-btn">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="drawer-profile">
+            <div class="profile-avatar">
+                <img src="assets/logo.png" alt="Casa das Marias Logo">
+            </div>
+            <div class="profile-info">
+                <h4 class="profile-name">Casa das Marias</h4>
+                <p class="profile-location">Petrolina - PE</p>
+                <div class="profile-link-container">
+                    <span class="profile-link-text" id="share-link-text">casadasmariass.com</span>
+                    <button class="copy-link-btn" id="copy-share-link" title="Copiar Link">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <nav class="drawer-nav">
+            <a href="main.html" class="drawer-link"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="main.html#lounge" class="drawer-link"><i class="fa-solid fa-hotel"></i> A Casa</a>
+            <a href="main.html#portfolio-view" class="drawer-link"><i class="fa-solid fa-users"></i> Nossas Modelos</a>
+            <a href="about.html" class="drawer-link"><i class="fa-solid fa-circle-info"></i> Quem Somos</a>
+            <a href="support.html" class="drawer-link active"><i class="fa-solid fa-headset"></i> Suporte</a>
+            <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="drawer-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+            <a href="#" class="drawer-link admin-trigger"><i class="fa-solid fa-lock"></i> Painel Admin</a>
+        </nav>
+        <div class="drawer-footer-action">
+            <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias." target="_blank" class="btn btn-gold btn-glow w-full">
+                <i class="fa-brands fa-whatsapp"></i> Solicitar Vaga
+            </a>
+        </div>
+    </aside>
+
+    <!-- Premium Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <a href="main.html" class="logo-img-link" id="nav-logo">
+                <img src="assets/logo.png" alt="Casa das Marias" class="logo-img">
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <a href="main.html" class="nav-link">Início</a>
+                <a href="main.html#lounge" class="nav-link">A Casa</a>
+                <a href="main.html#portfolio-view" class="nav-link">Nossas Modelos</a>
+                <a href="about.html" class="nav-link">Quem Somos</a>
+                <a href="support.html" class="nav-link active">Suporte</a>
+                <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias." target="_blank" class="nav-link nav-apply-btn"><i class="fa-brands fa-whatsapp"></i> Solicitar Vaga</a>
+                <a href="#" class="nav-link admin-trigger"><i class="fa-solid fa-lock-open"></i> Painel Admin</a>
+            </nav>
+            <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Menu de Navegação">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" style="padding-top: 115px;">
+        <!-- Support Hero -->
+        <section class="support-hero-section" style="position: relative; padding: 80px 4% 50px; text-align: center; background: linear-gradient(180deg, #100607 0%, var(--bg-primary) 100%);">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <span style="color: var(--color-gold); font-family: var(--font-heading); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.9rem;">Central de Atendimento</span>
+                <h1 style="font-size: 3rem; margin: 15px 0 25px; font-family: var(--font-heading); font-weight: 800; background: linear-gradient(135deg, #FFF, #DFD1A5); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Como podemos ajudar?</h1>
+                <div class="title-underline"></div>
+                <p style="color: var(--text-secondary); font-size: 1.15rem; line-height: 1.6;">Dúvidas sobre hospedagem, regras da casa ou agendamentos? Entre em contato ou consulte nossa seção de perguntas frequentes abaixo.</p>
+            </div>
+        </section>
+
+        <!-- Contact Channels Section -->
+        <section class="section-container" style="padding-top: 20px; padding-bottom: 40px;">
+            <div class="rules-grid" style="margin-bottom: 60px;">
+                <!-- WhatsApp Channel -->
+                <div class="rule-card" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                    <div style="margin-bottom: 20px;">
+                        <div class="rule-card-icon-box" style="margin: 0 auto 18px; width: 60px; height: 60px; font-size: 1.8rem; background: rgba(37, 211, 102, 0.1); border-color: rgba(37, 211, 102, 0.3); color: #25D366;"><i class="fa-brands fa-whatsapp"></i></div>
+                        <h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">WhatsApp Geral</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Atendimento direto com a gerência da casa para dúvidas sobre vagas e hospedagem de acompanhantes.</p>
+                    </div>
+                    <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20a%20hospedagem%2Fvagas." target="_blank" class="btn btn-gold btn-glow w-full" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white !important;">
+                        Iniciar Conversa
+                    </a>
+                </div>
+
+                <!-- Instagram Channel -->
+                <div class="rule-card" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                    <div style="margin-bottom: 20px;">
+                        <div class="rule-card-icon-box" style="margin: 0 auto 18px; width: 60px; height: 60px; font-size: 1.8rem; background: rgba(226, 83, 82, 0.1); border-color: rgba(226, 83, 82, 0.3); color: var(--color-accent);"><i class="fa-brands fa-instagram"></i></div>
+                        <h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">Instagram Direct</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Envie uma mensagem direta em nosso canal de comunicação social no Instagram oficial.</p>
+                    </div>
+                    <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="btn btn-gold btn-glow w-full">
+                        Acessar Instagram
+                    </a>
+                </div>
+
+                <!-- Email Support -->
+                <div class="rule-card" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                    <div style="margin-bottom: 20px;">
+                        <div class="rule-card-icon-box" style="margin: 0 auto 18px; width: 60px; height: 60px; font-size: 1.8rem; background: rgba(212, 194, 129, 0.1); border-color: rgba(212, 194, 129, 0.3); color: var(--color-gold);"><i class="fa-solid fa-envelope"></i></div>
+                        <h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 10px;">E-mail Suporte</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Canal formal para parcerias, solicitações administrativas ou feedbacks sobre o espaço.</p>
+                    </div>
+                    <a href="mailto:suporte@casadasmariass.com" class="btn btn-secondary w-full" style="margin-top: auto;">
+                        Enviar E-mail
+                    </a>
+                </div>
+            </div>
+
+            <!-- FAQ Section and Support Form Layout -->
+            <div style="display: grid; grid-template-columns: 1fr; gap: 50px; margin-top: 20px;">
+                <!-- FAQ Accordion column -->
+                <div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; margin-bottom: 25px; display: flex; align-items: center; gap: 12px;"><i class="fa-solid fa-circle-question" style="color: var(--color-gold);"></i> Perguntas Frequentes</h3>
+                    
+                    <div class="faq-accordion-container" style="display: flex; flex-direction: column; gap: 16px;">
+                        <!-- FAQ Item 1 -->
+                        <div class="faq-item glass-panel" style="border: 1px solid rgba(255, 255, 255, 0.05); border-radius: var(--border-radius-md); overflow: hidden; transition: all 0.3s ease;">
+                            <div class="faq-question" style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; font-family: var(--font-heading); font-size: 1rem; color: #FFF; transition: var(--transition-fast);">
+                                <span>Como funcionam os agendamentos com as modelos?</span>
+                                <i class="fa-solid fa-chevron-down" style="color: var(--color-gold); transition: transform 0.3s ease;"></i>
+                            </div>
+                            <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0, 1, 0, 1); background: rgba(0, 0, 0, 0.15);">
+                                <p style="padding: 20px 24px; margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 0.9rem;">
+                                    Todos os agendamentos são feitos de forma direta e individualizada com as próprias modelos através de seus números de WhatsApp listados nos respectivos perfis. A Casa das Marias não faz agendamentos em nome das meninas e não cobra taxas de clientes intermediárias.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div class="faq-item glass-panel" style="border: 1px solid rgba(255, 255, 255, 0.05); border-radius: var(--border-radius-md); overflow: hidden; transition: all 0.3s ease;">
+                            <div class="faq-question" style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; font-family: var(--font-heading); font-size: 1rem; color: #FFF; transition: var(--transition-fast);">
+                                <span>Qual é o endereço exato da casa?</span>
+                                <i class="fa-solid fa-chevron-down" style="color: var(--color-gold); transition: transform 0.3s ease;"></i>
+                            </div>
+                            <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0, 1, 0, 1); background: rgba(0, 0, 0, 0.15);">
+                                <p style="padding: 20px 24px; margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 0.9rem;">
+                                    Para garantir a máxima discrição dos nossos hóspedes e acompanhantes, a localização exata da Casa das Marias em Petrolina é fornecida de forma privada pelas modelos no momento da confirmação do agendamento ou pela gerência nas tratativas de hospedagem.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div class="faq-item glass-panel" style="border: 1px solid rgba(255, 255, 255, 0.05); border-radius: var(--border-radius-md); overflow: hidden; transition: all 0.3s ease;">
+                            <div class="faq-question" style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; font-family: var(--font-heading); font-size: 1rem; color: #FFF; transition: transform 0.3s ease;">
+                                <span>Sou acompanhante, como faço para me hospedar?</span>
+                                <i class="fa-solid fa-chevron-down" style="color: var(--color-gold); transition: transform 0.3s ease;"></i>
+                            </div>
+                            <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0, 1, 0, 1); background: rgba(0, 0, 0, 0.15);">
+                                <p style="padding: 20px 24px; margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 0.9rem;">
+                                    Profissionais interessadas em utilizar nossas suítes luxuosas para atendimento (Quero Local) ou hospedagem temporária podem entrar em contato direto com a gerência via WhatsApp no botão de Solicitar Vaga. Avaliaremos a disponibilidade de quartos e explicaremos as regras do espaço de forma rápida e confidencial.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 4 -->
+                        <div class="faq-item glass-panel" style="border: 1px solid rgba(255, 255, 255, 0.05); border-radius: var(--border-radius-md); overflow: hidden; transition: all 0.3s ease;">
+                            <div class="faq-question" style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; font-family: var(--font-heading); font-size: 1rem; color: #FFF; transition: transform 0.3s ease;">
+                                <span>A casa cobra alguma taxa de entrada para clientes?</span>
+                                <i class="fa-solid fa-chevron-down" style="color: var(--color-gold); transition: transform 0.3s ease;"></i>
+                            </div>
+                            <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0, 1, 0, 1); background: rgba(0, 0, 0, 0.15);">
+                                <p style="padding: 20px 24px; margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 0.9rem;">
+                                    Não cobramos taxa de entrada. A Casa das Marias é um local de atendimento privado das modelos hospedadas. Ao agendar um horário com uma modelo, você terá acesso à estrutura da suíte reservada por ela, usufruindo de total privacidade, conforto e sigilo. Consumos no bar da casa são pagos separadamente.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form column -->
+                <div class="glass-panel" style="padding: 35px 30px; border-radius: var(--border-radius-lg); border: 1px solid rgba(212,194,129,0.15); background: rgba(20,20,20,0.6); margin-top: 20px;">
+                    <h3 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; color: var(--color-gold);">Envie uma Mensagem</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 25px;">Preencha o formulário abaixo e nossa equipe responderá em até 24 horas.</p>
+                    
+                    <form id="support-contact-form" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+                            <div class="form-group">
+                                <label for="support-name" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Nome Completo / Apelido</label>
+                                <input type="text" id="support-name" required placeholder="Ex: João Silva" style="padding: 12px 16px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius-sm); color: #fff; font-family: var(--font-body);">
+                            </div>
+                            <div class="form-group">
+                                <label for="support-contact" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">E-mail ou WhatsApp para Retorno</label>
+                                <input type="text" id="support-contact" required placeholder="Ex: joao@email.com ou (87) 99999-9999" style="padding: 12px 16px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius-sm); color: #fff; font-family: var(--font-body);">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="support-subject" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Assunto</label>
+                            <select id="support-subject" required style="padding: 12px 16px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius-sm); color: #fff; font-family: var(--font-body); cursor: pointer;">
+                                <option value="" disabled selected>Selecione um assunto...</option>
+                                <option value="hospedagem">Quero me Hospedar (Acompanhantes)</option>
+                                <option value="agendamento">Dúvida sobre Agendamento</option>
+                                <option value="regras">Dúvidas sobre Regras e Tarifas</option>
+                                <option value="outro">Outros Assuntos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="support-message" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Mensagem</label>
+                            <textarea id="support-message" rows="5" required placeholder="Escreva sua mensagem em detalhes..." style="padding: 12px 16px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius-sm); color: #fff; font-family: var(--font-body); resize: vertical;"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-glow w-full" style="padding: 14px 20px; font-weight: 700;">
+                            Enviar Mensagem <i class="fa-solid fa-paper-plane" style="margin-left: 6px;"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="main.html" class="logo-img-link">
+                    <img src="assets/logo.png" alt="Casa das Marias" class="logo-img footer-logo-img">
+                </a>
+                <p>O ambiente mais exclusivo e as companhias mais sofisticadas da região. Nem toda Maria é comum.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Links Úteis</h3>
+                <ul>
+                    <li><a href="main.html#lounge">A Casa</a></li>
+                    <li><a href="main.html#portfolio-view">Nossas Modelos</a></li>
+                    <li><a href="about.html">Quem Somos</a></li>
+                    <li><a href="support.html">Suporte</a></li>
+                    <li><a href="#" class="admin-trigger"><i class="fa-solid fa-user-gear"></i> Painel Administrativo</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Agendamentos</h3>
+                <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/5575982897249" target="_blank"
+                        style="color: inherit; text-decoration: none; transition: color 0.2s;">Agendamentos via
+                        WhatsApp</a></p>
+                <p><i class="fa-solid fa-clock"></i> Todos os dias — 24 horas</p>
+                <div class="social-icons">
+                    <a href="https://wa.me/5575982897249" target="_blank" class="social-icon wa-link"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Casa das Marias. Todos os direitos reservados. Proibido para menores de 18 anos.</p>
+        </div>
+    </footer>
+
+    <!-- Manager Password Modal -->
+    <div class="modal-overlay hidden" id="auth-modal">
+        <div class="modal-container glass-panel auth-modal-container">
+            <button class="modal-close-btn" id="auth-modal-close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="auth-header">
+                <i class="fa-solid fa-shield-halved auth-icon"></i>
+                <h3>Autenticação do Gerente</h3>
+                <p>Insira a senha de acesso para entrar no Painel Administrativo.</p>
+            </div>
+            <div class="auth-body">
+                <div class="form-group">
+                    <label for="auth-password">Senha de Acesso</label>
+                    <input type="password" id="auth-password" placeholder="Digite a senha...">
+                    <small id="auth-error-msg" class="auth-error-msg hidden">Senha incorreta. Tente novamente.</small>
+                    <small class="form-tip">Dica: A senha padrão é <strong>admin123</strong></small>
+                </div>
+                <button type="button" class="btn btn-primary w-full" id="auth-submit-btn">Entrar no Painel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core App Logic -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>

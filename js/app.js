@@ -179,10 +179,9 @@ const LoungeSection = {
                 <div class="lounge-accordion-panel" id="lounge-accordion-content">
                     <div class="lounge-panel-content">
                         <div class="lounge-grid">
-                            <div class="lounge-img-wrapper">
+                            <div class="lounge-img-wrapper story-format">
                                 <video autoplay muted loop playsinline webkit-playsinline class="lounge-video">
                                     <source src="assets/casa.mp4" type="video/mp4">
-                                    <img src="assets/lounge_bg.png" alt="Casa das Marias Lounge" class="lounge-img" loading="lazy">
                                 </video>
                             </div>
                             <div class="lounge-details">
@@ -764,6 +763,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Autoplay Videos
     initAutoplayVideos();
+
+    // Check redirect authentication from other pages
+    if (sessionStorage.getItem('marias_admin_authenticated') === 'true') {
+        sessionStorage.removeItem('marias_admin_authenticated');
+        if (document.getElementById('admin-view')) {
+            switchView('admin');
+        }
+    }
 });
 
 function renderPortfolioGrid() {
@@ -828,32 +835,98 @@ function switchView(view) {
         renderPortfolioGrid();
         
         document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-        document.querySelector('[data-target="home"]').classList.add('active');
+        if (document.querySelector('[data-target="home"]')) {
+            document.querySelector('[data-target="home"]').classList.add('active');
+        }
+        sessionStorage.removeItem('marias_admin_authenticated');
     }
 }
 
 function setupEventListeners() {
-    // Mobile Navigation Toggle
-    if (menuToggle && mainNav) {
-        menuToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('mobile-active');
-            const icon = menuToggle.querySelector('i');
-            if (mainNav.classList.contains('mobile-active')) {
-                icon.className = 'fa-solid fa-xmark';
-            } else {
-                icon.className = 'fa-solid fa-bars';
-            }
+    // Mobile Navigation Drawer (Fatal Model Style)
+    const sidebarDrawer = document.getElementById('sidebar-drawer');
+    const drawerOverlay = document.getElementById('drawer-overlay');
+    const drawerCloseBtn = document.getElementById('drawer-close-btn');
+    const copyShareLink = document.getElementById('copy-share-link');
+    const shareLinkText = document.getElementById('share-link-text');
+
+    if (menuToggle && sidebarDrawer && drawerOverlay) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebarDrawer.classList.add('active');
+            drawerOverlay.classList.add('active');
         });
     }
 
-    document.querySelectorAll('.nav-link').forEach(link => {
+    if (drawerCloseBtn && sidebarDrawer && drawerOverlay) {
+        drawerCloseBtn.addEventListener('click', () => {
+            sidebarDrawer.classList.remove('active');
+            drawerOverlay.classList.remove('active');
+        });
+    }
+
+    if (drawerOverlay && sidebarDrawer) {
+        drawerOverlay.addEventListener('click', () => {
+            sidebarDrawer.classList.remove('active');
+            drawerOverlay.classList.remove('active');
+        });
+    }
+
+    // Close drawer on clicking links inside the drawer
+    document.querySelectorAll('.drawer-link').forEach(link => {
         link.addEventListener('click', () => {
-            if (mainNav.classList.contains('mobile-active')) {
-                mainNav.classList.remove('mobile-active');
-                menuToggle.querySelector('i').className = 'fa-solid fa-bars';
+            if (sidebarDrawer && drawerOverlay) {
+                sidebarDrawer.classList.remove('active');
+                drawerOverlay.classList.remove('active');
             }
         });
     });
+
+    // Share link copy functionality
+    if (copyShareLink && shareLinkText) {
+        shareLinkText.textContent = window.location.hostname || 'casadasmariass.com';
+        copyShareLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const urlToCopy = window.location.origin + window.location.pathname;
+            navigator.clipboard.writeText(urlToCopy).then(() => {
+                const originalIcon = copyShareLink.innerHTML;
+                copyShareLink.innerHTML = '<i class="fa-solid fa-check" style="color: var(--color-success);"></i>';
+                setTimeout(() => {
+                    copyShareLink.innerHTML = originalIcon;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        });
+    }
+
+    // FAQ Accordion Toggle
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.closest('.faq-item');
+            if (!item) return;
+            const isActive = item.classList.contains('active');
+            
+            // Optional: Close all other FAQ items (accordion behavior)
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+
+    // Support Contact Form Submit
+    const supportForm = document.getElementById('support-contact-form');
+    if (supportForm) {
+        supportForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Sua mensagem foi enviada com sucesso! Nossa equipe entrará em contato em breve.');
+            supportForm.reset();
+        });
+    }
 
     // Smooth scroll for all hash anchors (including navigation, hero buttons and footer links)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1201,7 +1274,12 @@ function handleAuthentication() {
     const password = authPasswordInput.value;
     if (password === 'admin123') {
         authModal.classList.add('hidden');
-        switchView('admin');
+        if (document.getElementById('admin-view')) {
+            switchView('admin');
+        } else {
+            sessionStorage.setItem('marias_admin_authenticated', 'true');
+            window.location.href = 'main.html';
+        }
     } else {
         authErrorMsg.classList.remove('hidden');
         authPasswordInput.focus();

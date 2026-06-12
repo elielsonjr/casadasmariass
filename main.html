@@ -23,20 +23,57 @@
 </head>
 
 <body>
+    <!-- Mobile Sidebar Drawer (Fatal Model Style) -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <aside class="sidebar-drawer" id="sidebar-drawer">
+        <div class="drawer-close-btn" id="drawer-close-btn">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="drawer-profile">
+            <div class="profile-avatar">
+                <img src="assets/logo.png" alt="Casa das Marias Logo">
+            </div>
+            <div class="profile-info">
+                <h4 class="profile-name">Casa das Marias</h4>
+                <p class="profile-location">Petrolina - PE</p>
+                <div class="profile-link-container">
+                    <span class="profile-link-text" id="share-link-text">casadasmariass.com</span>
+                    <button class="copy-link-btn" id="copy-share-link" title="Copiar Link">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <nav class="drawer-nav">
+            <a href="main.html" class="drawer-link active"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="#lounge" class="drawer-link"><i class="fa-solid fa-hotel"></i> A Casa</a>
+            <a href="#models" class="drawer-link"><i class="fa-solid fa-users"></i> Nossas Modelos</a>
+            <a href="about.html" class="drawer-link"><i class="fa-solid fa-circle-info"></i> Quem Somos</a>
+            <a href="support.html" class="drawer-link"><i class="fa-solid fa-headset"></i> Suporte</a>
+            <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="drawer-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+            <a href="#" class="drawer-link admin-trigger"><i class="fa-solid fa-lock"></i> Painel Admin</a>
+        </nav>
+        <div class="drawer-footer-action">
+            <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias." target="_blank" class="btn btn-gold btn-glow w-full">
+                <i class="fa-brands fa-whatsapp"></i> Solicitar Vaga
+            </a>
+        </div>
+    </aside>
+
     <!-- Premium Header -->
     <header class="app-header">
         <div class="header-container">
-            <a href="#" class="logo-img-link" id="nav-logo">
+            <a href="main.html" class="logo-img-link" id="nav-logo">
                 <img src="assets/logo.png" alt="Casa das Marias" class="logo-img">
             </a>
             <nav class="main-nav" id="main-nav">
-                <a href="#" class="nav-link active" data-target="home">Início</a>
+                <a href="main.html" class="nav-link active" data-target="home">Início</a>
                 <a href="#lounge" class="nav-link" data-target="lounge">A Casa</a>
-                <a href="#models" class="nav-link" data-target="models">Sou Cliente</a>
-                <a href="#rules" class="nav-link" data-target="rules">Sou Acompanhante</a>
+                <a href="#models" class="nav-link" data-target="models">Nossas Modelos</a>
+                <a href="about.html" class="nav-link" data-target="about">Quem Somos</a>
+                <a href="support.html" class="nav-link" data-target="support">Suporte</a>
                 <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias.%20Gostaria%20de%20consultar%20vagas." target="_blank" class="nav-link nav-apply-btn" id="nav-apply-btn"><i class="fa-brands fa-whatsapp"></i> Solicitar Vaga</a>
-                <a href="#" class="nav-link admin-trigger" id="nav-admin-btn"><i class="fa-solid fa-lock-open"></i>
-                    Painel Admin</a>
+                <a href="#" class="nav-link admin-trigger" id="nav-admin-btn"><i class="fa-solid fa-lock-open"></i> Painel Admin</a>
             </nav>
             <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Menu de Navegação">
                 <i class="fa-solid fa-bars"></i>
@@ -129,7 +166,7 @@
     <footer class="app-footer">
         <div class="footer-container">
             <div class="footer-brand">
-                <a href="#" class="logo-img-link">
+                <a href="main.html" class="logo-img-link">
                     <img src="assets/logo.png" alt="Casa das Marias" class="logo-img footer-logo-img">
                 </a>
                 <p>O ambiente mais exclusivo e as companhias mais sofisticadas da região. Nem toda Maria é comum.</p>
@@ -137,11 +174,11 @@
             <div class="footer-links">
                 <h3>Links Úteis</h3>
                 <ul>
-                    <li><a href="#lounge">A Casa</a></li>
-                    <li><a href="#rules">Regras da Casa</a></li>
-                    <li><a href="#models">Nossas Modelos</a></li>
-                    <li><a href="#" class="admin-trigger"><i class="fa-solid fa-user-gear"></i> Painel
-                            Administrativo</a></li>
+                    <li><a href="main.html#lounge">A Casa</a></li>
+                    <li><a href="main.html#portfolio-view">Nossas Modelos</a></li>
+                    <li><a href="about.html">Quem Somos</a></li>
+                    <li><a href="support.html">Suporte</a></li>
+                    <li><a href="#" class="admin-trigger"><i class="fa-solid fa-user-gear"></i> Painel Administrativo</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
@@ -153,7 +190,7 @@
                 <div class="social-icons">
                     <a href="https://wa.me/5575982897249" target="_blank" class="social-icon wa-link"><i
                             class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
         </div>
