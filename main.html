@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <script>
+        if (localStorage.getItem('marias_age_verified') !== 'true') {
+            window.location.href = 'index.html';
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa das Marias | Premium Companion Lounge</title>
+    <!-- Google Fonts: Outfit (headings), Inter (body), Cinzel (logo), Playfair Display (titles) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style sheet -->
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <!-- Premium Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <a href="#" class="logo-img-link" id="nav-logo">
+                <img src="assets/logo.png" alt="Casa das Marias" class="logo-img">
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <a href="#" class="nav-link active" data-target="home">Início</a>
+                <a href="#lounge" class="nav-link" data-target="lounge">A Casa</a>
+                <a href="#models" class="nav-link" data-target="models">Sou Cliente</a>
+                <a href="#rules" class="nav-link" data-target="rules">Sou Acompanhante</a>
+                <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias.%20Gostaria%20de%20consultar%20vagas." target="_blank" class="nav-link nav-apply-btn" id="nav-apply-btn"><i class="fa-brands fa-whatsapp"></i> Solicitar Vaga</a>
+                <a href="#" class="nav-link admin-trigger" id="nav-admin-btn"><i class="fa-solid fa-lock-open"></i>
+                    Painel Admin</a>
+            </nav>
+            <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Menu de Navegação">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+        <!-- Hero Section (Portfolio Mode) -->
+        <section id="hero-view" class="hero-section">
+            <video autoplay muted loop playsinline webkit-playsinline class="hero-video-bg">
+                <source src="assets/video.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-subtitle">Nem toda Maria é comum.</span>
+                <h1 class="hero-title">Onde o Luxo Encontra o Prazer</h1>
+                <p class="hero-description">Descubra uma casa exclusiva de atendimento das modelos: um lounge privativo de altíssimo padrão.</p>
+                <div class="hero-ctas">
+                    <a href="#models" class="btn btn-primary btn-glow" id="hero-client-btn"><i
+                            class="fa-solid fa-user"></i> Sou Cliente</a>
+                    <a href="#rules" class="btn btn-secondary" id="hero-companion-btn"><i class="fa-solid fa-hotel"></i>
+                        Sou Acompanhante</a>
+                    <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias.%20Gostaria%20de%20consultar%20vagas." target="_blank" class="btn btn-gold btn-glow" id="hero-apply-btn"><i class="fa-brands fa-whatsapp"></i> Solicitar Vaga</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Role para explorar</span>
+                <i class="fa-solid fa-chevron-down bounce"></i>
+            </div>
+        </section>
+        <!-- Stories Section -->
+        <section id="stories-view" class="stories-section-container">
+            <div class="stories-wrapper">
+                <div class="stories-header">
+                    <span class="stories-title"><i class="fa-solid fa-circle-play text-accent"></i> Stories das
+                        Marias</span>
+                    <span class="live-dot-indicator"><span class="dot-red blink"></span> Exclusivo</span>
+                </div>
+                <div class="stories-scroll-box" id="stories-container">
+                    <!-- Stories will be dynamically injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Companions Listing (Portfolio Mode) -->
+        <section id="portfolio-view" class="section-container portfolio-section">
+            <div class="section-header">
+                <h2 class="section-title">Nossas Acompanhantes</h2>
+                <div class="title-underline"></div>
+                <p class="section-subtitle">Garotas exclusivas com atendimento personalizado e máxima discrição.</p>
+            </div>
+
+            <!-- Search & Filter Controls -->
+            <div class="filter-controls-container glass-panel">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Pesquisar por nome...">
+                </div>
+                <div class="filter-options">
+                    <span class="filter-label">Tags:</span>
+                    <div class="filter-tags" id="filter-tags-container">
+                        <button class="filter-btn active" data-filter="all">Todas</button>
+                        <button class="filter-btn" data-filter="Loiras">Loiras</button>
+                        <button class="filter-btn" data-filter="Morenas">Morenas</button>
+                        <button class="filter-btn" data-filter="Ruivas">Ruivas</button>
+                        <button class="filter-btn" data-filter="VIP">VIP</button>
+                        <button class="filter-btn" data-filter="Novidade">Novidades</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Companions Grid -->
+            <div class="companions-grid" id="companions-grid">
+                <!-- Companion Cards will be injected dynamically -->
+            </div>
+        </section>
+
+        <!-- Lounge Section (Dynamic Presentation) -->
+        <section id="lounge-view" class="section-container lounge-section"></section>
+
+        <!-- Manager Dashboard View (Hidden by Default) -->
+        <section id="admin-view" class="section-container admin-section hidden">
+            <!-- Dashboard Content will be injected dynamically -->
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo-img-link">
+                    <img src="assets/logo.png" alt="Casa das Marias" class="logo-img footer-logo-img">
+                </a>
+                <p>O ambiente mais exclusivo e as companhias mais sofisticadas da região. Nem toda Maria é comum.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Links Úteis</h3>
+                <ul>
+                    <li><a href="#lounge">A Casa</a></li>
+                    <li><a href="#rules">Regras da Casa</a></li>
+                    <li><a href="#models">Nossas Modelos</a></li>
+                    <li><a href="#" class="admin-trigger"><i class="fa-solid fa-user-gear"></i> Painel
+                            Administrativo</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Agendamentos</h3>
+                <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/5575982897249" target="_blank"
+                        style="color: inherit; text-decoration: none; transition: color 0.2s;">Agendamentos via
+                        WhatsApp</a></p>
+                <p><i class="fa-solid fa-clock"></i> Todos os dias — 24 horas</p>
+                <div class="social-icons">
+                    <a href="https://wa.me/5575982897249" target="_blank" class="social-icon wa-link"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Casa das Marias. Todos os direitos reservados. Proibido para menores de 18 anos.</p>
+        </div>
+    </footer>
+
+    <!-- App Modals -->
+
+    <!-- Stories Modal -->
+    <div class="modal-overlay hidden" id="story-modal">
+        <div class="story-player-container">
+            <button class="story-close-btn" id="story-close-btn"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="story-progress-bar" id="story-progress-bar">
+                <!-- Segmented progress bars will be injected dynamically -->
+            </div>
+
+            <div class="story-header-info">
+                <img src="" alt="" class="story-header-avatar" id="story-header-avatar">
+                <div class="story-header-text">
+                    <span class="story-header-name" id="story-header-name">Modelo</span>
+                    <span class="story-header-time"><span class="live-dot-indicator"><span class="dot-red blink"
+                                style="margin-right: 4px;"></span> ONLINE</span></span>
+                </div>
+            </div>
+
+            <div class="story-video-wrapper">
+                <video id="story-video" playsinline webkit-playsinline></video>
+                <img id="story-image" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                <div class="story-video-loader" id="story-video-loader">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                </div>
+            </div>
+
+            <div class="story-controls-overlay">
+                <button class="story-ctrl-btn" id="story-play-pause-btn" title="Pausar/Reproduzir"><i
+                        class="fa-solid fa-pause"></i></button>
+                <button class="story-ctrl-btn" id="story-audio-btn" title="Ativar Som"><i
+                        class="fa-solid fa-volume-xmark"></i></button>
+            </div>
+
+            <div class="story-nav-tap story-nav-left" id="story-nav-left-tap"></div>
+            <div class="story-nav-tap story-nav-right" id="story-nav-right-tap"></div>
+
+            <button class="story-arrow-btn story-arrow-left" id="story-arrow-left"><i
+                    class="fa-solid fa-chevron-left"></i></button>
+            <button class="story-arrow-btn story-arrow-right" id="story-arrow-right"><i
+                    class="fa-solid fa-chevron-right"></i></button>
+
+            <div class="story-footer-action">
+                <a href="#" target="_blank" class="btn btn-primary story-book-btn btn-glow" id="story-book-btn">
+                    <i class="fa-brands fa-whatsapp"></i> Agendar Agora
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Detail Modal -->
+    <div class="modal-overlay hidden" id="profile-modal">
+        <div class="modal-container glass-panel detail-modal-container">
+            <button class="modal-close-btn" id="profile-modal-close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body-content" id="profile-modal-content">
+                <!-- Dynamic detail profile data will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Form Modal (Add/Edit companion) -->
+    <div class="modal-overlay hidden" id="admin-form-modal">
+        <div class="modal-container glass-panel admin-form-container">
+            <button class="modal-close-btn" id="admin-form-close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="admin-form-header">
+                <h3 id="form-modal-title">Adicionar Nova Modelo</h3>
+            </div>
+            <form id="companion-form" class="companion-form">
+                <input type="hidden" id="form-girl-id">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-name">Nome Completo *</label>
+                        <input type="text" id="form-name" required placeholder="Ex: Sophia Smith">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-age">Idade *</label>
+                        <input type="number" id="form-age" required min="18" max="99" placeholder="Ex: 23">
+                    </div>
+                </div>
+
+
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-hair">Cor do Cabelo *</label>
+                        <input type="text" id="form-hair" required placeholder="Ex: Loiro, Castanho, Ruivo">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-eyes">Cor dos Olhos *</label>
+                        <input type="text" id="form-eyes" required placeholder="Ex: Verdes, Azuis, Castanhos">
+                    </div>
+                </div>
+
+                <div class="form-row form-row-3col">
+                    <div class="form-group">
+                        <label for="form-rate-quick">Cachê / Rapidinha (R$) *</label>
+                        <input type="number" id="form-rate-quick" required min="0" placeholder="Ex: 250">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-rate-half">Cachê / Meia Hora (R$) *</label>
+                        <input type="number" id="form-rate-half" required min="0" placeholder="Ex: 350">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-rate-hour">Cachê / Hora (R$) *</label>
+                        <input type="number" id="form-rate-hour" required min="0" placeholder="Ex: 450">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-whatsapp">WhatsApp do Representante *</label>
+                        <input type="text" id="form-whatsapp" required
+                            placeholder="Ex: 5575982897249 (somente números)">
+                        <small class="form-tip">Código do país + DDD + Número (ex: 5575982897249)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-badge">Selo Especial</label>
+                        <select id="form-badge">
+                            <option value="">Nenhum</option>
+                            <option value="VIP">VIP</option>
+                            <option value="Novidade">Novidade</option>
+                            <option value="Destaque">Destaque</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-image-file">Foto de Capa</label>
+                        <input type="file" id="form-image-file" accept="image/*">
+                        <input type="hidden" id="form-image">
+                        <small class="form-tip">Fazer upload da foto principal da modelo.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-availability">Disponibilidade *</label>
+                        <select id="form-availability" required>
+                            <option value="disponivel">Disponível</option>
+                            <option value="ocupada">Indisponível / Ocupada</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="form-gallery-files">Fotos da Galeria (Sem limite de fotos)</label>
+                        <input type="file" id="form-gallery-files" accept="image/*" multiple style="margin-bottom: 8px;">
+                        <small class="form-tip">Selecione fotos da modelo. Toque em uma foto na pré-visualização para removê-la da galeria.</small>
+                        <div id="form-gallery-preview" class="gallery-preview-grid"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-story-file">Postar Novo Story (Foto ou Vídeo)</label>
+                        <input type="file" id="form-story-file" accept="image/*,video/*">
+                        <input type="hidden" id="form-story-video">
+                        <small class="form-tip">Selecione um arquivo de foto ou vídeo vertical.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-story-url">Ou URL do Story (Opcional)</label>
+                        <input type="text" id="form-story-url" placeholder="Ex: assets/video.mp4">
+                        <small class="form-tip">Caminho do arquivo local ou link externo.</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-order">Ordem de Destaque / Prioridade *</label>
+                        <input type="number" id="form-order" required min="1" placeholder="Ex: 1 (aparece primeiro)">
+                        <small class="form-tip">Números menores aparecem na frente no site</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="form-services">Serviços Oferecidos * <small>(Separados por vírgula)</small></label>
+                    <input type="text" id="form-services" required
+                        placeholder="Ex: Massagem, Jantar, Viagem, Fetiche básico">
+                </div>
+
+                <div class="form-group">
+                    <label for="form-description">Descrição Completa / Bio *</label>
+                    <textarea id="form-description" rows="4" required
+                        placeholder="Escreva uma biografia envolvente, hobbies, personalidade..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="form-cancel-btn">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Perfil</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Manager Password Modal -->
+    <div class="modal-overlay hidden" id="auth-modal">
+        <div class="modal-container glass-panel auth-modal-container">
+            <button class="modal-close-btn" id="auth-modal-close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="auth-header">
+                <i class="fa-solid fa-shield-halved auth-icon"></i>
+                <h3>Autenticação do Gerente</h3>
+                <p>Insira a senha de acesso para entrar no Painel Administrativo.</p>
+            </div>
+            <div class="auth-body">
+                <div class="form-group">
+                    <label for="auth-password">Senha de Acesso</label>
+                    <input type="password" id="auth-password" placeholder="Digite a senha...">
+                    <small id="auth-error-msg" class="auth-error-msg hidden">Senha incorreta. Tente novamente.</small>
+                    <small class="form-tip">Dica: A senha padrão é <strong>admin123</strong></small>
+                </div>
+                <button type="button" class="btn btn-primary w-full" id="auth-submit-btn">Entrar no Painel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core App Logic -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>
