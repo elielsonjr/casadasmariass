@@ -1016,8 +1016,58 @@ function setupEventListeners() {
     if (storyCloseBtn) storyCloseBtn.addEventListener('click', closeStoryPlayer);
     if (storyPlayPauseBtn) storyPlayPauseBtn.addEventListener('click', togglePlayPause);
     if (storyAudioBtn) storyAudioBtn.addEventListener('click', toggleMute);
-    if (storyNavLeftTap) storyNavLeftTap.addEventListener('click', prevStory);
-    if (storyNavRightTap) storyNavRightTap.addEventListener('click', nextStory);
+    // Unified story navigation and hold-to-pause gesture
+    const playerContainer = document.querySelector('.story-player-container');
+    if (playerContainer) {
+        let touchStartTime = 0;
+        let holdTimeout = null;
+        let isHolding = false;
+
+        playerContainer.addEventListener('pointerdown', (e) => {
+            // Exclude control buttons, WhatsApp links, etc.
+            if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.story-controls-overlay') || e.target.closest('.story-close-btn')) {
+                return;
+            }
+            
+            touchStartTime = Date.now();
+            isHolding = false;
+            
+            holdTimeout = setTimeout(() => {
+                isHolding = true;
+                pauseStoryPlayback();
+            }, 250); // 250ms hold to pause
+        });
+
+        playerContainer.addEventListener('pointerup', (e) => {
+            if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.story-controls-overlay') || e.target.closest('.story-close-btn')) {
+                return;
+            }
+            
+            if (holdTimeout) clearTimeout(holdTimeout);
+            
+            if (isHolding) {
+                resumeStoryPlayback();
+            } else {
+                // Quick tap: navigate based on tap location (left 30% goes back, else forward)
+                const rect = playerContainer.getBoundingClientRect();
+                const tapX = e.clientX - rect.left;
+                const percentX = (tapX / rect.width) * 100;
+                
+                if (percentX < 33) {
+                    prevStory();
+                } else {
+                    nextStory();
+                }
+            }
+        });
+
+        playerContainer.addEventListener('pointerleave', (e) => {
+            if (holdTimeout) clearTimeout(holdTimeout);
+            if (isHolding) {
+                resumeStoryPlayback();
+            }
+        });
+    }
     if (storyArrowLeft) storyArrowLeft.addEventListener('click', prevStory);
     if (storyArrowRight) storyArrowRight.addEventListener('click', nextStory);
 
@@ -1431,16 +1481,17 @@ function renderStoriesBar() {
     const storiesContainer = document.getElementById('stories-container');
     if (!storiesContainer) return;
 
-    // Filter models that have storyVideo and are available (showing all is more engaging!)
-    const activeModels = [...currentCompanions].sort((a, b) => (a.order || 99) - (b.order || 99));
+    // Filter models that have storyVideo and are available
+    const activeModels = [...currentCompanions]
+        .filter(girl => girl.storyVideo && girl.storyVideo.trim() !== '')
+        .sort((a, b) => (a.order || 99) - (b.order || 99));
 
+    const storiesView = document.getElementById('stories-view');
     if (activeModels.length === 0) {
-        const storiesView = document.getElementById('stories-view');
         if (storiesView) storiesView.classList.add('hidden');
         return;
     }
     
-    const storiesView = document.getElementById('stories-view');
     if (storiesView) storiesView.classList.remove('hidden');
 
     storiesContainer.innerHTML = activeModels.map(girl => {
@@ -1469,7 +1520,9 @@ function renderStoriesBar() {
 }
 
 function openStoryPlayer(companionId) {
-    activeStoriesList = [...currentCompanions].sort((a, b) => (a.order || 99) - (b.order || 99));
+    activeStoriesList = [...currentCompanions]
+        .filter(girl => girl.storyVideo && girl.storyVideo.trim() !== '')
+        .sort((a, b) => (a.order || 99) - (b.order || 99));
     currentStoryIndex = activeStoriesList.findIndex(g => g.id === companionId);
     
     if (currentStoryIndex === -1) return;
@@ -1486,6 +1539,8 @@ function openStoryPlayer(companionId) {
         localStorage.setItem('marias_viewed_stories', JSON.stringify(viewedStories));
         renderStoriesBar();
     }
+    
+    loadStoryAtIndex(currentStoryIndex);
 }
 
 let storyIsImage = false;
@@ -1547,14 +1602,19 @@ function loadStoryAtIndex(index) {
         if (loader) loader.classList.remove('active');
         startProgressTracker();
     } else {
-        video.src = src;
-        video.style.display = 'block';
-        video.load();
-        
         // Setup audio/mute states from localStorage or default to muted (due to autoplay)
         const isMuted = localStorage.getItem('marias_story_muted') !== 'false'; // default to true
         video.muted = isMuted;
+        if (isMuted) {
+            video.setAttribute('muted', '');
+        } else {
+            video.removeAttribute('muted');
+        }
         updateAudioButtonUI(isMuted);
+
+        video.src = src;
+        video.style.display = 'block';
+        video.load();
 
         // Play
         const playPromise = video.play();
@@ -1677,23 +1737,35 @@ function closeStoryPlayer() {
     }
 }
 
-function togglePlayPause() {
-    const video = document.getElementById('story-video');
+function pauseStoryPlayback() {
+    storyIsPaused = true;
     const playPauseBtn = document.getElementById('story-play-pause-btn');
-    if (!playPauseBtn) return;
+    if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+    
+    if (!storyIsImage) {
+        const video = document.getElementById('story-video');
+        if (video) video.pause();
+    }
+}
 
-    if (storyIsImage) {
-        storyIsPaused = !storyIsPaused;
-        playPauseBtn.innerHTML = storyIsPaused ? '<i class="fa-solid fa-play"></i>' : '<i class="fa-solid fa-pause"></i>';
-    } else {
-        if (!video) return;
-        if (video.paused) {
-            video.play();
-            playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-        } else {
-            video.pause();
-            playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+function resumeStoryPlayback() {
+    storyIsPaused = false;
+    const playPauseBtn = document.getElementById('story-play-pause-btn');
+    if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    
+    if (!storyIsImage) {
+        const video = document.getElementById('story-video');
+        if (video) {
+            video.play().catch(err => console.log("Failed to resume video:", err));
         }
+    }
+}
+
+function togglePlayPause() {
+    if (storyIsPaused) {
+        resumeStoryPlayback();
+    } else {
+        pauseStoryPlayback();
     }
 }
 
