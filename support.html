@@ -3,8 +3,12 @@
 
 <head>
     <script>
-        if (localStorage.getItem('marias_age_verified') !== 'true') {
-            window.location.href = 'index.html';
+        try {
+            if (localStorage.getItem('marias_age_verified') !== 'true') {
+                window.location.href = 'index.html';
+            }
+        } catch (e) {
+            console.warn("localStorage is blocked:", e);
         }
     </script>
     <meta charset="UTF-8">
@@ -46,7 +50,6 @@
         </div>
         <nav class="drawer-nav">
             <a href="main.html" class="drawer-link"><i class="fa-solid fa-house"></i> Início</a>
-            <a href="main.html#lounge" class="drawer-link"><i class="fa-solid fa-hotel"></i> A Casa</a>
             <a href="main.html#portfolio-view" class="drawer-link"><i class="fa-solid fa-users"></i> Nossas Modelos</a>
             <a href="about.html" class="drawer-link"><i class="fa-solid fa-circle-info"></i> Quem Somos</a>
             <a href="support.html" class="drawer-link active"><i class="fa-solid fa-headset"></i> Suporte</a>
@@ -68,7 +71,6 @@
             </a>
             <nav class="main-nav" id="main-nav">
                 <a href="main.html" class="nav-link">Início</a>
-                <a href="main.html#lounge" class="nav-link">A Casa</a>
                 <a href="main.html#portfolio-view" class="nav-link">Nossas Modelos</a>
                 <a href="about.html" class="nav-link">Quem Somos</a>
                 <a href="support.html" class="nav-link active">Suporte</a>
@@ -216,7 +218,7 @@
                                 <option value="" disabled selected>Selecione um assunto...</option>
                                 <option value="hospedagem">Quero me Hospedar (Acompanhantes)</option>
                                 <option value="agendamento">Dúvida sobre Agendamento</option>
-                                <option value="regras">Dúvidas sobre Regras e Tarifas</option>
+                                <option value="duvidas">Dúvidas Gerais</option>
                                 <option value="outro">Outros Assuntos</option>
                             </select>
                         </div>
@@ -246,7 +248,6 @@
             <div class="footer-links">
                 <h3>Links Úteis</h3>
                 <ul>
-                    <li><a href="main.html#lounge">A Casa</a></li>
                     <li><a href="main.html#portfolio-view">Nossas Modelos</a></li>
                     <li><a href="about.html">Quem Somos</a></li>
                     <li><a href="support.html">Suporte</a></li>

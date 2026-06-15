@@ -3,8 +3,12 @@
 
 <head>
     <script>
-        if (localStorage.getItem('marias_age_verified') !== 'true') {
-            window.location.href = 'index.html';
+        try {
+            if (localStorage.getItem('marias_age_verified') !== 'true') {
+                window.location.href = 'index.html';
+            }
+        } catch (e) {
+            console.warn("localStorage is blocked:", e);
         }
     </script>
     <meta charset="UTF-8">
@@ -46,7 +50,6 @@
         </div>
         <nav class="drawer-nav">
             <a href="main.html" class="drawer-link active"><i class="fa-solid fa-house"></i> Início</a>
-            <a href="#lounge" class="drawer-link"><i class="fa-solid fa-hotel"></i> A Casa</a>
             <a href="#models" class="drawer-link"><i class="fa-solid fa-users"></i> Nossas Modelos</a>
             <a href="about.html" class="drawer-link"><i class="fa-solid fa-circle-info"></i> Quem Somos</a>
             <a href="support.html" class="drawer-link"><i class="fa-solid fa-headset"></i> Suporte</a>
@@ -68,7 +71,6 @@
             </a>
             <nav class="main-nav" id="main-nav">
                 <a href="main.html" class="nav-link active" data-target="home">Início</a>
-                <a href="#lounge" class="nav-link" data-target="lounge">A Casa</a>
                 <a href="#models" class="nav-link" data-target="models">Nossas Modelos</a>
                 <a href="about.html" class="nav-link" data-target="about">Quem Somos</a>
                 <a href="support.html" class="nav-link" data-target="support">Suporte</a>
@@ -95,8 +97,6 @@
                 <div class="hero-ctas">
                     <a href="#models" class="btn btn-primary btn-glow" id="hero-client-btn"><i
                             class="fa-solid fa-user"></i> Sou Cliente</a>
-                    <a href="#rules" class="btn btn-secondary" id="hero-companion-btn"><i class="fa-solid fa-hotel"></i>
-                        Sou Acompanhante</a>
                     <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias.%20Gostaria%20de%20consultar%20vagas." target="_blank" class="btn btn-gold btn-glow" id="hero-apply-btn"><i class="fa-brands fa-whatsapp"></i> Solicitar Vaga</a>
                 </div>
             </div>
@@ -152,8 +152,7 @@
             </div>
         </section>
 
-        <!-- Lounge Section (Dynamic Presentation) -->
-        <section id="lounge-view" class="section-container lounge-section"></section>
+        <!-- Lounge Section (Removed) -->
 
         <!-- Manager Dashboard View (Hidden by Default) -->
         <section id="admin-view" class="section-container admin-section hidden">
@@ -173,7 +172,6 @@
             <div class="footer-links">
                 <h3>Links Úteis</h3>
                 <ul>
-                    <li><a href="main.html#lounge">A Casa</a></li>
                     <li><a href="main.html#portfolio-view">Nossas Modelos</a></li>
                     <li><a href="about.html">Quem Somos</a></li>
                     <li><a href="support.html">Suporte</a></li>
@@ -293,20 +291,7 @@
                     </div>
                 </div>
 
-                <div class="form-row form-row-3col">
-                    <div class="form-group">
-                        <label for="form-rate-quick">Cachê / Rapidinha (R$) *</label>
-                        <input type="number" id="form-rate-quick" required min="0" placeholder="Ex: 250">
-                    </div>
-                    <div class="form-group">
-                        <label for="form-rate-half">Cachê / Meia Hora (R$) *</label>
-                        <input type="number" id="form-rate-half" required min="0" placeholder="Ex: 350">
-                    </div>
-                    <div class="form-group">
-                        <label for="form-rate-hour">Cachê / Hora (R$) *</label>
-                        <input type="number" id="form-rate-hour" required min="0" placeholder="Ex: 450">
-                    </div>
-                </div>
+                <!-- Cachê / Valores fields removed -->
 
                 <div class="form-row">
                     <div class="form-group">

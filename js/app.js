@@ -1,6 +1,29 @@
-/* ==========================================================================
-   MARIAS PRIVÉE - MAIN CONTROLLER & APPLICATION ENGINE
-   ========================================================================== */
+// Safe localStorage wrapper to prevent exceptions under sandboxed/restricted browser environments
+const safeLocalStorage = {
+    _data: {},
+    getItem(key) {
+        try {
+            return window.localStorage.getItem(key);
+        } catch (e) {
+            return this._data[key] || null;
+        }
+    },
+    setItem(key, value) {
+        try {
+            window.localStorage.setItem(key, value);
+        } catch (e) {
+            this._data[key] = String(value);
+        }
+    },
+    removeItem(key) {
+        try {
+            window.localStorage.removeItem(key);
+        } catch (e) {
+            delete this._data[key];
+        }
+    }
+};
+const localStorage = safeLocalStorage;
 
 // --- 1. Database Persistence Layer (LocalStorage CRUD) ---
 const LOCAL_STORAGE_KEY = 'marias_privee_companions';
@@ -153,254 +176,6 @@ const DataService = {
 
 // --- 2. Dynamic Components Rendering Templates ---
 
-const LoungeSection = {
-    render(containerElement) {
-        if (!containerElement) return;
-
-        const companionWhatsappText = `Olá! Sou acompanhante e tenho interesse em me hospedar/atender na Casa das Marias. Gostaria de consultar vagas.`;
-        const companionWhatsappUrl = `https://wa.me/5575982897249?text=${encodeURIComponent(companionWhatsappText)}`;
-
-        containerElement.innerHTML = `
-            <!-- Acordeão 1: A Casa (Lounge) -->
-            <div class="lounge-accordion-container">
-                <div class="lounge-accordion-trigger glass-panel" id="lounge-accordion-toggle">
-                    <div class="lounge-trigger-content">
-                        <div class="lounge-trigger-icon-box">
-                            <i class="fa-solid fa-hotel"></i>
-                        </div>
-                        <div class="lounge-trigger-title-box">
-                            <h3 id="lounge">A Casa</h3>
-                            <p>Toque para conhecer nosso espaço privativo de altíssimo padrão, bar e suítes.</p>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down lounge-trigger-chevron"></i>
-                </div>
-                
-                <div class="lounge-accordion-panel" id="lounge-accordion-content">
-                    <div class="lounge-panel-content">
-                        <div class="lounge-grid">
-                            <div class="lounge-img-wrapper story-format">
-                                <video autoplay muted loop playsinline webkit-playsinline class="lounge-video">
-                                    <source src="assets/casa.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                            <div class="lounge-details">
-                                <h3>Exclusividade & Conforto</h3>
-                                <p>Na Casa das Marias, cada detalhe foi cuidadosamente planejado para oferecer uma experiência sensorial incomparável. Nosso lounge conta com iluminação indireta sofisticada, sofás de veludo confortáveis e uma seleção de bebidas importadas da mais alta qualidade.</p>
-                                <p>Valorizamos a privacidade acima de tudo. Por isso, oferecemos uma entrada reservada de acesso discreto e segurança qualificada no local, permitindo que você relaxe e desfrute com total paz de espírito.</p>
-                                <div class="lounge-features">
-                                    <div class="feature-item">
-                                        <div class="feature-icon-box"><i class="fa-solid fa-user-secret"></i></div>
-                                        <div class="feature-text">
-                                            <h4>Sigilo Absoluto</h4>
-                                            <p>Acesso e estacionamento privativos para sua total discrição.</p>
-                                        </div>
-                                    </div>
-                                    <div class="feature-item">
-                                        <div class="feature-icon-box"><i class="fa-solid fa-martini-glass-citrus"></i></div>
-                                        <div class="feature-text">
-                                            <h4>Bar de Elite</h4>
-                                            <p>Drinks finos, champagne e destilados premium selecionados.</p>
-                                        </div>
-                                    </div>
-                                    <div class="feature-item">
-                                        <div class="feature-icon-box"><i class="fa-solid fa-hotel"></i></div>
-                                        <div class="feature-text">
-                                            <h4>Suítes VIP</h4>
-                                            <p>Quartos climatizados com hidromassagem e som ambiente.</p>
-                                        </div>
-                                    </div>
-                                    <div class="feature-item">
-                                        <div class="feature-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-                                        <div class="feature-text">
-                                            <h4>Segurança</h4>
-                                            <p>Sistema de monitoramento e equipe treinada para sua tranquilidade.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="lounge-notice-box">
-                                    <p><strong>Nota de Exclusividade:</strong> A Casa das Marias funciona como um espaço de hospedagem e atendimento privativo das próprias modelos. Não possuímos central de atendimento ao cliente ou suporte comercial no local; todos os contatos são individuais com as modelos via WhatsApp.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Acordeão 2: Regras & Hospedagem (Exclusivo para Acompanhantes) -->
-            <div class="lounge-accordion-container" style="margin-top: 25px;">
-                <div class="lounge-accordion-trigger glass-panel" id="rules-accordion-toggle">
-                    <div class="lounge-trigger-content">
-                        <div class="lounge-trigger-icon-box" style="background: rgba(226, 83, 82, 0.08); border-color: rgba(226, 83, 82, 0.3); color: var(--color-accent);">
-                            <i class="fa-solid fa-file-invoice"></i>
-                        </div>
-                        <div class="lounge-trigger-title-box">
-                            <h3 id="rules-header">Regras da Casa & Hospedagem</h3>
-                            <p>Termos de hospedagem e convivência para profissionais (Quero Local).</p>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down lounge-trigger-chevron"></i>
-                </div>
-                
-                <div class="lounge-accordion-panel" id="rules-accordion-content">
-                    <div class="lounge-panel-content">
-                        <div class="rules-intro-card">
-                            <div class="rules-intro-icon"><i class="fa-solid fa-hotel"></i></div>
-                            <div class="rules-intro-text">
-                                <h4>Local de Atendimento Exclusivo para Meninas</h4>
-                                <p>A Casa das Marias oferece suítes de alto padrão mobiliadas com total discrição, segurança e infraestrutura completa para você se hospedar e realizar seus atendimentos. Conheça as regras para manter a organização e a harmonia do espaço.</p>
-                            </div>
-                        </div>
-
-                        <div class="rules-grid">
-                            <!-- Card Especial: Campanha São João de Petrolina 2026 -->
-                            <div class="rule-card" style="border: 2px solid var(--color-gold); background: rgba(212, 194, 129, 0.08); grid-column: span 2;">
-                                <div class="rule-card-header">
-                                    <div class="rule-card-icon-box" style="background: rgba(212, 194, 129, 0.2); border-color: var(--color-gold); color: var(--color-gold); font-size: 1.4rem;">
-                                        <i class="fa-solid fa-fire"></i>
-                                    </div>
-                                    <h4 style="color: var(--color-gold); font-size: 1.15rem;">🔥 SÃO JOÃO DE PETROLINA 2026 — CAMPANHA PREMIUM</h4>
-                                </div>
-                                <div class="rule-card-content" style="font-size: 0.95rem;">
-                                    <p style="margin-bottom: 12px; line-height: 1.6;">Chegou a época <strong>mais lucrativa</strong> do ano em Petrolina (19 a 27 de Junho)! Garanta sua vaga em nossa casa premium com alta procura de clientes.</p>
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 12px;">
-                                        <div style="background: rgba(0, 0, 0, 0.3); padding: 12px; border-radius: 8px; border: 1px solid rgba(212,194,129,0.2); text-align: center;">
-                                            <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;"><i class="fa-solid fa-snowflake"></i> Quarto Climatizado</span>
-                                            <strong style="font-size: 1.25rem; color: #FFF;">R$ 140 <small style="font-size: 0.8rem; font-weight: normal;">/ diária</small></strong>
-                                        </div>
-                                        <div style="background: rgba(0, 0, 0, 0.3); padding: 12px; border-radius: 8px; border: 1px solid rgba(212,194,129,0.2); text-align: center;">
-                                            <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--color-gold); display: block; margin-bottom: 4px;"><i class="fa-solid fa-crown"></i> Suíte Premium</span>
-                                            <strong style="font-size: 1.25rem; color: var(--color-gold);">R$ 190 <small style="font-size: 0.8rem; font-weight: normal;">/ diária</small></strong>
-                                        </div>
-                                    </div>
-                                    <p style="margin-top: 8px; text-align: center; color: var(--color-gold); font-weight: 700;"><i class="fa-solid fa-gift"></i> FECHANDO A SEMANA → GANHA O DOMINGO GRATUITO!</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 1: Check-in & Out -->
-                            <div class="rule-card">
-                                <div class="rule-card-header">
-                                    <div class="rule-card-icon-box"><i class="fa-solid fa-clock"></i></div>
-                                    <h4>Horários</h4>
-                                </div>
-                                <div class="rule-card-content">
-                                    <ul>
-                                        <li><strong>Check-in:</strong> a partir das 12:00 (meio-dia).</li>
-                                        <li><strong>Check-out:</strong> até 12:00 (meio-dia) do dia da saída.</li>
-                                        <li>O quarto deve ser entregue limpo e organizado.</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Card 2: Benefício da Diária -->
-                            <div class="rule-card">
-                                <div class="rule-card-header">
-                                    <div class="rule-card-icon-box"><i class="fa-solid fa-gift"></i></div>
-                                    <h4>Benefício Semanal</h4>
-                                </div>
-                                <div class="rule-card-content">
-                                    <p>Ao fechar a <strong>diária completa da semana</strong>, a profissional ganha o <strong>domingo gratuito</strong>, podendo permanecer na casa sem cobrança adicional.</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 3: Cuidados com o Quarto -->
-                            <div class="rule-card">
-                                <div class="rule-card-header">
-                                    <div class="rule-card-icon-box"><i class="fa-solid fa-bed"></i></div>
-                                    <h4>Cuidados com o Quarto</h4>
-                                </div>
-                                <div class="rule-card-content">
-                                    <ul>
-                                        <li>Manter limpo e higienizado após cada atendimento.</li>
-                                        <li><strong>Enxoval incluso:</strong> 2 toalhas, 2 lençóis, 2 forros de cama e 2 mantas.</li>
-                                        <li>Ar-condicionado em todos os quartos (suítes e comuns).</li>
-                                        <li>Danos a itens deverão ser pagos.</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Card 4: Cozinha e Banheiros -->
-                            <div class="rule-card">
-                                <div class="rule-card-header">
-                                    <div class="rule-card-icon-box"><i class="fa-solid fa-utensils"></i></div>
-                                    <h4>Cozinha & Banheiros</h4>
-                                </div>
-                                <div class="rule-card-content">
-                                    <ul>
-                                        <li><strong>Cozinha:</strong> alimentação e utensílios individuais. Lavar e guardar logo após o uso. Não acumular louça.</li>
-                                        <li><strong>Banheiros:</strong> manter higienizado após o uso. Regra: "sujou, lavou".</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Card 5: Limpeza Geral -->
-                            <div class="rule-card">
-                                <div class="rule-card-header">
-                                    <div class="rule-card-icon-box"><i class="fa-solid fa-broom"></i></div>
-                                    <h4>Limpeza</h4>
-                                </div>
-                                <div class="rule-card-content">
-                                    <p>Haverá <strong>faxineira uma vez por semana</strong> para limpeza geral. A manutenção diária de cada quarto é responsabilidade da própria profissional.</p>
-                                </div>
-                            </div>
-
-                            <!-- Card 6: Convivência e Silêncio -->
-                            <div class="rule-card">
-                                <div class="rule-card-header">
-                                    <div class="rule-card-icon-box"><i class="fa-solid fa-volume-xmark"></i></div>
-                                    <h4>Convivência e Som</h4>
-                                </div>
-                                <div class="rule-card-content">
-                                    <ul>
-                                        <li>Respeito mútuo é fundamental.</li>
-                                        <li>Som alto e gritos são proibidos.</li>
-                                        <li>Festas ou reuniões são proibidas.</li>
-                                        <li>Fumar apenas com a janela aberta.</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Card 7: Atendimentos & Clientes -->
-                            <div class="rule-card">
-                                <div class="rule-card-header">
-                                    <div class="rule-card-icon-box"><i class="fa-solid fa-door-closed"></i></div>
-                                    <h4>Atendimentos</h4>
-                                </div>
-                                <div class="rule-card-content">
-                                    <ul>
-                                        <li>Atendimentos <strong>somente no quarto</strong> de forma discreta.</li>
-                                        <li>Evitar circulação com clientes nas áreas comuns.</li>
-                                        <li>Proibido atendimento a menores de 18 anos.</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Card 8: Substâncias e Segurança -->
-                            <div class="rule-card">
-                                <div class="rule-card-header">
-                                    <div class="rule-card-icon-box"><i class="fa-solid fa-ban"></i></div>
-                                    <h4>Drogas e Segurança</h4>
-                                </div>
-                                <div class="rule-card-content">
-                                    <p>Não é permitido drogas nas áreas comuns. Caso ocorra, deverá ser restrito ao quarto, sem prejudicar o ambiente coletivo.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- WhatsApp Companion Apply Action -->
-                        <div class="rules-apply-container">
-                            <h3 class="rules-apply-title">Quer um local exclusivo para seus atendimentos?</h3>
-                            <p class="rules-apply-subtitle">Oferecemos vagas para hospedagem rotativa ou fixa para acompanhantes em Petrolina. Entre em contato direto com a nossa gerência pelo WhatsApp para consultar a disponibilidade de suítes de forma totalmente sigilosa.</p>
-                            <a href="${companionWhatsappUrl}" target="_blank" class="btn-apply-companion">
-                                <i class="fa-brands fa-whatsapp"></i> Quero Local / Solicitar Vaga
-                            </a>
-                        </div>
-                    </div>
-                </div>
-        `;
-    }
-};
-
 // 2.2 Companion Portfolio Grid Card
 const GirlCard = {
     html(girl) {
@@ -416,8 +191,6 @@ const GirlCard = {
         const statusHtml = isAvailable 
             ? `<div class="status-dot-badge"><span class="dot-green"></span> Disponível</div>`
             : `<div class="status-dot-badge"><span class="dot-red"></span> Ocupada</div>`;
-
-        const formattedRate = (girl.rateQuick || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
 
         return `
             <div class="girl-card" data-id="${girl.id}">
@@ -435,11 +208,7 @@ const GirlCard = {
                     </div>
                     <p class="girl-card-bio">${girl.description}</p>
                     <div class="girl-card-footer">
-                        <div class="girl-card-rate">
-                            <span class="rate-label">Cachê a partir de</span>
-                            ${formattedRate}
-                        </div>
-                        <button class="girl-card-btn view-profile-btn" data-id="${girl.id}">
+                        <button class="girl-card-btn view-profile-btn" data-id="${girl.id}" style="width: 100%; justify-content: center; text-align: center;">
                             Ver Perfil <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
@@ -460,10 +229,6 @@ const ProfileModal = {
         const availabilityBadgeHtml = isAvailable
             ? `<div class="status-dot-badge"><span class="dot-green"></span> Disponível</div>`
             : `<div class="status-dot-badge"><span class="dot-red"></span> Ocupada / Reservada</div>`;
-
-        const formattedQuickRate = (girl.rateQuick || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
-        const formattedHalfRate = (girl.rateHalf || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
-        const formattedHourRate = (girl.rateHour || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
 
         const whatsappText = `Olá! Vi o perfil de ${girl.name} no site da Casa das Marias e gostaria de consultar a disponibilidade para agendamento.`;
         const encodedText = encodeURIComponent(whatsappText);
@@ -532,20 +297,6 @@ const ProfileModal = {
                             ${servicesHtml}
                         </div>
                     </div>
-                    <div class="profile-rates">
-                        <div class="rate-item">
-                            <span>Cachê / Rapidinha</span>
-                            <p>${formattedQuickRate}</p>
-                        </div>
-                        <div class="rate-item">
-                            <span>Cachê / Meia Hora</span>
-                            <p>${formattedHalfRate}</p>
-                        </div>
-                        <div class="rate-item">
-                            <span>Cachê / A Hora</span>
-                            <p>${formattedHourRate}</p>
-                        </div>
-                    </div>
                     ${galleryHtml}
                     <a href="${whatsappUrl}" target="_blank" class="btn btn-primary wa-booking-btn btn-glow" style="margin-top: 15px;">
                         <i class="fa-brands fa-whatsapp"></i> Agendar com ${girl.name.split(' ')[0]}
@@ -557,6 +308,7 @@ const ProfileModal = {
 };
 
 // 2.4 Administrative Dashboard CRUD Panel
+// 2.4 Administrative Dashboard CRUD Panel
 const AdminDashboard = {
     render(containerElement, companions) {
         if (!containerElement) return;
@@ -565,15 +317,13 @@ const AdminDashboard = {
         const availableCount = companions.filter(g => g.availability === 'disponivel').length;
         const busyCount = totalCount - availableCount;
 
+        const activeAdminTab = localStorage.getItem('marias_active_admin_tab') || 'models-tab';
+
         const rowsHtml = companions.map(girl => {
             const isAvailable = girl.availability === 'disponivel';
             const statusClass = isAvailable ? 'dot-green' : 'dot-red';
             const statusLabel = isAvailable ? 'Disponível' : 'Ocupada';
             
-            const formattedQuick = (girl.rateQuick || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
-            const formattedHalf = (girl.rateHalf || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
-            const formattedHour = (girl.rateHour || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
-
             let badgeMarkup = '<span class="text-muted">—</span>';
             if (girl.badge) {
                 const badgeClass = girl.badge.toUpperCase() === 'VIP' ? 'badge-gold' : 'badge-magenta';
@@ -596,11 +346,6 @@ const AdminDashboard = {
                         <div>${girl.hair} / ${girl.eyes}</div>
                     </td>
                     <td>${badgeMarkup}</td>
-                    <td>
-                        <div style="font-size: 0.85rem;"><strong>R:</strong> ${formattedQuick}</div>
-                        <div style="font-size: 0.85rem;"><strong>1/2h:</strong> ${formattedHalf}</div>
-                        <div style="font-size: 0.85rem;"><strong>1h:</strong> ${formattedHour}</div>
-                    </td>
                     <td>
                         <div class="status-indicator toggle-status-btn" data-id="${girl.id}">
                             <span class="${statusClass}"></span>
@@ -625,7 +370,7 @@ const AdminDashboard = {
             <div class="admin-view-header">
                 <div>
                     <h2>Painel de Controle</h2>
-                    <p class="section-subtitle" style="text-align: left; margin: 5px 0 0 0;">Gerencie o portfólio de acompanhantes e controle sua disponibilidade em tempo real.</p>
+                    <p class="section-subtitle" style="text-align: left; margin: 5px 0 0 0;">Gerencie o portfólio das modelos e controle a postagem de stories em tempo real.</p>
                 </div>
                 <div class="admin-header-actions">
                     <button class="btn btn-secondary reset-db-btn" id="admin-reset-btn">
@@ -640,49 +385,114 @@ const AdminDashboard = {
                 </div>
             </div>
 
-            <!-- Stats Bar -->
-            <div class="admin-stats-bar">
-                <div class="glass-panel stat-card">
-                    <div class="stat-card-icon"><i class="fa-solid fa-users"></i></div>
-                    <div class="stat-card-info">
-                        <span>Total de Modelos</span>
-                        <h4>${totalCount}</h4>
+            <!-- Admin Tabs -->
+            <div class="admin-tabs">
+                <button class="admin-tab-btn ${activeAdminTab === 'models-tab' ? 'active' : ''}" data-tab="models-tab">
+                    <i class="fa-solid fa-users"></i> Perfis das Modelos
+                </button>
+                <button class="admin-tab-btn ${activeAdminTab === 'stories-tab' ? 'active' : ''}" data-tab="stories-tab">
+                    <i class="fa-solid fa-circle-play"></i> Gerenciar Stories
+                </button>
+            </div>
+
+            <!-- Tab 1: Models Table -->
+            <div id="models-tab" class="admin-tab-content ${activeAdminTab === 'models-tab' ? '' : 'hidden'}">
+                <!-- Stats Bar -->
+                <div class="admin-stats-bar">
+                    <div class="glass-panel stat-card">
+                        <div class="stat-card-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-card-info">
+                            <span>Total de Modelos</span>
+                            <h4>${totalCount}</h4>
+                        </div>
+                    </div>
+                    <div class="glass-panel stat-card">
+                        <div class="stat-card-icon"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="stat-card-info">
+                            <span>Disponíveis</span>
+                            <h4>${availableCount}</h4>
+                        </div>
+                    </div>
+                    <div class="glass-panel stat-card">
+                        <div class="stat-card-icon"><i class="fa-solid fa-circle-xmark"></i></div>
+                        <div class="stat-card-info">
+                            <span>Ocupadas / Reservadas</span>
+                            <h4>${busyCount}</h4>
+                        </div>
                     </div>
                 </div>
-                <div class="glass-panel stat-card">
-                    <div class="stat-card-icon"><i class="fa-solid fa-circle-check"></i></div>
-                    <div class="stat-card-info">
-                        <span>Disponíveis</span>
-                        <h4>${availableCount}</h4>
-                    </div>
-                </div>
-                <div class="glass-panel stat-card">
-                    <div class="stat-card-icon"><i class="fa-solid fa-circle-xmark"></i></div>
-                    <div class="stat-card-info">
-                        <span>Ocupadas / Reservadas</span>
-                        <h4>${busyCount}</h4>
-                    </div>
+
+                <!-- Management Table -->
+                <div class="glass-panel admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Modelo</th>
+                                <th>Idade</th>
+                                <th>Cabelo / Olhos</th>
+                                <th>Selo Especial</th>
+                                <th>Status (Disponibilidade)</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body">
+                            ${rowsHtml || `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">Nenhuma acompanhante cadastrada. Clique em "Adicionar Modelo" para começar.</td></tr>`}
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <!-- Management Table -->
-            <div class="glass-panel admin-table-container">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Modelo</th>
-                            <th>Idade</th>
-                            <th>Cabelo / Olhos</th>
-                            <th>Selo Especial</th>
-                            <th>Cachê (R / 1/2h / 1h)</th>
-                            <th>Status (Disponibilidade)</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-table-body">
-                        ${rowsHtml || `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">Nenhuma acompanhante cadastrada. Clique em "Adicionar Modelo" para começar.</td></tr>`}
-                    </tbody>
-                </table>
+            <!-- Tab 2: Stories Manager -->
+            <div id="stories-tab" class="admin-tab-content ${activeAdminTab === 'stories-tab' ? '' : 'hidden'}">
+                <div class="stories-manager-intro">
+                    <h3>Gerenciador de Stories Rápidos</h3>
+                    <p>Poste fotos ou vídeos diretamente no perfil de cada modelo. A barra de stories no topo do site e os stories em reprodução serão atualizados instantaneamente em tempo real para os visitantes.</p>
+                </div>
+                <div class="stories-manager-grid">
+                    ${companions.map(girl => {
+                        const hasStory = girl.storyVideo && girl.storyVideo.trim() !== '';
+                        let previewHtml = '';
+                        if (hasStory) {
+                            const isVideo = !girl.storyVideo.startsWith('data:image/') && !girl.storyVideo.match(/\.(jpeg|jpg|gif|png|webp|bmp)($|\?)/i);
+                            if (isVideo) {
+                                previewHtml = `<video src="${girl.storyVideo}" muted autoplay loop playsinline class="story-preview-thumb"></video>`;
+                            } else {
+                                previewHtml = `<img src="${girl.storyVideo}" class="story-preview-thumb">`;
+                            }
+                        } else {
+                            previewHtml = `<div class="story-preview-placeholder"><i class="fa-solid fa-video-slash"></i><span>Sem Story</span></div>`;
+                        }
+
+                        return `
+                            <div class="story-manage-card glass-panel" data-id="${girl.id}">
+                                <div class="story-manage-header">
+                                    <img src="${girl.image || 'assets/model_sophia.png'}" alt="${girl.name}" class="story-manage-avatar">
+                                    <div class="story-manage-name-box">
+                                        <h4>${girl.name}</h4>
+                                        <span>${hasStory ? '<span class="status-active"><span class="dot-green"></span> Story Ativo</span>' : '<span class="status-inactive"><span class="dot-gray"></span> Inativo</span>'}</span>
+                                    </div>
+                                </div>
+                                <div class="story-manage-body">
+                                    <div class="story-preview-container">
+                                        ${previewHtml}
+                                        ${hasStory ? `<span class="story-badge-type">${girl.storyVideo.startsWith('data:image/') || girl.storyVideo.match(/\.(jpeg|jpg|gif|png|webp|bmp)($|\?)/i) ? 'Foto' : 'Vídeo'}</span>` : ''}
+                                    </div>
+                                </div>
+                                <div class="story-manage-actions">
+                                    <input type="file" id="direct-story-input-${girl.id}" accept="image/*,video/*" style="display:none;" class="direct-story-file-input" data-id="${girl.id}">
+                                    <button class="btn btn-primary btn-sm btn-glow trigger-direct-upload-btn" data-id="${girl.id}">
+                                        <i class="fa-solid fa-upload"></i> ${hasStory ? 'Alterar Story' : 'Postar Story'}
+                                    </button>
+                                    ${hasStory ? `
+                                    <button class="btn btn-danger btn-sm remove-direct-story-btn" data-id="${girl.id}" title="Excluir Story">
+                                        <i class="fa-solid fa-trash-can"></i> Remover
+                                    </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
             </div>
         `;
     }
@@ -754,7 +564,6 @@ document.addEventListener('DOMContentLoaded', () => {
     currentCompanions = DataService.getAll();
     
     // Render Sections
-    LoungeSection.render(loungeView);
     renderPortfolioGrid();
     renderStoriesBar();
     
@@ -819,7 +628,7 @@ function renderAdminDashboard() {
 function switchView(view) {
     if (view === 'admin') {
         heroView.classList.add('hidden');
-        loungeView.classList.add('hidden');
+        if (loungeView) loungeView.classList.add('hidden');
         portfolioView.classList.add('hidden');
         adminView.classList.remove('hidden');
         renderAdminDashboard();
@@ -830,7 +639,7 @@ function switchView(view) {
     } else {
         adminView.classList.add('hidden');
         heroView.classList.remove('hidden');
-        loungeView.classList.remove('hidden');
+        if (loungeView) loungeView.classList.remove('hidden');
         portfolioView.classList.remove('hidden');
         renderPortfolioGrid();
         
@@ -944,8 +753,6 @@ function setupEventListeners() {
             let targetId = href.substring(1);
             // Translate legacy custom targets if needed
             if (targetId === 'models') targetId = 'portfolio-view';
-            if (targetId === 'lounge') targetId = 'lounge-view';
-            if (targetId === 'rules') targetId = 'lounge-view';
             
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
@@ -954,14 +761,6 @@ function setupEventListeners() {
                 // Update navigation active states
                 let navTarget = href.substring(1);
                 if (navTarget === 'portfolio-view') navTarget = 'models';
-                if (navTarget === 'lounge-view') {
-                    navTarget = 'lounge';
-                    expandLoungeAccordion();
-                }
-                if (navTarget === 'rules') {
-                    navTarget = 'rules';
-                    expandRulesAccordion();
-                }
                 
                 document.querySelectorAll('.nav-link').forEach(link => {
                     if (link.getAttribute('data-target') === navTarget) {
@@ -1098,6 +897,89 @@ function setupEventListeners() {
                 switchView('portfolio');
                 return;
             }
+
+            const tabBtn = e.target.closest('.admin-tab-btn');
+            if (tabBtn) {
+                const tabId = tabBtn.getAttribute('data-tab');
+                localStorage.setItem('marias_active_admin_tab', tabId);
+                
+                document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
+                tabBtn.classList.add('active');
+                
+                document.querySelectorAll('.admin-tab-content').forEach(panel => panel.classList.add('hidden'));
+                document.getElementById(tabId).classList.remove('hidden');
+                return;
+            }
+
+            const triggerBtn = e.target.closest('.trigger-direct-upload-btn');
+            if (triggerBtn) {
+                const girlId = triggerBtn.getAttribute('data-id');
+                const fileInput = document.getElementById(`direct-story-input-${girlId}`);
+                if (fileInput) fileInput.click();
+                return;
+            }
+
+            const removeBtn = e.target.closest('.remove-direct-story-btn');
+            if (removeBtn) {
+                const girlId = removeBtn.getAttribute('data-id');
+                const girl = DataService.getById(girlId);
+                if (girl && confirm(`Deseja realmente remover o story de ${girl.name}?`)) {
+                    DataService.update(girlId, { storyVideo: '' });
+                    currentCompanions = DataService.getAll();
+                    renderAdminDashboard();
+                    renderStoriesBar();
+                    renderPortfolioGrid();
+                }
+                return;
+            }
+        });
+
+        adminView.addEventListener('change', async (e) => {
+            const fileInput = e.target.closest('.direct-story-file-input');
+            if (fileInput) {
+                const file = fileInput.files[0];
+                if (!file) return;
+                const girlId = fileInput.getAttribute('data-id');
+                
+                const card = fileInput.closest('.story-manage-card');
+                if (card) {
+                    const previewBox = card.querySelector('.story-preview-container');
+                    if (previewBox) {
+                        previewBox.innerHTML = '<div class="story-preview-placeholder"><i class="fa-solid fa-circle-notch fa-spin"></i><span>Carregando...</span></div>';
+                    }
+                }
+
+                try {
+                    let fileData = '';
+                    if (file.type.startsWith('image/')) {
+                        fileData = await compressImage(file, 600, 900, 0.7);
+                    } else if (file.type.startsWith('video/')) {
+                        if (file.size > 2 * 1024 * 1024) {
+                            alert("Aviso: O vídeo do story é maior que 2MB. Vídeos muito grandes podem exceder a memória local.");
+                        }
+                        fileData = await new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onload = (event) => resolve(event.target.result);
+                            reader.onerror = reject;
+                            reader.readAsDataURL(file);
+                        });
+                    } else {
+                        alert("Por favor, selecione uma imagem ou um vídeo.");
+                        renderAdminDashboard();
+                        return;
+                    }
+
+                    DataService.update(girlId, { storyVideo: fileData });
+                    currentCompanions = DataService.getAll();
+                    renderAdminDashboard();
+                    renderStoriesBar();
+                    renderPortfolioGrid();
+                } catch (err) {
+                     console.error("Error processing story upload:", err);
+                     alert("Erro ao enviar o story.");
+                     renderAdminDashboard();
+                }
+            }
         });
     }
 
@@ -1117,29 +999,8 @@ function setupEventListeners() {
         companionForm.addEventListener('submit', handleFormSubmit);
     }
 
-    // Lounge Accordion Toggle click
-    const loungeToggle = document.getElementById('lounge-accordion-toggle');
-    const loungeContent = document.getElementById('lounge-accordion-content');
-    if (loungeToggle && loungeContent) {
-        loungeToggle.addEventListener('click', () => {
-            loungeToggle.classList.toggle('active');
-            loungeContent.classList.toggle('show');
-        });
-    }
-
-    // Rules Accordion Toggle click
-    const rulesToggle = document.getElementById('rules-accordion-toggle');
-    const rulesContent = document.getElementById('rules-accordion-content');
-    if (rulesToggle && rulesContent) {
-        rulesToggle.addEventListener('click', () => {
-            rulesToggle.classList.toggle('active');
-            rulesContent.classList.toggle('show');
-        });
-    }
-
     // Hero Buttons Role Selector Clicks
     const heroClientBtn = document.getElementById('hero-client-btn');
-    const heroCompanionBtn = document.getElementById('hero-companion-btn');
 
     if (heroClientBtn) {
         heroClientBtn.addEventListener('click', (e) => {
@@ -1147,17 +1008,6 @@ function setupEventListeners() {
             const target = document.getElementById('portfolio-view');
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    }
-
-    if (heroCompanionBtn) {
-        heroCompanionBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = document.getElementById('lounge-view');
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-                expandRulesAccordion();
             }
         });
     }
@@ -1469,9 +1319,6 @@ function openEditForm(id) {
     document.getElementById('form-age').value = girl.age;
     document.getElementById('form-hair').value = girl.hair;
     document.getElementById('form-eyes').value = girl.eyes;
-    document.getElementById('form-rate-quick').value = girl.rateQuick || '';
-    document.getElementById('form-rate-half').value = girl.rateHalf || '';
-    document.getElementById('form-rate-hour').value = girl.rateHour || '';
     document.getElementById('form-whatsapp').value = girl.whatsapp;
     document.getElementById('form-badge').value = girl.badge;
     document.getElementById('form-image').value = girl.image;
@@ -1515,9 +1362,9 @@ function handleFormSubmit(e) {
         age: parseInt(document.getElementById('form-age').value, 10),
         hair: document.getElementById('form-hair').value,
         eyes: document.getElementById('form-eyes').value,
-        rateQuick: parseInt(document.getElementById('form-rate-quick').value, 10),
-        rateHalf: parseInt(document.getElementById('form-rate-half').value, 10),
-        rateHour: parseInt(document.getElementById('form-rate-hour').value, 10),
+        rateQuick: 0,
+        rateHalf: 0,
+        rateHour: 0,
         whatsapp: document.getElementById('form-whatsapp').value.replace(/\D/g, ''),
         badge: document.getElementById('form-badge').value,
         image: document.getElementById('form-image').value || 'assets/model_sophia.png',
@@ -1871,21 +1718,14 @@ function updateAudioButtonUI(isMuted) {
     }
 }
 
-// Accordion Expand helper
-function expandLoungeAccordion() {
-    const toggle = document.getElementById('lounge-accordion-toggle');
-    const content = document.getElementById('lounge-accordion-content');
-    if (toggle && content) {
-        toggle.classList.add('active');
-        content.classList.add('show');
+// Listen to storage changes from other tabs to sync data instantly
+window.addEventListener('storage', (e) => {
+    if (e.key === LOCAL_STORAGE_KEY) {
+        currentCompanions = DataService.getAll();
+        renderStoriesBar();
+        renderPortfolioGrid();
+        if (adminView && !adminView.classList.contains('hidden')) {
+            renderAdminDashboard();
+        }
     }
-}
-
-function expandRulesAccordion() {
-    const toggle = document.getElementById('rules-accordion-toggle');
-    const content = document.getElementById('rules-accordion-content');
-    if (toggle && content) {
-        toggle.classList.add('active');
-        content.classList.add('show');
-    }
-}
+});

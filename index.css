@@ -1525,6 +1525,201 @@ a {
     border-color: var(--color-danger);
 }
 
+/* --- Admin Dashboard Tabs --- */
+.admin-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 15px;
+}
+
+.admin-tab-btn {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    padding: 12px 24px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-tab-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #FFF;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.admin-tab-btn.active {
+    background: rgba(212, 175, 55, 0.08);
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+/* --- Stories Manager Section --- */
+.stories-manager-intro {
+    background: rgba(20, 20, 20, 0.4);
+    border-left: 3px solid var(--color-gold);
+    padding: 18px 24px;
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    margin-bottom: 30px;
+}
+
+.stories-manager-intro h3 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--color-gold);
+    margin-bottom: 6px;
+}
+
+.stories-manager-intro p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.stories-manager-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.story-manage-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.story-manage-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.25);
+}
+
+.story-manage-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 12px;
+}
+
+.story-manage-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.story-manage-name-box h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FFF;
+    margin-bottom: 2px;
+}
+
+.story-manage-name-box span {
+    font-size: 0.8rem;
+}
+
+.status-active {
+    color: var(--color-success);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.status-inactive {
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dot-gray {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--text-muted);
+    border-radius: 50%;
+}
+
+.story-preview-container {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-preview-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.story-preview-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.15);
+}
+
+.story-preview-placeholder i {
+    font-size: 3rem;
+}
+
+.story-preview-placeholder span {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.story-badge-type {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 4px;
+    color: #FFF;
+    text-transform: uppercase;
+}
+
+.story-manage-actions {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.story-manage-actions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
 /* Lounge notice box styles */
 .lounge-notice-box {
     margin-top: 24px;

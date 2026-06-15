@@ -36,7 +36,11 @@
 
     <script>
         document.getElementById('gate-enter-btn').addEventListener('click', function() {
-            localStorage.setItem('marias_age_verified', 'true');
+            try {
+                localStorage.setItem('marias_age_verified', 'true');
+            } catch (e) {
+                console.warn("localStorage is blocked:", e);
+            }
             window.location.href = 'main.html';
         });
 
