@@ -2,31 +2,20 @@
 <html lang="pt-BR">
 
 <head>
-    <script>
-        try {
-            if (localStorage.getItem('marias_age_verified') !== 'true') {
-                window.location.href = 'index.html';
-            }
-        } catch (e) {
-            console.warn("localStorage is blocked:", e);
-        }
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa das Marias</title>
-    <!-- Google Fonts: Outfit (headings), Inter (body), Cinzel (logo), Playfair Display (titles) -->
+    <title>Casa das Marias | Conheça Nossas Meninas</title>
+    <!-- Google Fonts: Outfit, Inter, Cinzel, Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome for Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Style sheet -->
     <link rel="stylesheet" href="index.css">
 </head>
 
-<body>
+<body data-page="girls">
     <!-- Mobile Sidebar Drawer (Fatal Model Style) -->
     <div class="drawer-overlay" id="drawer-overlay"></div>
     <aside class="sidebar-drawer" id="sidebar-drawer">
@@ -49,16 +38,17 @@
             </div>
         </div>
         <nav class="drawer-nav">
-            <a href="main.html" class="drawer-link active"><i class="fa-solid fa-house"></i> Início</a>
-            <a href="#models" class="drawer-link"><i class="fa-solid fa-users"></i> Nossas Modelos</a>
+            <a href="index.html" class="drawer-link"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="index.html#portfolio-view" class="drawer-link"><i class="fa-solid fa-bed"></i> Nossos Quartos</a>
+            <a href="girls.html" class="drawer-link active"><i class="fa-solid fa-venus"></i> Nossas Meninas</a>
             <a href="about.html" class="drawer-link"><i class="fa-solid fa-circle-info"></i> Quem Somos</a>
             <a href="support.html" class="drawer-link"><i class="fa-solid fa-headset"></i> Suporte</a>
             <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="drawer-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
             <a href="#" class="drawer-link admin-trigger"><i class="fa-solid fa-lock"></i> Painel Admin</a>
         </nav>
         <div class="drawer-footer-action">
-            <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias." target="_blank" class="btn btn-gold btn-glow w-full">
-                <i class="fa-brands fa-whatsapp"></i> Solicitar Vaga
+            <a href="https://wa.me/5575982897249?text=Olá! Gostaria de consultar a disponibilidade de quartos para alugar na Casa das Marias." target="_blank" class="btn btn-gold btn-glow w-full">
+                <i class="fa-brands fa-whatsapp"></i> Reservar Quarto
             </a>
         </div>
     </aside>
@@ -66,15 +56,16 @@
     <!-- Premium Header -->
     <header class="app-header">
         <div class="header-container">
-            <a href="main.html" class="logo-img-link" id="nav-logo">
+            <a href="index.html" class="logo-img-link" id="nav-logo">
                 <img src="assets/logo.png" alt="Casa das Marias" class="logo-img">
             </a>
             <nav class="main-nav" id="main-nav">
-                <a href="main.html" class="nav-link active" data-target="home">Início</a>
-                <a href="#models" class="nav-link" data-target="models">Nossas Modelos</a>
+                <a href="index.html" class="nav-link" data-target="home">Início</a>
+                <a href="index.html#portfolio-view" class="nav-link" data-target="models">Nossos Quartos</a>
+                <a href="girls.html" class="nav-link active" data-target="girls">Nossas Meninas</a>
                 <a href="about.html" class="nav-link" data-target="about">Quem Somos</a>
                 <a href="support.html" class="nav-link" data-target="support">Suporte</a>
-                <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias.%20Gostaria%20de%20consultar%20vagas." target="_blank" class="nav-link nav-apply-btn" id="nav-apply-btn"><i class="fa-brands fa-whatsapp"></i> Solicitar Vaga</a>
+                <a href="https://wa.me/5575982897249?text=Olá! Gostaria de consultar a disponibilidade de quartos na Casa das Marias." target="_blank" class="nav-link nav-apply-btn" id="nav-apply-btn"><i class="fa-brands fa-whatsapp"></i> Reservar Quarto</a>
                 <a href="#" class="nav-link admin-trigger" id="nav-admin-btn"><i class="fa-solid fa-lock-open"></i> Painel Admin</a>
             </nav>
             <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Menu de Navegação">
@@ -92,12 +83,11 @@
             </video>
             <div class="hero-overlay"></div>
             <div class="hero-content">
-                <span class="hero-subtitle">Nem toda Maria é comum.</span>
-                <h1 class="hero-title">Onde o Luxo Encontra o Prazer</h1>
+                <span class="hero-subtitle">As Marias mais exclusivas da região.</span>
+                <h1 class="hero-title">Conheça Nossas Meninas</h1>
                 <div class="hero-ctas">
-                    <a href="#models" class="btn btn-primary btn-glow" id="hero-client-btn"><i
-                            class="fa-solid fa-user"></i> Sou Cliente</a>
-                    <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias.%20Gostaria%20de%20consultar%20vagas." target="_blank" class="btn btn-gold btn-glow" id="hero-apply-btn"><i class="fa-brands fa-whatsapp"></i> Solicitar Vaga</a>
+                    <a href="#portfolio-view" class="btn btn-primary btn-glow" id="hero-client-btn"><i class="fa-solid fa-venus"></i> Ver Meninas</a>
+                    <a href="https://wa.me/5575982897249?text=Olá! Gostaria de falar com a gerente da Casa das Marias." target="_blank" class="btn btn-gold btn-glow" id="hero-apply-btn"><i class="fa-brands fa-whatsapp"></i> Falar com Gerente</a>
                 </div>
             </div>
             <div class="scroll-indicator">
@@ -105,13 +95,13 @@
                 <i class="fa-solid fa-chevron-down bounce"></i>
             </div>
         </section>
-        <!-- Stories Section -->
+
+        <!-- Stories/Tours Section -->
         <section id="stories-view" class="stories-section-container">
             <div class="stories-wrapper">
                 <div class="stories-header">
-                    <span class="stories-title"><i class="fa-solid fa-circle-play text-accent"></i> Stories das
-                        Marias</span>
-                    <span class="live-dot-indicator"><span class="dot-red blink"></span> Exclusivo</span>
+                    <span class="stories-title"><i class="fa-solid fa-circle-play text-accent"></i> Tours das Meninas</span>
+                    <span class="live-dot-indicator"><span class="dot-red blink"></span> Vídeos Curtos</span>
                 </div>
                 <div class="stories-scroll-box" id="stories-container">
                     <!-- Stories will be dynamically injected here -->
@@ -119,40 +109,37 @@
             </div>
         </section>
 
-        <!-- Companions Listing (Portfolio Mode) -->
+        <!-- Girls Listing -->
         <section id="portfolio-view" class="section-container portfolio-section">
             <div class="section-header">
-                <h2 class="section-title">Nossas Acompanhantes</h2>
+                <h2 class="section-title">Nossas Meninas</h2>
                 <div class="title-underline"></div>
-                <p class="section-subtitle">Garotas exclusivas com atendimento personalizado e máxima discrição.</p>
+                <p class="section-subtitle">Acompanhantes premium selecionadas para proporcionar momentos únicos com total discrição na região de Petrolina.</p>
             </div>
 
             <!-- Search & Filter Controls -->
             <div class="filter-controls-container glass-panel">
                 <div class="search-bar">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="search-input" placeholder="Pesquisar por nome...">
+                    <input type="text" id="search-input" placeholder="Buscar por nome, cabelo, olhos ou serviços...">
                 </div>
                 <div class="filter-options">
-                    <span class="filter-label">Tags:</span>
+                    <span class="filter-label">Filtros:</span>
                     <div class="filter-tags" id="filter-tags-container">
-                        <button class="filter-btn active" data-filter="all">Todas</button>
-                        <button class="filter-btn" data-filter="Loiras">Loiras</button>
-                        <button class="filter-btn" data-filter="Morenas">Morenas</button>
-                        <button class="filter-btn" data-filter="Ruivas">Ruivas</button>
+                        <button class="filter-btn active" data-filter="all">Todos</button>
+                        <button class="filter-btn" data-filter="Loira">Loiras</button>
+                        <button class="filter-btn" data-filter="Morena">Morenas</button>
+                        <button class="filter-btn" data-filter="Ruiva">Ruivas</button>
                         <button class="filter-btn" data-filter="VIP">VIP</button>
-                        <button class="filter-btn" data-filter="Novidade">Novidades</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Companions Grid -->
+            <!-- Girls Grid -->
             <div class="companions-grid" id="companions-grid">
-                <!-- Companion Cards will be injected dynamically -->
+                <!-- Girls Cards will be injected dynamically -->
             </div>
         </section>
-
-        <!-- Lounge Section (Removed) -->
 
         <!-- Manager Dashboard View (Hidden by Default) -->
         <section id="admin-view" class="section-container admin-section hidden">
@@ -164,29 +151,27 @@
     <footer class="app-footer">
         <div class="footer-container">
             <div class="footer-brand">
-                <a href="main.html" class="logo-img-link">
+                <a href="index.html" class="logo-img-link">
                     <img src="assets/logo.png" alt="Casa das Marias" class="logo-img footer-logo-img">
                 </a>
-                <p>O ambiente mais exclusivo e as companhias mais sofisticadas da região. Nem toda Maria é comum.</p>
+                <p>O ambiente mais exclusivo, seguro e discreto para o seu atendimento e hospedagem na região. Nem toda Maria é comum.</p>
             </div>
             <div class="footer-links">
                 <h3>Links Úteis</h3>
                 <ul>
-                    <li><a href="main.html#portfolio-view">Nossas Modelos</a></li>
+                    <li><a href="index.html#portfolio-view">Nossos Quartos</a></li>
+                    <li><a href="girls.html">Nossas Meninas</a></li>
                     <li><a href="about.html">Quem Somos</a></li>
                     <li><a href="support.html">Suporte</a></li>
                     <li><a href="#" class="admin-trigger"><i class="fa-solid fa-user-gear"></i> Painel Administrativo</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
-                <h3>Agendamentos</h3>
-                <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/5575982897249" target="_blank"
-                        style="color: inherit; text-decoration: none; transition: color 0.2s;">Agendamentos via
-                        WhatsApp</a></p>
+                <h3>Reservas</h3>
+                <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/5575982897249" target="_blank" style="color: inherit; text-decoration: none; transition: color 0.2s;">Reservas via WhatsApp</a></p>
                 <p><i class="fa-solid fa-clock"></i> Todos os dias — 24 horas</p>
                 <div class="social-icons">
-                    <a href="https://wa.me/5575982897249" target="_blank" class="social-icon wa-link"><i
-                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://wa.me/5575982897249" target="_blank" class="social-icon wa-link"><i class="fa-brands fa-whatsapp"></i></a>
                     <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
@@ -195,6 +180,31 @@
             <p>&copy; 2026 Casa das Marias. Todos os direitos reservados. Proibido para menores de 18 anos.</p>
         </div>
     </footer>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+        <div class="mobile-bottom-nav-item" id="bottom-nav-home">
+            <i class="fa-solid fa-house"></i>
+            <span>Início</span>
+        </div>
+        <div class="mobile-bottom-nav-item" id="bottom-nav-rooms">
+            <i class="fa-solid fa-bed"></i>
+            <span>Quartos</span>
+        </div>
+        <div class="mobile-bottom-nav-item center-btn-item" id="bottom-nav-add">
+            <div class="mobile-bottom-nav-center-btn">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+        </div>
+        <div class="mobile-bottom-nav-item active" id="bottom-nav-girls">
+            <i class="fa-solid fa-venus"></i>
+            <span>Meninas</span>
+        </div>
+        <div class="mobile-bottom-nav-item" id="bottom-nav-menu">
+            <i class="fa-solid fa-user"></i>
+            <span>Menu</span>
+        </div>
+    </nav>
 
     <!-- App Modals -->
 
@@ -210,9 +220,8 @@
             <div class="story-header-info">
                 <img src="" alt="" class="story-header-avatar" id="story-header-avatar">
                 <div class="story-header-text">
-                    <span class="story-header-name" id="story-header-name">Modelo</span>
-                    <span class="story-header-time"><span class="live-dot-indicator"><span class="dot-red blink"
-                                style="margin-right: 4px;"></span> ONLINE</span></span>
+                    <span class="story-header-name" id="story-header-name">Nome</span>
+                    <span class="story-header-time"><span class="live-dot-indicator"><span class="dot-red blink" style="margin-right: 4px;"></span> TOUR</span></span>
                 </div>
             </div>
 
@@ -225,23 +234,19 @@
             </div>
 
             <div class="story-controls-overlay">
-                <button class="story-ctrl-btn" id="story-play-pause-btn" title="Pausar/Reproduzir"><i
-                        class="fa-solid fa-pause"></i></button>
-                <button class="story-ctrl-btn" id="story-audio-btn" title="Ativar Som"><i
-                        class="fa-solid fa-volume-xmark"></i></button>
+                <button class="story-ctrl-btn" id="story-play-pause-btn" title="Pausar/Reproduzir"><i class="fa-solid fa-pause"></i></button>
+                <button class="story-ctrl-btn" id="story-audio-btn" title="Ativar Som"><i class="fa-solid fa-volume-xmark"></i></button>
             </div>
 
             <div class="story-nav-tap story-nav-left" id="story-nav-left-tap"></div>
             <div class="story-nav-tap story-nav-right" id="story-nav-right-tap"></div>
 
-            <button class="story-arrow-btn story-arrow-left" id="story-arrow-left"><i
-                    class="fa-solid fa-chevron-left"></i></button>
-            <button class="story-arrow-btn story-arrow-right" id="story-arrow-right"><i
-                    class="fa-solid fa-chevron-right"></i></button>
+            <button class="story-arrow-btn story-arrow-left" id="story-arrow-left"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="story-arrow-btn story-arrow-right" id="story-arrow-right"><i class="fa-solid fa-chevron-right"></i></button>
 
             <div class="story-footer-action">
                 <a href="#" target="_blank" class="btn btn-primary story-book-btn btn-glow" id="story-book-btn">
-                    <i class="fa-brands fa-whatsapp"></i> Agendar Agora
+                    <i class="fa-brands fa-whatsapp"></i> Reservar Agora
                 </a>
             </div>
         </div>
@@ -252,52 +257,64 @@
         <div class="modal-container glass-panel detail-modal-container">
             <button class="modal-close-btn" id="profile-modal-close"><i class="fa-solid fa-xmark"></i></button>
             <div class="modal-body-content" id="profile-modal-content">
-                <!-- Dynamic detail profile data will be injected here -->
+                <!-- Dynamic detail room/girl data will be injected here -->
             </div>
         </div>
     </div>
 
-    <!-- Admin Form Modal (Add/Edit companion) -->
+    <!-- Admin Form Modal (Add/Edit room/girl) -->
     <div class="modal-overlay hidden" id="admin-form-modal">
         <div class="modal-container glass-panel admin-form-container">
             <button class="modal-close-btn" id="admin-form-close"><i class="fa-solid fa-xmark"></i></button>
             <div class="admin-form-header">
-                <h3 id="form-modal-title">Adicionar Nova Modelo</h3>
+                <h3 id="form-modal-title">Adicionar Novo Perfil</h3>
             </div>
             <form id="companion-form" class="companion-form">
                 <input type="hidden" id="form-girl-id">
+                <input type="hidden" id="form-item-type" value="girl">
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="form-name">Nome Completo *</label>
-                        <input type="text" id="form-name" required placeholder="Ex: Sophia Smith">
+                        <label id="label-form-name" for="form-name">Nome da Menina *</label>
+                        <input type="text" id="form-name" required placeholder="Ex: Sophia Rossi">
                     </div>
                     <div class="form-group">
-                        <label for="form-age">Idade *</label>
-                        <input type="number" id="form-age" required min="18" max="99" placeholder="Ex: 23">
+                        <label id="label-form-age" for="form-age">Idade *</label>
+                        <input type="number" id="form-age" required min="1" placeholder="Ex: 22">
                     </div>
                 </div>
 
-
-
-                <div class="form-row">
+                <!-- Custom Rates Row for Girls -->
+                <div class="form-row" id="form-rates-row">
                     <div class="form-group">
-                        <label for="form-hair">Cor do Cabelo *</label>
-                        <input type="text" id="form-hair" required placeholder="Ex: Loiro, Castanho, Ruivo">
+                        <label for="form-rate-quick">Cachê 30 Minutos (R$) *</label>
+                        <input type="number" id="form-rate-quick" placeholder="Ex: 150">
                     </div>
                     <div class="form-group">
-                        <label for="form-eyes">Cor dos Olhos *</label>
-                        <input type="text" id="form-eyes" required placeholder="Ex: Verdes, Azuis, Castanhos">
+                        <label for="form-rate-hour">Cachê 1 Hora (R$) *</label>
+                        <input type="number" id="form-rate-hour" placeholder="Ex: 250">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-rate-half">Cachê 2 Horas (R$)</label>
+                        <input type="number" id="form-rate-half" placeholder="Ex: 400">
                     </div>
                 </div>
 
-                <!-- Cachê / Valores fields removed -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label id="label-form-hair" for="form-hair">Cor do Cabelo *</label>
+                        <input type="text" id="form-hair" required placeholder="Ex: Loira, Morena, Ruiva">
+                    </div>
+                    <div class="form-group">
+                        <label id="label-form-eyes" for="form-eyes">Cor dos Olhos *</label>
+                        <input type="text" id="form-eyes" required placeholder="Ex: Verdes, Castanhos, Azuis">
+                    </div>
+                </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="form-whatsapp">WhatsApp do Representante *</label>
-                        <input type="text" id="form-whatsapp" required
-                            placeholder="Ex: 5575982897249 (somente números)">
+                        <label for="form-whatsapp">WhatsApp para Contato *</label>
+                        <input type="text" id="form-whatsapp" required placeholder="Ex: 5575982897249 (somente números)">
                         <small class="form-tip">Código do país + DDD + Número (ex: 5575982897249)</small>
                     </div>
                     <div class="form-group">
@@ -313,10 +330,10 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="form-image-file">Foto de Capa</label>
+                        <label for="form-image-file">Foto de Capa Principal</label>
                         <input type="file" id="form-image-file" accept="image/*">
                         <input type="hidden" id="form-image">
-                        <small class="form-tip">Fazer upload da foto principal da modelo.</small>
+                        <small class="form-tip">Foto de capa do perfil.</small>
                     </div>
                     <div class="form-group">
                         <label for="form-availability">Disponibilidade *</label>
@@ -329,22 +346,22 @@
 
                 <div class="form-row">
                     <div class="form-group" style="grid-column: span 2;">
-                        <label for="form-gallery-files">Fotos da Galeria (Sem limite de fotos)</label>
+                        <label for="form-gallery-files">Fotos da Galeria</label>
                         <input type="file" id="form-gallery-files" accept="image/*" multiple style="margin-bottom: 8px;">
-                        <small class="form-tip">Selecione fotos da modelo. Toque em uma foto na pré-visualização para removê-la da galeria.</small>
+                        <small class="form-tip">Selecione fotos adicionais para a galeria. Toque em uma foto na pré-visualização para removê-la.</small>
                         <div id="form-gallery-preview" class="gallery-preview-grid"></div>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="form-story-file">Postar Novo Story (Foto ou Vídeo)</label>
+                        <label for="form-story-file">Postar Vídeo de Tour (Story)</label>
                         <input type="file" id="form-story-file" accept="image/*,video/*">
                         <input type="hidden" id="form-story-video">
-                        <small class="form-tip">Selecione um arquivo de foto ou vídeo vertical.</small>
+                        <small class="form-tip">Selecione um vídeo vertical curto (até 1.5MB) do tour.</small>
                     </div>
                     <div class="form-group">
-                        <label for="form-story-url">Ou URL do Story (Opcional)</label>
+                        <label for="form-story-url">Ou URL do Tour (Opcional)</label>
                         <input type="text" id="form-story-url" placeholder="Ex: assets/video.mp4">
                         <small class="form-tip">Caminho do arquivo local ou link externo.</small>
                     </div>
@@ -352,22 +369,20 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="form-order">Ordem de Destaque / Prioridade *</label>
+                        <label for="form-order">Ordem de Prioridade *</label>
                         <input type="number" id="form-order" required min="1" placeholder="Ex: 1 (aparece primeiro)">
-                        <small class="form-tip">Números menores aparecem na frente no site</small>
+                        <small class="form-tip">Números menores aparecem na frente</small>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="form-services">Serviços Oferecidos * <small>(Separados por vírgula)</small></label>
-                    <input type="text" id="form-services" required
-                        placeholder="Ex: Massagem, Jantar, Viagem, Fetiche básico">
+                    <label id="label-form-services" for="form-services">Serviços & Atributos * <small>(Separados por vírgula)</small></label>
+                    <input type="text" id="form-services" required placeholder="Ex: Acompanhamento, Massagem, Viagens, Jantar">
                 </div>
 
                 <div class="form-group">
-                    <label for="form-description">Descrição Completa / Bio *</label>
-                    <textarea id="form-description" rows="4" required
-                        placeholder="Escreva uma biografia envolvente, hobbies, personalidade..."></textarea>
+                    <label id="label-form-description" for="form-description">Descrição Detalhada / Apresentação *</label>
+                    <textarea id="form-description" rows="4" required placeholder="Escreva uma apresentação detalhada para o perfil..."></textarea>
                 </div>
 
                 <div class="form-actions">
@@ -384,7 +399,7 @@
             <button class="modal-close-btn" id="auth-modal-close"><i class="fa-solid fa-xmark"></i></button>
             <div class="auth-header">
                 <i class="fa-solid fa-shield-halved auth-icon"></i>
-                <h3>Autenticação do Gerente</h3>
+                <h3>Autenticação</h3>
                 <p>Insira a senha de acesso para entrar no Painel Administrativo.</p>
             </div>
             <div class="auth-body">

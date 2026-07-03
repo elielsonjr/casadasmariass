@@ -26,83 +26,170 @@ const safeLocalStorage = {
 const localStorage = safeLocalStorage;
 
 // --- 1. Database Persistence Layer (LocalStorage CRUD) ---
-const LOCAL_STORAGE_KEY = 'marias_privee_companions';
+const LOCAL_STORAGE_KEY = 'marias_privee_rooms';
 
-const DEFAULT_COMPANIONS = [
+const DEFAULT_ROOMS = [
     {
-        id: 'sophia-1',
-        name: 'Sophia Smith',
-        age: 23,
-        hair: 'Loiro',
+        id: 'quarto-1',
+        type: 'room',
+        name: 'Quartos para atendimentos no Centro de Petrolina',
+        age: 140, // RateDaily
+        hair: 'Centro', // Neighborhood
+        eyes: 'Petrolina/PE', // City/State
+        rateQuick: 0,
+        rateHalf: 0,
+        rateHour: 0,
+        whatsapp: '5575982897249',
+        badge: 'VIP',
+        availability: 'disponivel',
+        image: 'assets/room_premium_1.png',
+        storyVideo: 'assets/video.mp4',
+        gallery: ['assets/room_premium_1.png'],
+        services: ['Ar Condicionado', 'Wi-Fi de Alta Velocidade', 'Cama de Casal', 'Local Seguro com Câmeras', 'Guarda-Roupas', 'Toalhas de Banho'],
+        description: 'Quarto climatizado ideal para atendimentos profissionais e recepção no Centro de Petrolina. Espaço limpo, seguro, com monitoramento e privacidade total para você atender ou se hospedar com todo o conforto.',
+        order: 1
+    },
+    {
+        id: 'quarto-2',
+        type: 'room',
+        name: 'Suíte Luxo Completa no Jardim Amazonas',
+        age: 120, // RateDaily
+        hair: 'Jardim Amazonas', // Neighborhood
+        eyes: 'Petrolina/PE', // City/State
+        rateQuick: 0,
+        rateHalf: 0,
+        rateHour: 0,
+        whatsapp: '5575982897249',
+        badge: 'Destaque',
+        availability: 'disponivel',
+        image: 'assets/room_standard_2.png',
+        storyVideo: 'assets/casa.mp4',
+        gallery: ['assets/room_standard_2.png'],
+        services: ['Wi-Fi', 'Ar Condicionado', 'Cama de Casal', 'Banheiro Privativo', 'Segurança 24h', 'Toalhas Inclusas'],
+        description: 'Casa bem localizada em bairro seguro de Petrolina, próximo a padarias, restaurantes, academias e farmácias. Suíte privativa com ar condicionado, cama confortável e toda a estrutura para o seu bem-estar.',
+        order: 2
+    },
+    {
+        id: 'quarto-3',
+        type: 'room',
+        name: 'Espaço Studio Climatizado Centro',
+        age: 150, // RateDaily
+        hair: 'Centro', // Neighborhood
+        eyes: 'Petrolina/PE', // City/State
+        rateQuick: 0,
+        rateHalf: 0,
+        rateHour: 0,
+        whatsapp: '5575982897249',
+        badge: 'Novidade',
+        availability: 'disponivel',
+        image: 'assets/room_studio_3.png',
+        storyVideo: 'assets/video.mp4',
+        gallery: ['assets/room_studio_3.png'],
+        services: ['Câmeras de Segurança', 'Ar Condicionado', 'Cama de Casal', 'Acesso Independente', 'Wi-Fi', 'Organização Diária'],
+        description: 'Ambiente moderno e discreto, perfeito para profissionais que precisam de um local pronto para receber clientes com elegância e profissionalismo. Localizado na área central de Petrolina.',
+        order: 3
+    },
+    {
+        id: 'quarto-4',
+        type: 'room',
+        name: 'Suíte Executiva com Câmera e Wi-Fi',
+        age: 140, // RateDaily
+        hair: 'Centro', // Neighborhood
+        eyes: 'Petrolina/PE', // City/State
+        rateQuick: 0,
+        rateHalf: 0,
+        rateHour: 0,
+        whatsapp: '5575982897249',
+        badge: '',
+        availability: 'ocupada',
+        image: 'assets/room_suite_4.png',
+        storyVideo: 'assets/casa.mp4',
+        gallery: ['assets/room_suite_4.png'],
+        services: ['Ar Condicionado', 'Wi-Fi 5G', 'Local Monitorado', 'Cama de Casal', 'Guarda-Roupas', 'Chuveiro Quente'],
+        description: 'Quarto climatizado com internet ultra-rápida. Ideal tanto para hospedagem quanto para sublocação por diária. Banheiro privativo e ambiente rigorosamente higienizado.',
+        order: 4
+    }
+];
+
+const DEFAULT_GIRLS = [
+    {
+        id: 'girl-1',
+        type: 'girl',
+        name: 'Sophia Rossi',
+        age: 22,
+        hair: 'Loira',
         eyes: 'Verdes',
-        rateQuick: 250,
-        rateHalf: 350,
-        rateHour: 450,
+        rateQuick: 150,
+        rateHalf: 450,
+        rateHour: 250,
         whatsapp: '5575982897249',
         badge: 'VIP',
         availability: 'disponivel',
         image: 'assets/model_sophia.png',
         storyVideo: 'assets/video.mp4',
         gallery: ['assets/model_sophia.png'],
-        services: ['Jantar de Negócios', 'Viagens Nacionais/Internacionais', 'Massagem Terapêutica', 'Festas Privadas', 'Companhia Executiva'],
-        description: 'Sophia é formada em Relações Públicas, fala inglês fluente e possui uma presença extremamente refinada. Ideal para acompanhá-lo em jantares de gala, eventos corporativos ou uma noite de conversa inteligente com excelente vinho. Seu charme e sofisticação tornam qualquer ocasião memorável.',
+        services: ['Acompanhamento', 'Massagem', 'Viagens', 'Jantar'],
+        description: 'Sophia Rossi é uma loira carismática de olhos verdes, simpática, educada e pronta para te proporcionar momentos únicos com total discrição.',
         order: 1
     },
     {
-        id: 'valentina-2',
+        id: 'girl-2',
+        type: 'girl',
         name: 'Valentina Rossi',
-        age: 25,
+        age: 24,
         hair: 'Morena',
         eyes: 'Castanhos',
-        rateQuick: 200,
-        rateHalf: 300,
-        rateHour: 400,
+        rateQuick: 130,
+        rateHalf: 350,
+        rateHour: 200,
         whatsapp: '5575982897249',
         badge: 'Destaque',
         availability: 'disponivel',
         image: 'assets/model_valentina.png',
         storyVideo: 'assets/casa.mp4',
         gallery: ['assets/model_valentina.png'],
-        services: ['Alta Gastronomia', 'Eventos Sociais', 'Fetiche Básico', 'Dança Privada', 'Massagem Relaxante'],
-        description: 'Valentina é uma mulher de traços marcantes e sorriso contagiante. Apaixonada por gastronomia e vinhos finos, ela é a companhia perfeita para quem busca tanto elegância social quanto momentos intensos de cumplicidade e descontração. Extremamente carismática e atenta aos detalhes.',
+        services: ['Atendimento Privado', 'Viagens', 'Jantar', 'Massagem Relaxante'],
+        description: 'Valentina é uma morena de curvas marcantes, simpática, discreta e extremamente atenciosa. Venha compartilhar momentos agradáveis.',
         order: 2
     },
     {
-        id: 'gabriela-3',
-        name: 'Gabriela Vasconcelos',
-        age: 22,
-        hair: 'Ruivo',
+        id: 'girl-3',
+        type: 'girl',
+        name: 'Isabella Santos',
+        age: 20,
+        hair: 'Ruiva',
         eyes: 'Azuis',
-        rateQuick: 300,
+        rateQuick: 140,
         rateHalf: 400,
-        rateHour: 500,
+        rateHour: 220,
         whatsapp: '5575982897249',
         badge: 'Novidade',
         availability: 'disponivel',
-        image: 'assets/model_gabriela.png',
+        image: 'assets/model_isabella.png',
         storyVideo: 'assets/video.mp4',
-        gallery: ['assets/model_gabriela.png'],
-        services: ['Encontros Reservados', 'Viagem de Fim de Semana', 'Sessão de Fotos Privada', 'Massagem Tântrica', 'Conversa Intelectual'],
-        description: 'Gabriela é estudante de Letras, apaixonada por literatura, arte e filosofia. Ela possui um olhar enigmático e uma personalidade magnética e misteriosa. Excelente ouvinte, sua delicadeza e sensualidade discreta criam um ambiente altamente confortável e inesquecível para homens exigentes.',
+        gallery: ['assets/model_isabella.png'],
+        services: ['Massagem Sensorial', 'Acompanhamento', 'Festas', 'Discreta'],
+        description: 'Uma ruiva charmosa de olhos azuis. Muito carinhosa, atenciosa e divertida. Perfeita para quem busca ótima companhia.',
         order: 3
     },
     {
-        id: 'isabella-4',
-        name: 'Isabella Mendes',
-        age: 26,
-        hair: 'Preto',
+        id: 'girl-4',
+        type: 'girl',
+        name: 'Gabriela Lima',
+        age: 23,
+        hair: 'Morena',
         eyes: 'Castanhos',
-        rateQuick: 220,
-        rateHalf: 320,
-        rateHour: 420,
+        rateQuick: 120,
+        rateHalf: 300,
+        rateHour: 180,
         whatsapp: '5575982897249',
         badge: '',
-        availability: 'ocupada',
-        image: 'assets/model_isabella.png',
+        availability: 'disponivel',
+        image: 'assets/model_gabriela.png',
         storyVideo: 'assets/casa.mp4',
-        gallery: ['assets/model_isabella.png'],
-        services: ['Acompanhamento de Viagem', 'Clube/Festas VIP', 'Massagem Desportiva', 'Esportes de Aventura', 'Jantar Romântico'],
-        description: 'Isabella é personal trainer, mantém uma rotina de bem-estar activa e tem uma energia contagiante. Ela é extrovertida, atlética e ama noites de agito nos melhores clubes da cidade. Se você procura uma companhia dinâmica, alegre e com curvas perfeitas para momentos intensos de prazer.',
+        gallery: ['assets/model_gabriela.png'],
+        services: ['Atendimento Discreto', 'Massagem Clássica', 'Jantar e Eventos'],
+        description: 'Gabriela Lima é carismática, discreta e focada no seu relaxamento e bem-estar. Venha nos visitar e agende um horário.',
         order: 4
     }
 ];
@@ -110,16 +197,53 @@ const DEFAULT_COMPANIONS = [
 const DataService = {
     init() {
         const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+        const combinedDefaults = [
+            ...DEFAULT_ROOMS,
+            ...DEFAULT_GIRLS
+        ];
         if (!data) {
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(DEFAULT_COMPANIONS));
-            return DEFAULT_COMPANIONS;
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(combinedDefaults));
+            return combinedDefaults;
         }
         try {
-            return JSON.parse(data);
+            let parsed = JSON.parse(data);
+            // Verify if stored data needs cleanup or upgrade
+            if (parsed.length > 0 && parsed.some(item => item.name && (item.name.includes("Sophia Smith") || item.name.includes("Valentina Rossi") || item.id.startsWith("sophia-")))) {
+                console.log("Old model database detected. Upgrading to combined list...");
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(combinedDefaults));
+                return combinedDefaults;
+            }
+
+            let changed = false;
+            // Map items to ensure type exists
+            parsed = parsed.map(item => {
+                if (!item.type) {
+                    changed = true;
+                    if (item.id.startsWith('girl-') || item.id.startsWith('menina-') || (item.image && item.image.includes('model_'))) {
+                        return { ...item, type: 'girl' };
+                    } else {
+                        return { ...item, type: 'room' };
+                    }
+                }
+                return item;
+            });
+
+            // Check if there are no girls in the database
+            const hasGirls = parsed.some(item => item.type === 'girl');
+            if (!hasGirls) {
+                console.log("No girls found in database, adding defaults...");
+                parsed = [...parsed, ...DEFAULT_GIRLS];
+                changed = true;
+            }
+
+            if (changed) {
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(parsed));
+            }
+            return parsed;
         } catch (e) {
             console.error("Error reading storage, resetting...", e);
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(DEFAULT_COMPANIONS));
-            return DEFAULT_COMPANIONS;
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(combinedDefaults));
+            return combinedDefaults;
         }
     },
     getAll() {
@@ -132,15 +256,15 @@ const DataService = {
     saveAll(list) {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
     },
-    add(companion) {
+    add(room) {
         const list = this.getAll();
-        const newCompanion = {
-            ...companion,
-            id: companion.id || 'girl-' + Date.now()
+        const newRoom = {
+            ...room,
+            id: room.id || (room.type === 'girl' ? 'girl-' : 'room-') + Date.now()
         };
-        list.push(newCompanion);
+        list.push(newRoom);
         this.saveAll(list);
-        return newCompanion;
+        return newRoom;
     },
     update(id, updatedFields) {
         const list = this.getAll();
@@ -162,54 +286,90 @@ const DataService = {
         return true;
     },
     toggleAvailability(id) {
-        const companion = this.getById(id);
-        if (!companion) return null;
-        const newAvailability = companion.availability === 'disponivel' ? 'ocupada' : 'disponivel';
+        const room = this.getById(id);
+        if (!room) return null;
+        const newAvailability = room.availability === 'disponivel' ? 'ocupada' : 'disponivel';
         this.update(id, { availability: newAvailability });
         return newAvailability;
     },
     reset() {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(DEFAULT_COMPANIONS));
-        return DEFAULT_COMPANIONS;
+        const combinedDefaults = [
+            ...DEFAULT_ROOMS,
+            ...DEFAULT_GIRLS
+        ];
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(combinedDefaults));
+        return combinedDefaults;
     }
 };
 
+// --- Helper function for amenity icons ---
+function getServiceIcon(service) {
+    const s = service.toLowerCase();
+    if (s.includes('wifi') || s.includes('wi-fi') || s.includes('internet')) return '<i class="fa-solid fa-wifi" style="margin-right: 6px;"></i>';
+    if (s.includes('ar condicionado') || s.includes('ar-condicionado') || s.includes('clima') || s.includes('ar climatizado')) return '<i class="fa-solid fa-snowflake" style="margin-right: 6px;"></i>';
+    if (s.includes('cama')) return '<i class="fa-solid fa-bed" style="margin-right: 6px;"></i>';
+    if (s.includes('seguro') || s.includes('segurança') || s.includes('câmera') || s.includes('camera') || s.includes('monitorado')) return '<i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i>';
+    if (s.includes('guarda-roupa') || s.includes('armário') || s.includes('guarda')) return '<i class="fa-solid fa-door-closed" style="margin-right: 6px;"></i>';
+    if (s.includes('toalha') || s.includes('banho') || s.includes('chuveiro') || s.includes('quente')) return '<i class="fa-solid fa-shower" style="margin-right: 6px;"></i>';
+    return '<i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>';
+}
+
 // --- 2. Dynamic Components Rendering Templates ---
 
-// 2.2 Companion Portfolio Grid Card
+// 2.2 Room/Girl Card Template
 const GirlCard = {
-    html(girl) {
-        let badgeHtml = '<span class="badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verificada</span>';
-        if (girl.badge) {
+    html(room) {
+        const isGirl = room.type === 'girl';
+        let badgeHtml = '';
+        if (room.badge) {
             let badgeClass = 'badge-standard';
-            if (girl.badge.toUpperCase() === 'VIP') badgeClass = 'badge-gold';
-            else if (girl.badge.toUpperCase() === 'NOVIDADE') badgeClass = 'badge-magenta';
-            badgeHtml += `<span class="badge ${badgeClass}">${girl.badge}</span>`;
+            if (room.badge.toUpperCase() === 'VIP') badgeClass = 'badge-gold';
+            else if (room.badge.toUpperCase() === 'NOVIDADE') badgeClass = 'badge-magenta';
+            badgeHtml += `<span class="badge ${badgeClass}">${room.badge}</span>`;
         }
 
-        const isAvailable = girl.availability === 'disponivel';
+        const isAvailable = room.availability === 'disponivel';
         const statusHtml = isAvailable 
             ? `<div class="status-dot-badge"><span class="dot-green"></span> Disponível</div>`
-            : `<div class="status-dot-badge"><span class="dot-red"></span> Ocupada</div>`;
+            : `<div class="status-dot-badge"><span class="dot-red"></span> Reservado</div>`;
+
+        const favoritesKey = isGirl ? 'marias_favorite_girls' : 'marias_favorite_rooms';
+        const favorites = JSON.parse(localStorage.getItem(favoritesKey) || '[]');
+        const isFavorited = favorites.includes(room.id);
+
+        let priceHtml = '';
+        let infoHtml = '';
+
+        if (isGirl) {
+            priceHtml = `R$ ${room.rateHour || 250},00 <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-secondary);">Cachê (1h)</span>`;
+            infoHtml = `<i class="fa-solid fa-user" style="color: var(--color-accent); margin-right: 4px;"></i> ${room.age} anos — Cabelo ${room.hair} — Olhos ${room.eyes}`;
+        } else {
+            priceHtml = `R$ ${room.age || 140},00 <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-secondary);">Por diária</span>`;
+            infoHtml = `<i class="fa-solid fa-location-dot" style="color: var(--color-accent); margin-right: 4px;"></i> ${room.eyes} — ${room.hair}`;
+        }
 
         return `
-            <div class="girl-card" data-id="${girl.id}">
+            <div class="girl-card" data-id="${room.id}">
                 <div class="girl-card-img-wrapper">
-                    <img src="${girl.image || 'assets/model_sophia.png'}" alt="${girl.name}" class="girl-card-img" loading="lazy">
+                    <img src="${room.image || 'assets/room_premium_1.png'}" alt="${room.name}" class="girl-card-img" loading="lazy">
                     <div class="girl-card-overlay"></div>
                     <div class="card-badges">${badgeHtml}</div>
                     <div class="card-status">${statusHtml}</div>
                 </div>
                 <div class="girl-card-content">
-                    <h3 class="girl-card-name">${girl.name}</h3>
-                    <div class="girl-card-location"><i class="fa-solid fa-location-dot"></i> Petrolina - PE</div>
-                    <div class="girl-card-specs">
-                        <span>${girl.age} anos</span>
+                    <h3 class="girl-card-name" style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; line-height: 1.4; color: #FFF; min-height: 44px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${room.name}</h3>
+                    <div class="girl-card-price" style="color: var(--color-gold); font-weight: 700; margin-bottom: 8px; font-size: 1.25rem;">
+                        ${priceHtml}
                     </div>
-                    <p class="girl-card-bio">${girl.description}</p>
-                    <div class="girl-card-footer">
-                        <button class="girl-card-btn view-profile-btn" data-id="${girl.id}" style="width: 100%; justify-content: center; text-align: center;">
-                            Ver Perfil <i class="fa-solid fa-arrow-right"></i>
+                    <div class="girl-card-location" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                        ${infoHtml}
+                    </div>
+                    <div class="girl-card-footer" style="margin-top: auto; display: flex; gap: 10px; align-items: center;">
+                        <button class="girl-card-btn view-profile-btn" data-id="${room.id}" style="flex: 1; justify-content: center; text-align: center; font-size: 0.85rem; padding: 10px 15px;">
+                            Ver Detalhes <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i>
+                        </button>
+                        <button class="favorite-card-btn ${isFavorited ? 'favorited' : ''}" data-id="${room.id}" style="flex-shrink: 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: ${isFavorited ? 'var(--color-accent)' : 'var(--text-muted)'}; cursor: pointer; transition: 0.2s;" title="Favoritar">
+                            <i class="${isFavorited ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
                         </button>
                     </div>
                 </div>
@@ -218,51 +378,102 @@ const GirlCard = {
     }
 };
 
-// 2.3 Profile Details Modal Panel
+// 2.3 Room/Girl Details Modal
 const ProfileModal = {
-    html(girl) {
-        const servicesHtml = girl.services.map(service => 
-            `<span class="service-tag">${service.trim()}</span>`
+    html(room) {
+        const isGirl = room.type === 'girl';
+        const servicesHtml = room.services.map(service => 
+            `<span class="service-tag" style="display: inline-flex; align-items: center;">${getServiceIcon(service)} ${service.trim()}</span>`
         ).join('');
 
-        const isAvailable = girl.availability === 'disponivel';
+        const isAvailable = room.availability === 'disponivel';
         const availabilityBadgeHtml = isAvailable
             ? `<div class="status-dot-badge"><span class="dot-green"></span> Disponível</div>`
-            : `<div class="status-dot-badge"><span class="dot-red"></span> Ocupada / Reservada</div>`;
+            : `<div class="status-dot-badge"><span class="dot-red"></span> Reservado / Ocupado</div>`;
 
-        const whatsappText = `Olá! Vi o perfil de ${girl.name} no site da Casa das Marias e gostaria de consultar a disponibilidade para agendamento.`;
-        const encodedText = encodeURIComponent(whatsappText);
-        const cleanedPhone = girl.whatsapp.replace(/\D/g, '');
+        const defaultMsg = isGirl 
+            ? `Olá! Vi seu perfil '${room.name}' no site da Casa das Marias e gostaria de consultar sua disponibilidade para um agendamento.` 
+            : `Olá! Vi o anúncio do quarto '${room.name}' no site da Casa das Marias e gostaria de consultar a disponibilidade para reserva.`;
+        const encodedText = encodeURIComponent(defaultMsg);
+        const cleanedPhone = room.whatsapp.replace(/\D/g, '');
         const whatsappUrl = `https://wa.me/${cleanedPhone}?text=${encodedText}`;
 
-        const galleryList = girl.gallery || [];
+        const galleryList = room.gallery || [];
         const galleryHtml = galleryList.length > 0 
             ? `
             <div class="profile-gallery-section">
-                <h4>Fotos da Galeria</h4>
+                <h4>Galeria de Fotos</h4>
                 <div class="profile-gallery-grid">
                     ${galleryList.map((photo, index) => `
                         <div class="profile-gallery-item" data-index="${index}">
-                            <img src="${photo}" alt="Foto ${index + 1} de ${girl.name}" class="gallery-thumbnail">
+                            <img src="${photo}" alt="Foto ${index + 1} de ${room.name}" class="gallery-thumbnail">
                         </div>
                     `).join('')}
                 </div>
             </div>`
             : '';
 
+        let specsHtml = '';
+        if (isGirl) {
+            specsHtml = `
+                <div class="spec-box">
+                    <span>30 Minutos</span>
+                    <p>R$ ${room.rateQuick || 150},00</p>
+                </div>
+                <div class="spec-box">
+                    <span>1 Hora</span>
+                    <p>R$ ${room.rateHour || 250},00</p>
+                </div>
+                <div class="spec-box">
+                    <span>Cabelo</span>
+                    <p>${room.hair}</p>
+                </div>
+                <div class="spec-box">
+                    <span>Olhos</span>
+                    <p>${room.eyes}</p>
+                </div>
+            `;
+        } else {
+            specsHtml = `
+                <div class="spec-box">
+                    <span>Diária</span>
+                    <p>R$ ${room.age},00</p>
+                </div>
+                <div class="spec-box">
+                    <span>Bairro</span>
+                    <p>${room.hair}</p>
+                </div>
+                <div class="spec-box">
+                    <span>Cidade/UF</span>
+                    <p>${room.eyes}</p>
+                </div>
+                <div class="spec-box">
+                    <span>Estrutura</span>
+                    <p>Premium</p>
+                </div>
+            `;
+        }
+
+        const detailsTitle = isGirl ? 'Sobre Mim' : 'Sobre o Quarto';
+        const servicesTitle = isGirl ? 'Serviços & Atributos' : 'Comodidades Inclusas';
+        const buttonText = isGirl ? `Agendar com ${room.name}` : 'Reservar este Quarto';
+        const subLocation = isGirl 
+            ? `<i class="fa-solid fa-venus" style="color: var(--color-accent); margin-right: 4px;"></i> ${room.age} anos — Cabelo ${room.hair} — Olhos ${room.eyes}` 
+            : `<i class="fa-solid fa-location-dot" style="color: var(--color-accent); margin-right: 4px;"></i> ${room.eyes} — ${room.hair}`;
+
         return `
-            <div class="profile-detail-grid" data-girl-id="${girl.id}">
+            <div class="profile-detail-grid" data-girl-id="${room.id}">
                 <div class="profile-detail-img-wrapper">
-                    <img src="${girl.image || 'assets/model_sophia.png'}" alt="${girl.name}" class="profile-detail-img">
+                    <img src="${room.image || 'assets/room_premium_1.png'}" alt="${room.name}" class="profile-detail-img">
                 </div>
                 <div class="profile-detail-info">
                     <div class="profile-detail-header">
                         <div class="profile-detail-header-left">
-                            <h3>${girl.name}</h3>
-                            <div class="girl-card-location" style="margin-bottom: 0;"><i class="fa-solid fa-location-dot"></i> Petrolina - PE</div>
+                            <h3>${room.name}</h3>
+                            <div class="girl-card-location" style="margin-bottom: 0;">${subLocation}</div>
                             <div class="profile-tags" style="margin-top: 8px;">
-                                <span class="badge badge-verified"><i class="fa-solid fa-circle-check"></i> Perfil Verificado</span>
-                                ${girl.badge ? `<span class="badge ${girl.badge.toUpperCase() === 'VIP' ? 'badge-gold' : 'badge-magenta'}">${girl.badge}</span>` : ''}
+                                <span class="badge badge-verified"><i class="fa-solid fa-circle-check"></i> ${isGirl ? 'Perfil Verificado' : 'Higienizado & Seguro'}</span>
+                                ${room.badge ? `<span class="badge ${room.badge.toUpperCase() === 'VIP' ? 'badge-gold' : 'badge-magenta'}">${room.badge}</span>` : ''}
                             </div>
                         </div>
                         <div class="profile-detail-header-right">
@@ -270,36 +481,21 @@ const ProfileModal = {
                         </div>
                     </div>
                     <div class="profile-detail-specs">
-                        <div class="spec-box">
-                            <span>Idade</span>
-                            <p>${girl.age} anos</p>
-                        </div>
-                        <div class="spec-box">
-                            <span>Cabelo</span>
-                            <p>${girl.hair}</p>
-                        </div>
-                        <div class="spec-box">
-                            <span>Olhos</span>
-                            <p>${girl.eyes}</p>
-                        </div>
-                        <div class="spec-box">
-                            <span>Nacionalidade</span>
-                            <p>Brasileira</p>
-                        </div>
+                        ${specsHtml}
                     </div>
                     <div class="profile-bio">
-                        <h4>Apresentação</h4>
-                        <p>${girl.description}</p>
+                        <h4>${detailsTitle}</h4>
+                        <p>${room.description}</p>
                     </div>
                     <div class="profile-services">
-                        <h4>Serviços Disponíveis</h4>
+                        <h4>${servicesTitle}</h4>
                         <div class="services-list">
                             ${servicesHtml}
                         </div>
                     </div>
                     ${galleryHtml}
                     <a href="${whatsappUrl}" target="_blank" class="btn btn-primary wa-booking-btn btn-glow" style="margin-top: 15px;">
-                        <i class="fa-brands fa-whatsapp"></i> Agendar com ${girl.name.split(' ')[0]}
+                        <i class="fa-brands fa-whatsapp"></i> ${buttonText}
                     </a>
                 </div>
             </div>
@@ -307,19 +503,74 @@ const ProfileModal = {
     }
 };
 
-// 2.4 Administrative Dashboard CRUD Panel
-// 2.4 Administrative Dashboard CRUD Panel
+// 2.4 Administrative Dashboard
 const AdminDashboard = {
-    render(containerElement, companions) {
+    render(containerElement, rooms) {
         if (!containerElement) return;
 
-        const totalCount = companions.length;
-        const availableCount = companions.filter(g => g.availability === 'disponivel').length;
-        const busyCount = totalCount - availableCount;
+        const roomsList = rooms.filter(item => item.type === 'room');
+        const girlsList = rooms.filter(item => item.type === 'girl');
+
+        const totalRoomsCount = roomsList.length;
+        const availableRoomsCount = roomsList.filter(g => g.availability === 'disponivel').length;
+        const busyRoomsCount = totalRoomsCount - availableRoomsCount;
+
+        const totalGirlsCount = girlsList.length;
+        const availableGirlsCount = girlsList.filter(g => g.availability === 'disponivel').length;
+        const busyGirlsCount = totalGirlsCount - availableGirlsCount;
 
         const activeAdminTab = localStorage.getItem('marias_active_admin_tab') || 'models-tab';
 
-        const rowsHtml = companions.map(girl => {
+        // Render Room Rows
+        const roomRowsHtml = roomsList.map(room => {
+            const isAvailable = room.availability === 'disponivel';
+            const statusClass = isAvailable ? 'dot-green' : 'dot-red';
+            const statusLabel = isAvailable ? 'Disponível' : 'Ocupado';
+            
+            let badgeMarkup = '<span class="text-muted">—</span>';
+            if (room.badge) {
+                const badgeClass = room.badge.toUpperCase() === 'VIP' ? 'badge-gold' : 'badge-magenta';
+                badgeMarkup = `<span class="badge ${badgeClass} badge-row">${room.badge}</span>`;
+            }
+
+            return `
+                <tr data-id="${room.id}">
+                    <td>
+                        <div class="admin-table-model-info">
+                            <img src="${room.image || 'assets/room_premium_1.png'}" alt="${room.name}" class="admin-table-avatar">
+                            <div>
+                                <div class="admin-table-model-name">${room.name}</div>
+                                <div class="admin-table-model-sub">Ordem: ${room.order || 99} | WhatsApp: +${room.whatsapp}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>R$ ${room.age},00</td>
+                    <td>
+                        <div>${room.hair} / ${room.eyes}</div>
+                    </td>
+                    <td>${badgeMarkup}</td>
+                    <td>
+                        <div class="status-indicator toggle-status-btn" data-id="${room.id}">
+                            <span class="${statusClass}"></span>
+                            <span>${statusLabel}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="admin-actions">
+                            <button class="admin-action-btn btn-edit edit-girl-btn" data-id="${room.id}" title="Editar Quarto">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button class="admin-action-btn btn-delete delete-girl-btn" data-id="${room.id}" title="Excluir Quarto">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+
+        // Render Girl Rows
+        const girlRowsHtml = girlsList.map(girl => {
             const isAvailable = girl.availability === 'disponivel';
             const statusClass = isAvailable ? 'dot-green' : 'dot-red';
             const statusLabel = isAvailable ? 'Disponível' : 'Ocupada';
@@ -341,9 +592,9 @@ const AdminDashboard = {
                             </div>
                         </div>
                     </td>
-                    <td>${girl.age} anos</td>
+                    <td>R$ ${girl.rateQuick || 150} / R$ ${girl.rateHour || 250}</td>
                     <td>
-                        <div>${girl.hair} / ${girl.eyes}</div>
+                        <div>${girl.age} anos | ${girl.hair} | ${girl.eyes}</div>
                     </td>
                     <td>${badgeMarkup}</td>
                     <td>
@@ -366,18 +617,66 @@ const AdminDashboard = {
             `;
         }).join('');
 
+        // Render Story Card helper
+        function renderStoryManageCard(item) {
+            const hasStory = item.storyVideo && item.storyVideo.trim() !== '';
+            let previewHtml = '';
+            if (hasStory) {
+                const isVideo = !item.storyVideo.startsWith('data:image/') && !item.storyVideo.match(/\.(jpeg|jpg|gif|png|webp|bmp)($|\?)/i);
+                if (isVideo) {
+                    previewHtml = `<video src="${item.storyVideo}" muted autoplay loop playsinline class="story-preview-thumb"></video>`;
+                } else {
+                    previewHtml = `<img src="${item.storyVideo}" class="story-preview-thumb">`;
+                }
+            } else {
+                previewHtml = `<div class="story-preview-placeholder"><i class="fa-solid fa-video-slash"></i><span>Sem Tour</span></div>`;
+            }
+
+            return `
+                <div class="story-manage-card glass-panel" data-id="${item.id}">
+                    <div class="story-manage-header">
+                        <img src="${item.image || 'assets/room_premium_1.png'}" alt="${item.name}" class="story-manage-avatar">
+                        <div class="story-manage-name-box">
+                            <h4>${item.name}</h4>
+                            <span>${hasStory ? '<span class="status-active"><span class="dot-green"></span> Tour Ativo</span>' : '<span class="status-inactive"><span class="dot-gray"></span> Sem Vídeo</span>'}</span>
+                        </div>
+                    </div>
+                    <div class="story-manage-body">
+                        <div class="story-preview-container">
+                            ${previewHtml}
+                            ${hasStory ? `<span class="story-badge-type">${item.storyVideo.startsWith('data:image/') || item.storyVideo.match(/\.(jpeg|jpg|gif|png|webp|bmp)($|\?)/i) ? 'Foto' : 'Vídeo'}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="story-manage-actions">
+                        <input type="file" id="direct-story-input-${item.id}" accept="image/*,video/*" style="display:none;" class="direct-story-file-input" data-id="${item.id}">
+                        <button class="btn btn-primary btn-sm btn-glow trigger-direct-upload-btn" data-id="${item.id}">
+                            <i class="fa-solid fa-upload"></i> ${hasStory ? 'Alterar Vídeo' : 'Carregar Vídeo'}
+                        </button>
+                        ${hasStory ? `
+                        <button class="btn btn-danger btn-sm remove-direct-story-btn" data-id="${item.id}" title="Excluir Story">
+                            <i class="fa-solid fa-trash-can"></i> Remover
+                        </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
         containerElement.innerHTML = `
             <div class="admin-view-header">
                 <div>
-                    <h2>Painel de Controle</h2>
-                    <p class="section-subtitle" style="text-align: left; margin: 5px 0 0 0;">Gerencie o portfólio das modelos e controle a postagem de stories em tempo real.</p>
+                    <h2>Painel Administrativo</h2>
+                    <p class="section-subtitle" style="text-align: left; margin: 5px 0 0 0;">Gerencie os anúncios e controle os tours virtuais em tempo real.</p>
                 </div>
                 <div class="admin-header-actions">
                     <button class="btn btn-secondary reset-db-btn" id="admin-reset-btn">
                         <i class="fa-solid fa-arrow-rotate-left"></i> Resetar Padrão
                     </button>
-                    <button class="btn btn-primary btn-glow" id="admin-add-btn">
-                        <i class="fa-solid fa-plus"></i> Adicionar Modelo
+                    <button class="btn btn-primary btn-glow ${activeAdminTab === 'models-tab' ? '' : 'hidden'}" id="admin-add-btn">
+                        <i class="fa-solid fa-plus"></i> Adicionar Quarto
+                    </button>
+                    <button class="btn btn-primary btn-glow ${activeAdminTab === 'girls-tab' ? '' : 'hidden'}" id="admin-add-girl-btn">
+                        <i class="fa-solid fa-plus"></i> Adicionar Menina
                     </button>
                     <button class="btn btn-secondary" id="admin-back-btn">
                         <i class="fa-solid fa-house"></i> Voltar ao Site
@@ -388,36 +687,39 @@ const AdminDashboard = {
             <!-- Admin Tabs -->
             <div class="admin-tabs">
                 <button class="admin-tab-btn ${activeAdminTab === 'models-tab' ? 'active' : ''}" data-tab="models-tab">
-                    <i class="fa-solid fa-users"></i> Perfis das Modelos
+                    <i class="fa-solid fa-bed"></i> Gerenciar Quartos
+                </button>
+                <button class="admin-tab-btn ${activeAdminTab === 'girls-tab' ? 'active' : ''}" data-tab="girls-tab">
+                    <i class="fa-solid fa-venus"></i> Gerenciar Meninas
                 </button>
                 <button class="admin-tab-btn ${activeAdminTab === 'stories-tab' ? 'active' : ''}" data-tab="stories-tab">
-                    <i class="fa-solid fa-circle-play"></i> Gerenciar Stories
+                    <i class="fa-solid fa-circle-play"></i> Gerenciar Tours (Stories)
                 </button>
             </div>
 
-            <!-- Tab 1: Models Table -->
+            <!-- Tab 1: Rooms Table -->
             <div id="models-tab" class="admin-tab-content ${activeAdminTab === 'models-tab' ? '' : 'hidden'}">
                 <!-- Stats Bar -->
                 <div class="admin-stats-bar">
                     <div class="glass-panel stat-card">
-                        <div class="stat-card-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-card-icon"><i class="fa-solid fa-bed"></i></div>
                         <div class="stat-card-info">
-                            <span>Total de Modelos</span>
-                            <h4>${totalCount}</h4>
+                            <span>Total de Quartos</span>
+                            <h4>${totalRoomsCount}</h4>
                         </div>
                     </div>
                     <div class="glass-panel stat-card">
                         <div class="stat-card-icon"><i class="fa-solid fa-circle-check"></i></div>
                         <div class="stat-card-info">
                             <span>Disponíveis</span>
-                            <h4>${availableCount}</h4>
+                            <h4>${availableRoomsCount}</h4>
                         </div>
                     </div>
                     <div class="glass-panel stat-card">
                         <div class="stat-card-icon"><i class="fa-solid fa-circle-xmark"></i></div>
                         <div class="stat-card-info">
-                            <span>Ocupadas / Reservadas</span>
-                            <h4>${busyCount}</h4>
+                            <span>Reservados / Ocupados</span>
+                            <h4>${busyRoomsCount}</h4>
                         </div>
                     </div>
                 </div>
@@ -427,71 +729,83 @@ const AdminDashboard = {
                     <table class="admin-table">
                         <thead>
                             <tr>
-                                <th>Modelo</th>
-                                <th>Idade</th>
-                                <th>Cabelo / Olhos</th>
-                                <th>Selo Especial</th>
+                                <th>Quarto</th>
+                                <th>Preço Diária</th>
+                                <th>Localização</th>
+                                <th>Selo</th>
                                 <th>Status (Disponibilidade)</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="admin-table-body">
-                            ${rowsHtml || `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">Nenhuma acompanhante cadastrada. Clique em "Adicionar Modelo" para começar.</td></tr>`}
+                            ${roomRowsHtml || `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">Nenhum quarto cadastrado. Clique em "Adicionar Quarto" para começar.</td></tr>`}
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Tab 2: Stories Manager -->
-            <div id="stories-tab" class="admin-tab-content ${activeAdminTab === 'stories-tab' ? '' : 'hidden'}">
-                <div class="stories-manager-intro">
-                    <h3>Gerenciador de Stories Rápidos</h3>
-                    <p>Poste fotos ou vídeos diretamente no perfil de cada modelo. A barra de stories no topo do site e os stories em reprodução serão atualizados instantaneamente em tempo real para os visitantes.</p>
+            <!-- Tab 2: Girls Table -->
+            <div id="girls-tab" class="admin-tab-content ${activeAdminTab === 'girls-tab' ? '' : 'hidden'}">
+                <!-- Stats Bar -->
+                <div class="admin-stats-bar">
+                    <div class="glass-panel stat-card">
+                        <div class="stat-card-icon"><i class="fa-solid fa-venus"></i></div>
+                        <div class="stat-card-info">
+                            <span>Total de Meninas</span>
+                            <h4>${totalGirlsCount}</h4>
+                        </div>
+                    </div>
+                    <div class="glass-panel stat-card">
+                        <div class="stat-card-icon"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="stat-card-info">
+                            <span>Disponíveis</span>
+                            <h4>${availableGirlsCount}</h4>
+                        </div>
+                    </div>
+                    <div class="glass-panel stat-card">
+                        <div class="stat-card-icon"><i class="fa-solid fa-circle-xmark"></i></div>
+                        <div class="stat-card-info">
+                            <span>Reservadas / Ocupadas</span>
+                            <h4>${busyGirlsCount}</h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="stories-manager-grid">
-                    ${companions.map(girl => {
-                        const hasStory = girl.storyVideo && girl.storyVideo.trim() !== '';
-                        let previewHtml = '';
-                        if (hasStory) {
-                            const isVideo = !girl.storyVideo.startsWith('data:image/') && !girl.storyVideo.match(/\.(jpeg|jpg|gif|png|webp|bmp)($|\?)/i);
-                            if (isVideo) {
-                                previewHtml = `<video src="${girl.storyVideo}" muted autoplay loop playsinline class="story-preview-thumb"></video>`;
-                            } else {
-                                previewHtml = `<img src="${girl.storyVideo}" class="story-preview-thumb">`;
-                            }
-                        } else {
-                            previewHtml = `<div class="story-preview-placeholder"><i class="fa-solid fa-video-slash"></i><span>Sem Story</span></div>`;
-                        }
 
-                        return `
-                            <div class="story-manage-card glass-panel" data-id="${girl.id}">
-                                <div class="story-manage-header">
-                                    <img src="${girl.image || 'assets/model_sophia.png'}" alt="${girl.name}" class="story-manage-avatar">
-                                    <div class="story-manage-name-box">
-                                        <h4>${girl.name}</h4>
-                                        <span>${hasStory ? '<span class="status-active"><span class="dot-green"></span> Story Ativo</span>' : '<span class="status-inactive"><span class="dot-gray"></span> Inativo</span>'}</span>
-                                    </div>
-                                </div>
-                                <div class="story-manage-body">
-                                    <div class="story-preview-container">
-                                        ${previewHtml}
-                                        ${hasStory ? `<span class="story-badge-type">${girl.storyVideo.startsWith('data:image/') || girl.storyVideo.match(/\.(jpeg|jpg|gif|png|webp|bmp)($|\?)/i) ? 'Foto' : 'Vídeo'}</span>` : ''}
-                                    </div>
-                                </div>
-                                <div class="story-manage-actions">
-                                    <input type="file" id="direct-story-input-${girl.id}" accept="image/*,video/*" style="display:none;" class="direct-story-file-input" data-id="${girl.id}">
-                                    <button class="btn btn-primary btn-sm btn-glow trigger-direct-upload-btn" data-id="${girl.id}">
-                                        <i class="fa-solid fa-upload"></i> ${hasStory ? 'Alterar Story' : 'Postar Story'}
-                                    </button>
-                                    ${hasStory ? `
-                                    <button class="btn btn-danger btn-sm remove-direct-story-btn" data-id="${girl.id}" title="Excluir Story">
-                                        <i class="fa-solid fa-trash-can"></i> Remover
-                                    </button>
-                                    ` : ''}
-                                </div>
-                            </div>
-                        `;
-                    }).join('')}
+                <!-- Management Table -->
+                <div class="glass-panel admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Menina</th>
+                                <th>Cachê (30m / 1h)</th>
+                                <th>Características</th>
+                                <th>Selo</th>
+                                <th>Status (Disponibilidade)</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-girls-table-body">
+                            ${girlRowsHtml || `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">Nenhuma menina cadastrada. Clique em "Adicionar Menina" para começar.</td></tr>`}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab 3: Stories Manager -->
+            <div id="stories-tab" class="admin-tab-content ${activeAdminTab === 'stories-tab' ? '' : 'hidden'}">
+                <div class="stories-manager-intro" style="margin-bottom: 20px;">
+                    <h3>Gerenciador de Tours Virtuais (Stories)</h3>
+                    <p>Poste fotos ou vídeos verticais curtos do tour de cada quarto ou perfil de menina para os visitantes visualizarem no topo do site.</p>
+                </div>
+                
+                <h4 style="margin: 20px 0 10px 0; color: var(--color-gold); font-size: 1.15rem; font-family: var(--font-heading);"><i class="fa-solid fa-bed"></i> Tours dos Quartos</h4>
+                <div class="stories-manager-grid" style="margin-bottom: 30px;">
+                    ${roomsList.map(item => renderStoryManageCard(item)).join('') || '<p class="text-muted" style="grid-column: 1/-1;">Nenhum quarto disponível.</p>'}
+                </div>
+
+                <h4 style="margin: 20px 0 10px 0; color: var(--color-gold); font-size: 1.15rem; font-family: var(--font-heading);"><i class="fa-solid fa-venus"></i> Tours das Meninas</h4>
+                <div class="stories-manager-grid">
+                    ${girlsList.map(item => renderStoryManageCard(item)).join('') || '<p class="text-muted" style="grid-column: 1/-1;">Nenhuma menina disponível.</p>'}
                 </div>
             </div>
         `;
@@ -500,9 +814,10 @@ const AdminDashboard = {
 
 // --- 3. App Core Event Loop Coordinators ---
 
-let currentCompanions = [];
+let currentCompanions = []; // matches original variable to preserve other components
 let activeFilter = 'all';
 let searchQuery = '';
+let showFavoritesOnly = false;
 
 // DOM Cache Elements
 let mainNav, menuToggle, companionsGrid, searchInput, filterTagsContainer;
@@ -585,37 +900,66 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderPortfolioGrid() {
     if (!companionsGrid) return;
     
+    const pageType = document.body.dataset.page || 'rooms';
+    const targetType = pageType === 'girls' ? 'girl' : 'room';
+
     // Sort by order priority (smaller numbers first, default to 99)
     let sorted = [...currentCompanions].sort((a, b) => (a.order || 99) - (b.order || 99));
-    let filtered = sorted;
+    
+    // Filter by type
+    let filtered = sorted.filter(item => item.type === targetType);
+
+    if (showFavoritesOnly) {
+        const favoritesKey = targetType === 'girl' ? 'marias_favorite_girls' : 'marias_favorite_rooms';
+        const favorites = JSON.parse(localStorage.getItem(favoritesKey) || '[]');
+        filtered = filtered.filter(room => favorites.includes(room.id));
+    }
     
     if (activeFilter !== 'all') {
-        filtered = filtered.filter(girl => {
-            if (activeFilter === 'Loiras') return girl.hair.toLowerCase().includes('loiro');
-            if (activeFilter === 'Morenas') return girl.hair.toLowerCase().includes('moren') || girl.hair.toLowerCase().includes('pret');
-            if (activeFilter === 'Ruivas') return girl.hair.toLowerCase().includes('ruiv');
-            if (activeFilter === 'VIP') return girl.badge && girl.badge.toUpperCase() === 'VIP';
-            if (activeFilter === 'Novidade') return girl.badge && girl.badge.toUpperCase() === 'NOVIDADE';
+        filtered = filtered.filter(room => {
+            if (pageType === 'girls') {
+                if (activeFilter === 'Loira') return room.hair.toLowerCase().includes('loira');
+                if (activeFilter === 'Morena') return room.hair.toLowerCase().includes('morena');
+                if (activeFilter === 'Ruiva') return room.hair.toLowerCase().includes('ruiva');
+                if (activeFilter === 'VIP') return room.badge && room.badge.toUpperCase() === 'VIP';
+                if (activeFilter === 'Novidade') return room.badge && room.badge.toUpperCase() === 'NOVIDADE';
+            } else {
+                if (activeFilter === 'Centro') return room.hair.toLowerCase().includes('centro');
+                if (activeFilter === 'Jardim Amazonas') return room.hair.toLowerCase().includes('jardim') || room.hair.toLowerCase().includes('amazonas');
+                if (activeFilter === 'VIP') return room.badge && room.badge.toUpperCase() === 'VIP';
+                if (activeFilter === 'Novidade') return room.badge && room.badge.toUpperCase() === 'NOVIDADE';
+                if (activeFilter === 'Climatizado') {
+                    return room.services.some(s => s.toLowerCase().includes('ar') || s.toLowerCase().includes('clima'));
+                }
+            }
             return true;
         });
     }
     
     if (searchQuery.trim() !== '') {
         const query = searchQuery.toLowerCase().trim();
-        filtered = filtered.filter(girl => girl.name.toLowerCase().includes(query));
+        filtered = filtered.filter(room => 
+            room.name.toLowerCase().includes(query) || 
+            room.hair.toLowerCase().includes(query) ||
+            room.eyes.toLowerCase().includes(query) ||
+            room.services.some(s => s.toLowerCase().includes(query))
+        );
     }
     
     if (filtered.length === 0) {
+        const msg = showFavoritesOnly 
+            ? (targetType === 'girl' ? 'Você ainda não salvou nenhuma menina nos favoritos.' : 'Você ainda não salvou nenhum quarto nos favoritos.') 
+            : (targetType === 'girl' ? 'Nenhuma menina encontrada correspondendo aos seus critérios.' : 'Nenhum quarto encontrado correspondendo aos seus critérios.');
         companionsGrid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
-                <i class="fa-solid fa-magnifying-glass" style="font-size: 2.5rem; margin-bottom: 15px; color: rgba(255,255,255,0.1)"></i>
-                <p>Nenhuma acompanhante encontrada correspondendo aos seus critérios.</p>
+                <i class="fa-solid fa-${targetType === 'girl' ? 'venus' : 'bed'}" style="font-size: 2.5rem; margin-bottom: 15px; color: rgba(255,255,255,0.1)"></i>
+                <p>${msg}</p>
             </div>
         `;
         return;
     }
     
-    companionsGrid.innerHTML = filtered.map(girl => GirlCard.html(girl)).join('');
+    companionsGrid.innerHTML = filtered.map(room => GirlCard.html(room)).join('');
 }
 
 function renderAdminDashboard() {
@@ -652,7 +996,7 @@ function switchView(view) {
 }
 
 function setupEventListeners() {
-    // Mobile Navigation Drawer (Fatal Model Style)
+    // Mobile Navigation Drawer
     const sidebarDrawer = document.getElementById('sidebar-drawer');
     const drawerOverlay = document.getElementById('drawer-overlay');
     const drawerCloseBtn = document.getElementById('drawer-close-btn');
@@ -718,7 +1062,6 @@ function setupEventListeners() {
             if (!item) return;
             const isActive = item.classList.contains('active');
             
-            // Optional: Close all other FAQ items (accordion behavior)
             document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
             
             if (!isActive) {
@@ -737,7 +1080,7 @@ function setupEventListeners() {
         });
     }
 
-    // Smooth scroll for all hash anchors (including navigation, hero buttons and footer links)
+    // Smooth scroll for all hash anchors
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const href = anchor.getAttribute('href');
         if (!href || href === '#' || anchor.classList.contains('admin-trigger')) return;
@@ -745,20 +1088,17 @@ function setupEventListeners() {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             
-            // If the admin panel is visible, switch back to portfolio first
             if (adminView && !adminView.classList.contains('hidden')) {
                 switchView('portfolio');
             }
             
             let targetId = href.substring(1);
-            // Translate legacy custom targets if needed
             if (targetId === 'models') targetId = 'portfolio-view';
             
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth' });
                 
-                // Update navigation active states
                 let navTarget = href.substring(1);
                 if (navTarget === 'portfolio-view') navTarget = 'models';
                 
@@ -802,18 +1142,26 @@ function setupEventListeners() {
         });
     }
 
-    // Grid Open Modal Click
+    // Grid Open Modal or Favorite Clicks
     if (companionsGrid) {
         companionsGrid.addEventListener('click', (e) => {
             const viewBtn = e.target.closest('.view-profile-btn');
+            const favCardBtn = e.target.closest('.favorite-card-btn');
             const card = e.target.closest('.girl-card');
             
-            if (card && !e.target.closest('.girl-card-btn')) {
-                const girlId = card.getAttribute('data-id');
-                openProfileDetails(girlId);
+            if (favCardBtn) {
+                e.stopPropagation();
+                const roomId = favCardBtn.getAttribute('data-id');
+                toggleFavoriteRoom(roomId, favCardBtn);
+                return;
+            }
+
+            if (card && !e.target.closest('.girl-card-btn') && !e.target.closest('.favorite-card-btn')) {
+                const roomId = card.getAttribute('data-id');
+                openProfileDetails(roomId);
             } else if (viewBtn) {
-                const girlId = viewBtn.getAttribute('data-id');
-                openProfileDetails(girlId);
+                const roomId = viewBtn.getAttribute('data-id');
+                openProfileDetails(roomId);
             }
         });
     }
@@ -859,6 +1207,103 @@ function setupEventListeners() {
         if (e.target === storyModal) closeStoryPlayer();
     });
 
+    // Mobile Bottom Navigation Bar Setup Events (Reference Screenshot layout)
+    const btnGirls = document.getElementById('bottom-nav-girls');
+    const btnHome = document.getElementById('bottom-nav-home');
+    const btnAdd = document.getElementById('bottom-nav-add');
+    const btnRooms = document.getElementById('bottom-nav-rooms');
+    const btnMenu = document.getElementById('bottom-nav-menu');
+
+    const currentPage = document.body.dataset.page || 'rooms';
+
+    function selectBottomTab(selectedElement) {
+        document.querySelectorAll('.mobile-bottom-nav-item').forEach(item => item.classList.remove('active'));
+        if (selectedElement) selectedElement.classList.add('active');
+    }
+
+    if (btnGirls) {
+        btnGirls.addEventListener('click', () => {
+            if (currentPage === 'girls') {
+                showFavoritesOnly = false;
+                activeFilter = 'all';
+                searchQuery = '';
+                if (searchInput) searchInput.value = '';
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                const filterAllBtn = document.querySelector('.filter-btn[data-filter="all"]');
+                if (filterAllBtn) filterAllBtn.classList.add('active');
+                
+                if (adminView && !adminView.classList.contains('hidden')) {
+                    switchView('portfolio');
+                }
+                selectBottomTab(btnGirls);
+                renderPortfolioGrid();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                window.location.href = 'girls.html';
+            }
+        });
+    }
+
+    if (btnHome) {
+        btnHome.addEventListener('click', () => {
+            if (currentPage === 'rooms') {
+                showFavoritesOnly = false;
+                activeFilter = 'all';
+                searchQuery = '';
+                if (searchInput) searchInput.value = '';
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                const filterAllBtn = document.querySelector('.filter-btn[data-filter="all"]');
+                if (filterAllBtn) filterAllBtn.classList.add('active');
+                
+                if (adminView && !adminView.classList.contains('hidden')) {
+                    switchView('portfolio');
+                }
+                selectBottomTab(btnHome);
+                renderPortfolioGrid();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+    }
+
+    if (btnAdd) {
+        btnAdd.addEventListener('click', () => {
+            // Directly request Admin Authentication to Add
+            authPasswordInput.value = '';
+            authErrorMsg.classList.add('hidden');
+            authModal.classList.remove('hidden');
+            authPasswordInput.focus();
+        });
+    }
+
+    if (btnRooms) {
+        btnRooms.addEventListener('click', () => {
+            if (currentPage === 'rooms') {
+                showFavoritesOnly = false;
+                if (adminView && !adminView.classList.contains('hidden')) {
+                    switchView('portfolio');
+                }
+                selectBottomTab(btnRooms);
+                renderPortfolioGrid();
+                const target = document.getElementById('portfolio-view');
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                window.location.href = 'index.html#portfolio-view';
+            }
+        });
+    }
+
+    if (btnMenu) {
+        btnMenu.addEventListener('click', () => {
+            // Toggles navigation sidebar drawer
+            if (sidebarDrawer && drawerOverlay) {
+                sidebarDrawer.classList.add('active');
+                drawerOverlay.classList.add('active');
+            }
+        });
+    }
+
     // Admin Dashboard delegated clicks
     if (adminView) {
         adminView.addEventListener('click', (e) => {
@@ -888,7 +1333,13 @@ function setupEventListeners() {
 
             const addBtn = e.target.closest('#admin-add-btn');
             if (addBtn) {
-                openAddForm();
+                openAddForm('room');
+                return;
+            }
+
+            const addGirlBtn = e.target.closest('#admin-add-girl-btn');
+            if (addGirlBtn) {
+                openAddForm('girl');
                 return;
             }
 
@@ -908,23 +1359,37 @@ function setupEventListeners() {
                 
                 document.querySelectorAll('.admin-tab-content').forEach(panel => panel.classList.add('hidden'));
                 document.getElementById(tabId).classList.remove('hidden');
+
+                // Adjust Add button visibility based on active tab
+                const roomAddBtn = document.getElementById('admin-add-btn');
+                const girlAddBtn = document.getElementById('admin-add-girl-btn');
+                if (tabId === 'models-tab') {
+                    if (roomAddBtn) roomAddBtn.classList.remove('hidden');
+                    if (girlAddBtn) girlAddBtn.classList.add('hidden');
+                } else if (tabId === 'girls-tab') {
+                    if (roomAddBtn) roomAddBtn.classList.add('hidden');
+                    if (girlAddBtn) girlAddBtn.classList.remove('hidden');
+                } else {
+                    if (roomAddBtn) roomAddBtn.classList.add('hidden');
+                    if (girlAddBtn) girlAddBtn.classList.add('hidden');
+                }
                 return;
             }
 
             const triggerBtn = e.target.closest('.trigger-direct-upload-btn');
             if (triggerBtn) {
-                const girlId = triggerBtn.getAttribute('data-id');
-                const fileInput = document.getElementById(`direct-story-input-${girlId}`);
+                const roomId = triggerBtn.getAttribute('data-id');
+                const fileInput = document.getElementById(`direct-story-input-${roomId}`);
                 if (fileInput) fileInput.click();
                 return;
             }
 
             const removeBtn = e.target.closest('.remove-direct-story-btn');
             if (removeBtn) {
-                const girlId = removeBtn.getAttribute('data-id');
-                const girl = DataService.getById(girlId);
-                if (girl && confirm(`Deseja realmente remover o story de ${girl.name}?`)) {
-                    DataService.update(girlId, { storyVideo: '' });
+                const roomId = removeBtn.getAttribute('data-id');
+                const room = DataService.getById(roomId);
+                if (room && confirm(`Deseja realmente remover o tour de ${room.name}?`)) {
+                    DataService.update(roomId, { storyVideo: '' });
                     currentCompanions = DataService.getAll();
                     renderAdminDashboard();
                     renderStoriesBar();
@@ -939,7 +1404,7 @@ function setupEventListeners() {
             if (fileInput) {
                 const file = fileInput.files[0];
                 if (!file) return;
-                const girlId = fileInput.getAttribute('data-id');
+                const roomId = fileInput.getAttribute('data-id');
                 
                 const card = fileInput.closest('.story-manage-card');
                 if (card) {
@@ -955,7 +1420,7 @@ function setupEventListeners() {
                         fileData = await compressImage(file, 600, 900, 0.7);
                     } else if (file.type.startsWith('video/')) {
                         if (file.size > 2 * 1024 * 1024) {
-                            alert("Aviso: O vídeo do story é maior que 2MB. Vídeos muito grandes podem exceder a memória local.");
+                            alert("Aviso: O vídeo do tour é maior que 2MB. Vídeos muito grandes podem exceder a memória local.");
                         }
                         fileData = await new Promise((resolve, reject) => {
                             const reader = new FileReader();
@@ -969,14 +1434,14 @@ function setupEventListeners() {
                         return;
                     }
 
-                    DataService.update(girlId, { storyVideo: fileData });
+                    DataService.update(roomId, { storyVideo: fileData });
                     currentCompanions = DataService.getAll();
                     renderAdminDashboard();
                     renderStoriesBar();
                     renderPortfolioGrid();
                 } catch (err) {
                      console.error("Error processing story upload:", err);
-                     alert("Erro ao enviar o story.");
+                     alert("Erro ao enviar o tour.");
                      renderAdminDashboard();
                 }
             }
@@ -999,9 +1464,8 @@ function setupEventListeners() {
         companionForm.addEventListener('submit', handleFormSubmit);
     }
 
-    // Hero Buttons Role Selector Clicks
+    // Hero Buttons
     const heroClientBtn = document.getElementById('hero-client-btn');
-
     if (heroClientBtn) {
         heroClientBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -1016,7 +1480,8 @@ function setupEventListeners() {
     if (storyCloseBtn) storyCloseBtn.addEventListener('click', closeStoryPlayer);
     if (storyPlayPauseBtn) storyPlayPauseBtn.addEventListener('click', togglePlayPause);
     if (storyAudioBtn) storyAudioBtn.addEventListener('click', toggleMute);
-    // Unified story navigation and hold-to-pause gesture
+    
+    // Hold-to-pause and tap gesture for tours player
     const playerContainer = document.querySelector('.story-player-container');
     if (playerContainer) {
         let touchStartTime = 0;
@@ -1024,7 +1489,6 @@ function setupEventListeners() {
         let isHolding = false;
 
         playerContainer.addEventListener('pointerdown', (e) => {
-            // Exclude control buttons, WhatsApp links, etc.
             if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.story-controls-overlay') || e.target.closest('.story-close-btn')) {
                 return;
             }
@@ -1035,7 +1499,7 @@ function setupEventListeners() {
             holdTimeout = setTimeout(() => {
                 isHolding = true;
                 pauseStoryPlayback();
-            }, 250); // 250ms hold to pause
+            }, 250);
         });
 
         playerContainer.addEventListener('pointerup', (e) => {
@@ -1048,7 +1512,6 @@ function setupEventListeners() {
             if (isHolding) {
                 resumeStoryPlayback();
             } else {
-                // Quick tap: navigate based on tap location (left 30% goes back, else forward)
                 const rect = playerContainer.getBoundingClientRect();
                 const tapX = e.clientX - rect.left;
                 const percentX = (tapX / rect.width) * 100;
@@ -1083,7 +1546,7 @@ function setupEventListeners() {
                 hiddenCover.value = base64;
             } catch (err) {
                 console.error("Error compressing cover image:", err);
-                alert("Falha ao carregar a imagem de capa.");
+                alert("Falha ao carregar a imagem do quarto.");
             }
         });
     }
@@ -1101,7 +1564,7 @@ function setupEventListeners() {
                 }
             }
             renderFormGalleryPreview();
-            galleryFilesInput.value = ''; // Reset input
+            galleryFilesInput.value = ''; // Reset
         });
     }
 
@@ -1120,7 +1583,7 @@ function setupEventListeners() {
                     if (urlInput) urlInput.value = '';
                 } else if (file.type.startsWith('video/')) {
                     if (file.size > 1.5 * 1024 * 1024) {
-                        alert("Aviso: O vídeo do story é maior que 1.5MB. Vídeos muito grandes podem exceder a memória local.");
+                        alert("Aviso: O vídeo do tour é maior que 1.5MB. Vídeos muito grandes podem exceder a memória local.");
                     }
                     const reader = new FileReader();
                     reader.onload = (event) => {
@@ -1132,7 +1595,7 @@ function setupEventListeners() {
                 }
             } catch (err) {
                 console.error("Error handling story upload:", err);
-                alert("Falha ao processar o arquivo do story.");
+                alert("Falha ao processar o tour.");
             }
         });
     }
@@ -1147,7 +1610,7 @@ function setupEventListeners() {
         });
     }
 
-    // Lightbox for profile gallery images
+    // Lightbox for gallery images
     if (profileModal) {
         profileModal.addEventListener('click', (e) => {
             const imgItem = e.target.closest('.profile-gallery-item');
@@ -1162,11 +1625,51 @@ function setupEventListeners() {
 
 // --- Action Implementations ---
 
-function openProfileDetails(id) {
-    const companion = DataService.getById(id);
-    if (!companion) return;
+function toggleFavoriteRoom(roomId, btnElement) {
+    const item = DataService.getById(roomId);
+    if (!item) return;
 
-    profileModalContent.innerHTML = ProfileModal.html(companion);
+    const isGirl = item.type === 'girl';
+    const favoritesKey = isGirl ? 'marias_favorite_girls' : 'marias_favorite_rooms';
+    
+    let favorites = JSON.parse(localStorage.getItem(favoritesKey) || '[]');
+    const index = favorites.indexOf(roomId);
+    
+    if (index > -1) {
+        favorites.splice(index, 1);
+        if (btnElement) {
+            btnElement.classList.remove('favorited');
+            btnElement.style.color = 'var(--text-muted)';
+            const icon = btnElement.querySelector('i');
+            if (icon) {
+                icon.className = 'fa-regular fa-heart';
+            }
+        }
+    } else {
+        favorites.push(roomId);
+        if (btnElement) {
+            btnElement.classList.add('favorited');
+            btnElement.style.color = 'var(--color-accent)';
+            const icon = btnElement.querySelector('i');
+            if (icon) {
+                icon.className = 'fa-solid fa-heart';
+            }
+        }
+    }
+    
+    localStorage.setItem(favoritesKey, JSON.stringify(favorites));
+    
+    // If showFavoritesOnly mode is active, filter the grid
+    if (showFavoritesOnly) {
+        renderPortfolioGrid();
+    }
+}
+
+function openProfileDetails(id) {
+    const room = DataService.getById(id);
+    if (!room) return;
+
+    profileModalContent.innerHTML = ProfileModal.html(room);
     profileModal.classList.remove('hidden');
 }
 
@@ -1176,9 +1679,13 @@ function handleAuthentication() {
         authModal.classList.add('hidden');
         if (document.getElementById('admin-view')) {
             switchView('admin');
+            // If triggered by bottom-nav "+", open add room form instantly
+            setTimeout(() => {
+                openAddForm();
+            }, 100);
         } else {
             sessionStorage.setItem('marias_admin_authenticated', 'true');
-            window.location.href = 'main.html';
+            window.location.href = 'index.html';
         }
     } else {
         authErrorMsg.classList.remove('hidden');
@@ -1191,25 +1698,30 @@ function handleToggleStatus(id) {
     if (newStatus) {
         currentCompanions = DataService.getAll();
         renderAdminDashboard();
+        renderPortfolioGrid();
     }
 }
 
 function handleDeleteCompanion(id) {
-    const companion = DataService.getById(id);
-    if (!companion) return;
+    const room = DataService.getById(id);
+    if (!room) return;
 
-    if (confirm(`Deseja realmente excluir permanentemente o perfil de ${companion.name}?`)) {
+    if (confirm(`Deseja realmente excluir permanentemente o anúncio de ${room.name}?`)) {
         if (DataService.delete(id)) {
             currentCompanions = DataService.getAll();
             renderAdminDashboard();
+            renderPortfolioGrid();
+            renderStoriesBar();
         }
     }
 }
 
 function handleResetDatabase() {
-    if (confirm("Isso irá apagar todas as modificações e restaurar os perfis originais. Continuar?")) {
+    if (confirm("Isso irá apagar todas as modificações e restaurar os quartos originais. Continuar?")) {
         currentCompanions = DataService.reset();
         renderAdminDashboard();
+        renderPortfolioGrid();
+        renderStoriesBar();
     }
 }
 
@@ -1284,7 +1796,6 @@ function renderFormGalleryPreview() {
 function openLightbox(images, startIndex) {
     let currentIndex = startIndex;
     
-    // Create element if not exists
     let lightbox = document.getElementById('premium-lightbox');
     if (!lightbox) {
         lightbox = document.createElement('div');
@@ -1333,10 +1844,63 @@ function openLightbox(images, startIndex) {
     lightbox.classList.add('active');
 }
 
-function openAddForm() {
-    formModalTitle.textContent = "Adicionar Nova Modelo";
+function adjustFormLabels(type) {
+    const isGirl = type === 'girl';
+    const formTypeInput = document.getElementById('form-item-type');
+    if (formTypeInput) formTypeInput.value = type;
+
+    const labelName = document.getElementById('label-form-name');
+    const inputName = document.getElementById('form-name');
+    const labelAge = document.getElementById('label-form-age');
+    const inputAge = document.getElementById('form-age');
+    const ratesRow = document.getElementById('form-rates-row');
+    const labelHair = document.getElementById('label-form-hair');
+    const inputHair = document.getElementById('form-hair');
+    const labelEyes = document.getElementById('label-form-eyes');
+    const inputEyes = document.getElementById('form-eyes');
+    const labelServices = document.getElementById('label-form-services');
+    const inputServices = document.getElementById('form-services');
+    const labelDesc = document.getElementById('label-form-description');
+    const inputDesc = document.getElementById('form-description');
+
+    if (isGirl) {
+        if (labelName) labelName.textContent = "Nome Artístico *";
+        if (inputName) inputName.placeholder = "Ex: Sophia, Valentina...";
+        if (labelAge) labelAge.textContent = "Idade (anos) *";
+        if (inputAge) inputAge.placeholder = "Ex: 22";
+        if (ratesRow) ratesRow.classList.remove('hidden');
+        if (labelHair) labelHair.textContent = "Cor do Cabelo *";
+        if (inputHair) inputHair.placeholder = "Ex: Loira, Morena, Ruiva";
+        if (labelEyes) labelEyes.textContent = "Cor dos Olhos *";
+        if (inputEyes) inputEyes.placeholder = "Ex: Verdes, Castanhos, Azuis";
+        if (labelServices) labelServices.textContent = "Serviços/Atributos * (Separados por vírgula)";
+        if (inputServices) inputServices.placeholder = "Ex: Massagem, Atendimento Duplo, Dominação, Viagem";
+        if (labelDesc) labelDesc.textContent = "Descrição/Apresentação *";
+        if (inputDesc) inputDesc.placeholder = "Fale um pouco sobre você, seu estilo de atendimento...";
+    } else {
+        if (labelName) labelName.textContent = "Título do Anúncio *";
+        if (inputName) inputName.placeholder = "Ex: Quarto para atendimentos no Centro";
+        if (labelAge) labelAge.textContent = "Preço da Diária (R$) *";
+        if (inputAge) inputAge.placeholder = "Ex: 140";
+        if (ratesRow) ratesRow.classList.add('hidden');
+        if (labelHair) labelHair.textContent = "Bairro / Localidade *";
+        if (inputHair) inputHair.placeholder = "Ex: Centro, Jardim Amazonas";
+        if (labelEyes) labelEyes.textContent = "Cidade / Estado *";
+        if (inputEyes) inputEyes.placeholder = "Ex: Petrolina/PE";
+        if (labelServices) labelServices.textContent = "Comodidades * (Separados por vírgula)";
+        if (inputServices) inputServices.placeholder = "Ex: Ar Condicionado, Wi-Fi, Cama de Casal, Local Seguro";
+        if (labelDesc) labelDesc.textContent = "Descrição Detalhada do Quarto *";
+        if (inputDesc) inputDesc.placeholder = "Escreva sobre a estrutura do quarto, localização, regras de uso...";
+    }
+}
+
+function openAddForm(type = 'room') {
+    formModalTitle.textContent = type === 'girl' ? "Adicionar Nova Acompanhante" : "Adicionar Novo Quarto";
     document.getElementById('form-girl-id').value = '';
     companionForm.reset();
+    
+    adjustFormLabels(type);
+    
     document.getElementById('form-order').value = '10';
     document.getElementById('form-image').value = '';
     document.getElementById('form-story-video').value = '';
@@ -1359,24 +1923,33 @@ function openAddForm() {
 }
 
 function openEditForm(id) {
-    const girl = DataService.getById(id);
-    if (!girl) return;
+    const room = DataService.getById(id);
+    if (!room) return;
 
-    formModalTitle.textContent = `Editar Perfil de ${girl.name}`;
-    document.getElementById('form-girl-id').value = girl.id;
+    const type = room.type || 'room';
+    formModalTitle.textContent = type === 'girl' ? `Editar Perfil - ${room.name}` : `Editar Anúncio - ${room.name}`;
+    document.getElementById('form-girl-id').value = room.id;
     
-    document.getElementById('form-name').value = girl.name;
-    document.getElementById('form-age').value = girl.age;
-    document.getElementById('form-hair').value = girl.hair;
-    document.getElementById('form-eyes').value = girl.eyes;
-    document.getElementById('form-whatsapp').value = girl.whatsapp;
-    document.getElementById('form-badge').value = girl.badge;
-    document.getElementById('form-image').value = girl.image;
-    document.getElementById('form-availability').value = girl.availability;
-    document.getElementById('form-story-video').value = girl.storyVideo || '';
-    document.getElementById('form-services').value = girl.services.join(', ');
-    document.getElementById('form-description').value = girl.description;
-    document.getElementById('form-order').value = girl.order || 99;
+    adjustFormLabels(type);
+    
+    document.getElementById('form-name').value = room.name;
+    document.getElementById('form-age').value = room.age;
+    document.getElementById('form-hair').value = room.hair;
+    document.getElementById('form-eyes').value = room.eyes;
+    document.getElementById('form-whatsapp').value = room.whatsapp;
+    document.getElementById('form-badge').value = room.badge;
+    document.getElementById('form-image').value = room.image;
+    document.getElementById('form-availability').value = room.availability;
+    document.getElementById('form-story-video').value = room.storyVideo || '';
+    document.getElementById('form-services').value = room.services.join(', ');
+    document.getElementById('form-description').value = room.description;
+    document.getElementById('form-order').value = room.order || 99;
+
+    if (type === 'girl') {
+        document.getElementById('form-rate-quick').value = room.rateQuick || '';
+        document.getElementById('form-rate-hour').value = room.rateHour || '';
+        document.getElementById('form-rate-half').value = room.rateHalf || '';
+    }
 
     const fileCover = document.getElementById('form-image-file');
     if (fileCover) fileCover.value = '';
@@ -1387,11 +1960,11 @@ function openEditForm(id) {
 
     const storyUrl = document.getElementById('form-story-url');
     if (storyUrl) {
-        const src = girl.storyVideo || '';
+        const src = room.storyVideo || '';
         storyUrl.value = (src.startsWith('data:') ? '' : src);
     }
 
-    currentFormGallery = [...(girl.gallery || [])];
+    currentFormGallery = [...(room.gallery || [])];
     renderFormGalleryPreview();
 
     adminFormModal.classList.remove('hidden');
@@ -1400,6 +1973,7 @@ function openEditForm(id) {
 function handleFormSubmit(e) {
     e.preventDefault();
     const id = document.getElementById('form-girl-id').value;
+    const type = document.getElementById('form-item-type').value || 'room';
     
     const servicesInput = document.getElementById('form-services').value;
     const servicesArray = servicesInput
@@ -1407,17 +1981,15 @@ function handleFormSubmit(e) {
         .map(s => s.trim())
         .filter(s => s.length > 0);
 
-    const companionData = {
+    const roomData = {
+        type: type,
         name: document.getElementById('form-name').value,
         age: parseInt(document.getElementById('form-age').value, 10),
         hair: document.getElementById('form-hair').value,
         eyes: document.getElementById('form-eyes').value,
-        rateQuick: 0,
-        rateHalf: 0,
-        rateHour: 0,
         whatsapp: document.getElementById('form-whatsapp').value.replace(/\D/g, ''),
         badge: document.getElementById('form-badge').value,
-        image: document.getElementById('form-image').value || 'assets/model_sophia.png',
+        image: document.getElementById('form-image').value,
         availability: document.getElementById('form-availability').value,
         storyVideo: document.getElementById('form-story-video').value.trim(),
         gallery: currentFormGallery,
@@ -1426,22 +1998,33 @@ function handleFormSubmit(e) {
         order: parseInt(document.getElementById('form-order').value, 10) || 99
     };
 
-    if (id) {
-        DataService.update(id, companionData);
+    if (type === 'girl') {
+        roomData.rateQuick = parseInt(document.getElementById('form-rate-quick').value, 10) || 150;
+        roomData.rateHour = parseInt(document.getElementById('form-rate-hour').value, 10) || 250;
+        roomData.rateHalf = parseInt(document.getElementById('form-rate-half').value, 10) || 400;
     } else {
-        // Fallback default image if none uploaded
-        if (!companionData.image || companionData.image === '') {
-            companionData.image = 'assets/model_sophia.png';
+        roomData.rateQuick = 0;
+        roomData.rateHour = 0;
+        roomData.rateHalf = 0;
+    }
+
+    if (id) {
+        DataService.update(id, roomData);
+    } else {
+        if (!roomData.image || roomData.image === '') {
+            roomData.image = type === 'girl' ? 'assets/model_sophia.png' : 'assets/room_premium_1.png';
         }
-        if (companionData.gallery.length === 0) {
-            companionData.gallery.push(companionData.image);
+        if (roomData.gallery.length === 0) {
+            roomData.gallery.push(roomData.image);
         }
-        DataService.add(companionData);
+        DataService.add(roomData);
     }
 
     currentCompanions = DataService.getAll();
     adminFormModal.classList.add('hidden');
     renderAdminDashboard();
+    renderPortfolioGrid();
+    renderStoriesBar();
 }
 
 function initAutoplayVideos() {
@@ -1474,35 +2057,37 @@ function initAutoplayVideos() {
 let activeStoriesList = [];
 let currentStoryIndex = -1;
 let storyProgressTimer = null;
-const STORY_DURATION = 15; // fallback max duration in seconds
+const STORY_DURATION = 15;
 let viewedStories = JSON.parse(localStorage.getItem('marias_viewed_stories') || '[]');
 
 function renderStoriesBar() {
     const storiesContainer = document.getElementById('stories-container');
     if (!storiesContainer) return;
 
-    // Filter models that have storyVideo and are available
-    const activeModels = [...currentCompanions]
-        .filter(girl => girl.storyVideo && girl.storyVideo.trim() !== '')
+    const pageType = document.body.dataset.page || 'rooms';
+    const targetType = pageType === 'girls' ? 'girl' : 'room';
+
+    const activeRooms = [...currentCompanions]
+        .filter(room => room.storyVideo && room.storyVideo.trim() !== '' && room.type === targetType)
         .sort((a, b) => (a.order || 99) - (b.order || 99));
 
     const storiesView = document.getElementById('stories-view');
-    if (activeModels.length === 0) {
+    if (activeRooms.length === 0) {
         if (storiesView) storiesView.classList.add('hidden');
         return;
     }
     
     if (storiesView) storiesView.classList.remove('hidden');
 
-    storiesContainer.innerHTML = activeModels.map(girl => {
-        const hasViewed = viewedStories.includes(girl.id);
-        const nameShort = girl.name.split(' ')[0];
+    storiesContainer.innerHTML = activeRooms.map(room => {
+        const hasViewed = viewedStories.includes(room.id);
+        const nameShort = room.type === 'girl' ? room.name.split(' ')[0] : room.hair.split(',')[0].trim();
         const viewedClass = hasViewed ? 'viewed' : '';
         
         return `
-            <div class="story-item ${viewedClass}" data-id="${girl.id}">
+            <div class="story-item ${viewedClass}" data-id="${room.id}">
                 <div class="story-avatar-ring">
-                    <img src="${girl.image}" alt="${girl.name}" loading="lazy">
+                    <img src="${room.image}" alt="${room.name}" loading="lazy">
                     <span class="story-avatar-badge"><i class="fa-solid fa-play"></i></span>
                 </div>
                 <span class="story-name">${nameShort}</span>
@@ -1510,7 +2095,6 @@ function renderStoriesBar() {
         `;
     }).join('');
 
-    // Add click listeners to stories
     storiesContainer.querySelectorAll('.story-item').forEach(item => {
         item.addEventListener('click', () => {
             const id = item.getAttribute('data-id');
@@ -1519,11 +2103,14 @@ function renderStoriesBar() {
     });
 }
 
-function openStoryPlayer(companionId) {
+function openStoryPlayer(roomId) {
+    const pageType = document.body.dataset.page || 'rooms';
+    const targetType = pageType === 'girls' ? 'girl' : 'room';
+
     activeStoriesList = [...currentCompanions]
-        .filter(girl => girl.storyVideo && girl.storyVideo.trim() !== '')
+        .filter(room => room.storyVideo && room.storyVideo.trim() !== '' && room.type === targetType)
         .sort((a, b) => (a.order || 99) - (b.order || 99));
-    currentStoryIndex = activeStoriesList.findIndex(g => g.id === companionId);
+    currentStoryIndex = activeStoriesList.findIndex(g => g.id === roomId);
     
     if (currentStoryIndex === -1) return;
 
@@ -1533,9 +2120,8 @@ function openStoryPlayer(companionId) {
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden'; // Lock scroll
     
-    // Mark as viewed
-    if (!viewedStories.includes(companionId)) {
-        viewedStories.push(companionId);
+    if (!viewedStories.includes(roomId)) {
+        viewedStories.push(roomId);
         localStorage.setItem('marias_viewed_stories', JSON.stringify(viewedStories));
         renderStoriesBar();
     }
@@ -1546,7 +2132,7 @@ function openStoryPlayer(companionId) {
 let storyIsImage = false;
 let storyIsPaused = false;
 let storyElapsedTime = 0;
-const STORY_IMAGE_DURATION = 5000; // 5 segundos para fotos
+const STORY_IMAGE_DURATION = 5000;
 
 function loadStoryAtIndex(index) {
     if (index < 0 || index >= activeStoriesList.length) {
@@ -1555,9 +2141,8 @@ function loadStoryAtIndex(index) {
     }
 
     currentStoryIndex = index;
-    const girl = activeStoriesList[index];
+    const room = activeStoriesList[index];
     
-    // Cache DOM elements (ensuring they are not null)
     const video = document.getElementById('story-video');
     const imageEl = document.getElementById('story-image');
     const avatar = document.getElementById('story-header-avatar');
@@ -1568,32 +2153,32 @@ function loadStoryAtIndex(index) {
     
     if (!video || !imageEl) return;
 
-    // Reset UI states
     video.style.display = 'none';
     imageEl.style.display = 'none';
     if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
     storyIsPaused = false;
 
-    // Show loader
     if (loader) loader.classList.add('active');
 
-    // Update Header
-    if (avatar) avatar.src = girl.image;
-    if (name) name.textContent = girl.name;
+    if (avatar) avatar.src = room.image;
+    if (name) name.textContent = room.name;
     
-    // Update WhatsApp CTA
-    const whatsappText = `Olá! Vi seu story no site da Casa das Marias e gostaria de agendar um horário com você.`;
+    const isGirl = room.type === 'girl';
+    const whatsappText = isGirl 
+        ? `Olá! Vi o tour da '${room.name}' no site da Casa das Marias e gostaria de consultar a disponibilidade para agendamento.` 
+        : `Olá! Vi o tour do quarto '${room.name}' no site da Casa das Marias e gostaria de consultar a disponibilidade para reserva.`;
     const encodedText = encodeURIComponent(whatsappText);
-    const cleanedPhone = girl.whatsapp.replace(/\D/g, '');
+    const cleanedPhone = room.whatsapp.replace(/\D/g, '');
     if (bookBtn) {
         bookBtn.href = `https://wa.me/${cleanedPhone}?text=${encodedText}`;
-        bookBtn.innerHTML = `<i class="fa-brands fa-whatsapp"></i> Agendar com ${girl.name.split(' ')[0]}`;
+        bookBtn.innerHTML = isGirl 
+            ? `<i class="fa-brands fa-whatsapp"></i> Falar com ${room.name}`
+            : `<i class="fa-brands fa-whatsapp"></i> Reservar este Quarto`;
     }
 
-    // Setup Progress Bar UI
     renderStoryProgressIndicators();
 
-    const src = girl.storyVideo || 'assets/video.mp4';
+    const src = room.storyVideo || 'assets/video.mp4';
     storyIsImage = src.startsWith('data:image/') || src.match(/\.(jpeg|jpg|gif|png|webp|bmp)($|\?)/i);
 
     if (storyIsImage) {
@@ -1602,8 +2187,7 @@ function loadStoryAtIndex(index) {
         if (loader) loader.classList.remove('active');
         startProgressTracker();
     } else {
-        // Setup audio/mute states from localStorage or default to muted (due to autoplay)
-        const isMuted = localStorage.getItem('marias_story_muted') !== 'false'; // default to true
+        const isMuted = localStorage.getItem('marias_story_muted') !== 'false';
         video.muted = isMuted;
         if (isMuted) {
             video.setAttribute('muted', '');
@@ -1616,7 +2200,6 @@ function loadStoryAtIndex(index) {
         video.style.display = 'block';
         video.load();
 
-        // Play
         const playPromise = video.play();
         if (playPromise !== undefined) {
             playPromise.then(() => {
@@ -1629,11 +2212,9 @@ function loadStoryAtIndex(index) {
             });
         }
 
-        // Video events
         video.onwaiting = () => { if (loader) loader.classList.add('active'); };
         video.onplaying = () => { if (loader) loader.classList.remove('active'); };
         
-        // When video ends, go to next story
         video.onended = () => {
             nextStory();
         };
@@ -1669,7 +2250,7 @@ function startProgressTracker() {
     const video = document.getElementById('story-video');
     
     storyProgressTimer = setInterval(() => {
-        if (storyIsPaused) return; // pausar progresso se estiver pausado
+        if (storyIsPaused) return;
 
         if (storyIsImage) {
             storyElapsedTime += 100;
@@ -1692,9 +2273,9 @@ function startProgressTracker() {
 
 function nextStory() {
     if (currentStoryIndex + 1 < activeStoriesList.length) {
-        const nextGirl = activeStoriesList[currentStoryIndex + 1];
-        if (!viewedStories.includes(nextGirl.id)) {
-            viewedStories.push(nextGirl.id);
+        const nextRoom = activeStoriesList[currentStoryIndex + 1];
+        if (!viewedStories.includes(nextRoom.id)) {
+            viewedStories.push(nextRoom.id);
             localStorage.setItem('marias_viewed_stories', JSON.stringify(viewedStories));
             renderStoriesBar();
         }
@@ -1722,7 +2303,7 @@ function closeStoryPlayer() {
         modal.classList.add('hidden');
     }
     
-    document.body.style.overflow = ''; // Destravar rolagem
+    document.body.style.overflow = '';
 
     const video = document.getElementById('story-video');
     if (video) {

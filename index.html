@@ -1,52 +1,421 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa das Marias | Verificação de Idade</title>
-    <!-- Google Fonts -->
+    <title>Casa das Marias | Locação de Quartos e Suítes Premium</title>
+    <!-- Google Fonts: Outfit, Inter, Cinzel, Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style sheet -->
     <link rel="stylesheet" href="index.css">
 </head>
-<body class="gate-body">
-    <div class="gate-wrapper">
-        <div class="gate-brand">
-            <img src="assets/logo.png" alt="Casa das Marias" class="gate-logo">
+
+<body data-page="rooms">
+    <!-- Mobile Sidebar Drawer (Fatal Model Style) -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <aside class="sidebar-drawer" id="sidebar-drawer">
+        <div class="drawer-close-btn" id="drawer-close-btn">
+            <i class="fa-solid fa-xmark"></i>
         </div>
-        <div class="gate-content">
-            <div class="warning-icon">
-                <i class="fa-solid fa-triangle-exclamation"></i>
+        <div class="drawer-profile">
+            <div class="profile-avatar">
+                <img src="assets/logo.png" alt="Casa das Marias Logo">
             </div>
-            <h2>Aviso de Conteúdo</h2>
-            <p class="gate-subtitle">Este site contém material voltado ao público adulto e é destinado exclusivamente para maiores de 18 anos.</p>
-            <p class="gate-question">Você é maior de 18 anos?</p>
+            <div class="profile-info">
+                <h4 class="profile-name">Casa das Marias</h4>
+                <p class="profile-location">Petrolina - PE</p>
+                <div class="profile-link-container">
+                    <span class="profile-link-text" id="share-link-text">casadasmariass.com</span>
+                    <button class="copy-link-btn" id="copy-share-link" title="Copiar Link">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="gate-actions">
-            <button class="btn btn-exit" id="gate-exit-btn">Não (Sair)</button>
-            <button class="btn btn-enter" id="gate-enter-btn">Sim, sou maior</button>
+        <nav class="drawer-nav">
+            <a href="index.html" class="drawer-link active"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="#portfolio-view" class="drawer-link"><i class="fa-solid fa-bed"></i> Nossos Quartos</a>
+            <a href="girls.html" class="drawer-link"><i class="fa-solid fa-venus"></i> Nossas Meninas</a>
+            <a href="about.html" class="drawer-link"><i class="fa-solid fa-circle-info"></i> Quem Somos</a>
+            <a href="support.html" class="drawer-link"><i class="fa-solid fa-headset"></i> Suporte</a>
+            <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="drawer-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+            <a href="#" class="drawer-link admin-trigger"><i class="fa-solid fa-lock"></i> Painel Admin</a>
+        </nav>
+        <div class="drawer-footer-action">
+            <a href="https://wa.me/5575982897249?text=Olá! Gostaria de consultar a disponibilidade de quartos para alugar na Casa das Marias." target="_blank" class="btn btn-gold btn-glow w-full">
+                <i class="fa-brands fa-whatsapp"></i> Reservar Quarto
+            </a>
         </div>
-        <div class="gate-footer">
-            <p>&copy; 2026 Casa das Marias. Proibido para menores de 18 anos.</p>
+    </aside>
+
+    <!-- Premium Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <a href="index.html" class="logo-img-link" id="nav-logo">
+                <img src="assets/logo.png" alt="Casa das Marias" class="logo-img">
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" class="nav-link active" data-target="home">Início</a>
+                <a href="#portfolio-view" class="nav-link" data-target="models">Nossos Quartos</a>
+                <a href="girls.html" class="nav-link" data-target="girls">Nossas Meninas</a>
+                <a href="about.html" class="nav-link" data-target="about">Quem Somos</a>
+                <a href="support.html" class="nav-link" data-target="support">Suporte</a>
+                <a href="https://wa.me/5575982897249?text=Olá! Gostaria de consultar a disponibilidade de quartos na Casa das Marias." target="_blank" class="nav-link nav-apply-btn" id="nav-apply-btn"><i class="fa-brands fa-whatsapp"></i> Reservar Quarto</a>
+                <a href="#" class="nav-link admin-trigger" id="nav-admin-btn"><i class="fa-solid fa-lock-open"></i> Painel Admin</a>
+            </nav>
+            <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Menu de Navegação">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+        <!-- Hero Section (Portfolio Mode) -->
+        <section id="hero-view" class="hero-section">
+            <video autoplay muted loop playsinline webkit-playsinline class="hero-video-bg">
+                <source src="assets/video.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-subtitle">Nem toda Maria é comum.</span>
+                <h1 class="hero-title">Quartos e Suítes para o seu Atendimento</h1>
+                <div class="hero-ctas">
+                    <a href="#portfolio-view" class="btn btn-primary btn-glow" id="hero-client-btn"><i class="fa-solid fa-bed"></i> Ver Quartos</a>
+                    <a href="https://wa.me/5575982897249?text=Olá! Gostaria de consultar a disponibilidade de quartos na Casa das Marias." target="_blank" class="btn btn-gold btn-glow" id="hero-apply-btn"><i class="fa-brands fa-whatsapp"></i> Falar com Gerente</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Role para explorar</span>
+                <i class="fa-solid fa-chevron-down bounce"></i>
+            </div>
+        </section>
+
+        <!-- Stories/Tours Section -->
+        <section id="stories-view" class="stories-section-container">
+            <div class="stories-wrapper">
+                <div class="stories-header">
+                    <span class="stories-title"><i class="fa-solid fa-circle-play text-accent"></i> Tours pelos Quartos</span>
+                    <span class="live-dot-indicator"><span class="dot-red blink"></span> Vídeos Curtos</span>
+                </div>
+                <div class="stories-scroll-box" id="stories-container">
+                    <!-- Stories will be dynamically injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Rooms Listing -->
+        <section id="portfolio-view" class="section-container portfolio-section">
+            <div class="section-header">
+                <h2 class="section-title">Quartos e Suítes</h2>
+                <div class="title-underline"></div>
+                <p class="section-subtitle">Espaços premium estruturados para hospedagem e atendimentos diários em Petrolina com total privacidade.</p>
+            </div>
+
+            <!-- Search & Filter Controls -->
+            <div class="filter-controls-container glass-panel">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Buscar quarto por nome, bairro ou comodidade...">
+                </div>
+                <div class="filter-options">
+                    <span class="filter-label">Filtros:</span>
+                    <div class="filter-tags" id="filter-tags-container">
+                        <button class="filter-btn active" data-filter="all">Todos</button>
+                        <button class="filter-btn" data-filter="Centro">Centro</button>
+                        <button class="filter-btn" data-filter="Jardim Amazonas">Jd. Amazonas</button>
+                        <button class="filter-btn" data-filter="VIP">VIP</button>
+                        <button class="filter-btn" data-filter="Climatizado">Climatizados</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rooms Grid -->
+            <div class="companions-grid" id="companions-grid">
+                <!-- Room Cards will be injected dynamically -->
+            </div>
+        </section>
+
+        <!-- Manager Dashboard View (Hidden by Default) -->
+        <section id="admin-view" class="section-container admin-section hidden">
+            <!-- Dashboard Content will be injected dynamically -->
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo-img-link">
+                    <img src="assets/logo.png" alt="Casa das Marias" class="logo-img footer-logo-img">
+                </a>
+                <p>O ambiente mais exclusivo, seguro e discreto para o seu atendimento e hospedagem na região. Nem toda Maria é comum.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Links Úteis</h3>
+                <ul>
+                    <li><a href="index.html#portfolio-view">Nossos Quartos</a></li>
+                    <li><a href="girls.html">Nossas Meninas</a></li>
+                    <li><a href="about.html">Quem Somos</a></li>
+                    <li><a href="support.html">Suporte</a></li>
+                    <li><a href="#" class="admin-trigger"><i class="fa-solid fa-user-gear"></i> Painel Administrativo</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Reservas</h3>
+                <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/5575982897249" target="_blank" style="color: inherit; text-decoration: none; transition: color 0.2s;">Reservas via WhatsApp</a></p>
+                <p><i class="fa-solid fa-clock"></i> Todos os dias — 24 horas</p>
+                <div class="social-icons">
+                    <a href="https://wa.me/5575982897249" target="_blank" class="social-icon wa-link"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Casa das Marias. Todos os direitos reservados. Proibido para menores de 18 anos.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+        <div class="mobile-bottom-nav-item active" id="bottom-nav-home">
+            <i class="fa-solid fa-house"></i>
+            <span>Início</span>
+        </div>
+        <div class="mobile-bottom-nav-item" id="bottom-nav-rooms">
+            <i class="fa-solid fa-bed"></i>
+            <span>Quartos</span>
+        </div>
+        <div class="mobile-bottom-nav-item center-btn-item" id="bottom-nav-add">
+            <div class="mobile-bottom-nav-center-btn">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+        </div>
+        <div class="mobile-bottom-nav-item" id="bottom-nav-girls">
+            <i class="fa-solid fa-venus"></i>
+            <span>Meninas</span>
+        </div>
+        <div class="mobile-bottom-nav-item" id="bottom-nav-menu">
+            <i class="fa-solid fa-user"></i>
+            <span>Menu</span>
+        </div>
+    </nav>
+
+    <!-- App Modals -->
+
+    <!-- Stories Modal -->
+    <div class="modal-overlay hidden" id="story-modal">
+        <div class="story-player-container">
+            <button class="story-close-btn" id="story-close-btn"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="story-progress-bar" id="story-progress-bar">
+                <!-- Segmented progress bars will be injected dynamically -->
+            </div>
+
+            <div class="story-header-info">
+                <img src="" alt="" class="story-header-avatar" id="story-header-avatar">
+                <div class="story-header-text">
+                    <span class="story-header-name" id="story-header-name">Quarto</span>
+                    <span class="story-header-time"><span class="live-dot-indicator"><span class="dot-red blink" style="margin-right: 4px;"></span> TOUR</span></span>
+                </div>
+            </div>
+
+            <div class="story-video-wrapper">
+                <video id="story-video" playsinline webkit-playsinline></video>
+                <img id="story-image" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                <div class="story-video-loader" id="story-video-loader">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                </div>
+            </div>
+
+            <div class="story-controls-overlay">
+                <button class="story-ctrl-btn" id="story-play-pause-btn" title="Pausar/Reproduzir"><i class="fa-solid fa-pause"></i></button>
+                <button class="story-ctrl-btn" id="story-audio-btn" title="Ativar Som"><i class="fa-solid fa-volume-xmark"></i></button>
+            </div>
+
+            <div class="story-nav-tap story-nav-left" id="story-nav-left-tap"></div>
+            <div class="story-nav-tap story-nav-right" id="story-nav-right-tap"></div>
+
+            <button class="story-arrow-btn story-arrow-left" id="story-arrow-left"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="story-arrow-btn story-arrow-right" id="story-arrow-right"><i class="fa-solid fa-chevron-right"></i></button>
+
+            <div class="story-footer-action">
+                <a href="#" target="_blank" class="btn btn-primary story-book-btn btn-glow" id="story-book-btn">
+                    <i class="fa-brands fa-whatsapp"></i> Reservar Agora
+                </a>
+            </div>
         </div>
     </div>
 
-    <script>
-        document.getElementById('gate-enter-btn').addEventListener('click', function() {
-            try {
-                localStorage.setItem('marias_age_verified', 'true');
-            } catch (e) {
-                console.warn("localStorage is blocked:", e);
-            }
-            window.location.href = 'main.html';
-        });
+    <!-- Profile Detail Modal -->
+    <div class="modal-overlay hidden" id="profile-modal">
+        <div class="modal-container glass-panel detail-modal-container">
+            <button class="modal-close-btn" id="profile-modal-close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body-content" id="profile-modal-content">
+                <!-- Dynamic detail room data will be injected here -->
+            </div>
+        </div>
+    </div>
 
-        document.getElementById('gate-exit-btn').addEventListener('click', function() {
-            window.location.href = 'https://www.google.com';
-        });
-    </script>
+    <!-- Admin Form Modal (Add/Edit room) -->
+    <div class="modal-overlay hidden" id="admin-form-modal">
+        <div class="modal-container glass-panel admin-form-container">
+            <button class="modal-close-btn" id="admin-form-close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="admin-form-header">
+                <h3 id="form-modal-title">Adicionar Novo Quarto</h3>
+            </div>
+            <form id="companion-form" class="companion-form">
+                <input type="hidden" id="form-girl-id">
+                <input type="hidden" id="form-item-type" value="room">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label id="label-form-name" for="form-name">Título do Anúncio *</label>
+                        <input type="text" id="form-name" required placeholder="Ex: Quarto para atendimentos no Centro">
+                    </div>
+                    <div class="form-group">
+                        <label id="label-form-age" for="form-age">Preço da Diária (R$) *</label>
+                        <input type="number" id="form-age" required min="1" placeholder="Ex: 140">
+                    </div>
+                </div>
+
+                <!-- Custom Rates Row for Girls (hidden by default for rooms) -->
+                <div class="form-row hidden" id="form-rates-row">
+                    <div class="form-group">
+                        <label for="form-rate-quick">Cachê 30 Minutos (R$) *</label>
+                        <input type="number" id="form-rate-quick" placeholder="Ex: 150">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-rate-hour">Cachê 1 Hora (R$) *</label>
+                        <input type="number" id="form-rate-hour" placeholder="Ex: 250">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-rate-half">Cachê 2 Horas (R$)</label>
+                        <input type="number" id="form-rate-half" placeholder="Ex: 400">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label id="label-form-hair" for="form-hair">Bairro / Localidade *</label>
+                        <input type="text" id="form-hair" required placeholder="Ex: Centro, Jardim Amazonas">
+                    </div>
+                    <div class="form-group">
+                        <label id="label-form-eyes" for="form-eyes">Cidade / Estado *</label>
+                        <input type="text" id="form-eyes" required placeholder="Ex: Petrolina/PE">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-whatsapp">WhatsApp para Contato/Reserva *</label>
+                        <input type="text" id="form-whatsapp" required placeholder="Ex: 5575982897249 (somente números)">
+                        <small class="form-tip">Código do país + DDD + Número (ex: 5575982897249)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-badge">Selo Especial</label>
+                        <select id="form-badge">
+                            <option value="">Nenhum</option>
+                            <option value="VIP">VIP</option>
+                            <option value="Novidade">Novidade</option>
+                            <option value="Destaque">Destaque</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-image-file">Foto Principal do Quarto</label>
+                        <input type="file" id="form-image-file" accept="image/*">
+                        <input type="hidden" id="form-image">
+                        <small class="form-tip">Foto de capa do anúncio.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-availability">Disponibilidade *</label>
+                        <select id="form-availability" required>
+                            <option value="disponivel">Disponível</option>
+                            <option value="ocupada">Indisponível / Ocupada</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="form-gallery-files">Fotos da Galeria</label>
+                        <input type="file" id="form-gallery-files" accept="image/*" multiple style="margin-bottom: 8px;">
+                        <small class="form-tip">Selecione fotos internas do quarto. Toque em uma foto na pré-visualização para removê-la.</small>
+                        <div id="form-gallery-preview" class="gallery-preview-grid"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-story-file">Postar Vídeo de Tour (Story)</label>
+                        <input type="file" id="form-story-file" accept="image/*,video/*">
+                        <input type="hidden" id="form-story-video">
+                        <small class="form-tip">Selecione um vídeo vertical curto (até 1.5MB) de tour pelo quarto.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-story-url">Ou URL do Tour (Opcional)</label>
+                        <input type="text" id="form-story-url" placeholder="Ex: assets/casa.mp4">
+                        <small class="form-tip">Caminho do arquivo local ou link externo.</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-order">Ordem de Prioridade *</label>
+                        <input type="number" id="form-order" required min="1" placeholder="Ex: 1 (aparece primeiro)">
+                        <small class="form-tip">Números menores aparecem na frente</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label id="label-form-services" for="form-services">Comodidades * <small>(Separadas por vírgula)</small></label>
+                    <input type="text" id="form-services" required placeholder="Ex: Ar Condicionado, Wi-Fi, Cama de Casal, Local Seguro">
+                </div>
+
+                <div class="form-group">
+                    <label id="label-form-description" for="form-description">Descrição Detalhada do Quarto *</label>
+                    <textarea id="form-description" rows="4" required placeholder="Escreva sobre a estrutura do quarto, localização, regras de uso..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="form-cancel-btn">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Anúncio</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Manager Password Modal -->
+    <div class="modal-overlay hidden" id="auth-modal">
+        <div class="modal-container glass-panel auth-modal-container">
+            <button class="modal-close-btn" id="auth-modal-close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="auth-header">
+                <i class="fa-solid fa-shield-halved auth-icon"></i>
+                <h3>Autenticação</h3>
+                <p>Insira a senha de acesso para entrar no Painel Administrativo.</p>
+            </div>
+            <div class="auth-body">
+                <div class="form-group">
+                    <label for="auth-password">Senha de Acesso</label>
+                    <input type="password" id="auth-password" placeholder="Digite a senha...">
+                    <small id="auth-error-msg" class="auth-error-msg hidden">Senha incorreta. Tente novamente.</small>
+                    <small class="form-tip">Dica: A senha padrão é <strong>admin123</strong></small>
+                </div>
+                <button type="button" class="btn btn-primary w-full" id="auth-submit-btn">Entrar no Painel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core App Logic -->
+    <script src="js/app.js"></script>
 </body>
+
 </html>

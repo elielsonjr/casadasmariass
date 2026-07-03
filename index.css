@@ -3305,3 +3305,121 @@ a {
     border: 2px solid var(--color-gold);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--color-gold-glow);
 }
+
+/* Mobile Bottom Navigation Bar (WhatsApp style, reference screenshot) */
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: #111111;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 99;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+}
+
+.mobile-bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    gap: 4px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    flex: 1;
+    height: 100%;
+}
+
+.mobile-bottom-nav-item i {
+    font-size: 1.25rem;
+    transition: var(--transition-fast);
+}
+
+.mobile-bottom-nav-item:hover,
+.mobile-bottom-nav-item.active {
+    color: var(--color-gold);
+}
+
+/* Center Add Button */
+.mobile-bottom-nav-item.center-btn-item {
+    position: relative;
+    top: -15px; /* Floats slightly above */
+}
+
+.mobile-bottom-nav-center-btn {
+    width: 56px;
+    height: 56px;
+    background: var(--color-danger); /* Red floating button from screenshot */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(237, 58, 59, 0.4);
+    font-size: 1.5rem;
+    transition: var(--transition-smooth);
+    border: 3px solid #111111;
+}
+
+.mobile-bottom-nav-center-btn:hover {
+    transform: scale(1.1);
+    background: var(--color-danger);
+    box-shadow: 0 6px 20px rgba(237, 58, 59, 0.6);
+}
+
+/* Favorite heart button on cards */
+.favorite-btn-wrapper {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 3;
+}
+
+.favorite-card-btn {
+    background: rgba(25, 25, 25, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+.favorite-card-btn:hover {
+    transform: scale(1.1);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.favorite-card-btn.favorited {
+    color: var(--color-accent) !important;
+    background: rgba(226, 83, 82, 0.15);
+    border-color: var(--color-accent);
+}
+
+/* Media query to show bottom nav and adjust body padding on mobile */
+@media (max-width: 767px) {
+    .mobile-bottom-nav {
+        display: flex;
+    }
+    body {
+        padding-bottom: 70px; /* Space for the bottom nav */
+    }
+    /* Hide menu toggle header if we rely on bottom nav, or keep both. Bottom nav is cleaner! */
+    .app-header {
+        position: absolute; /* Don't stick on top since bottom nav is active */
+    }
+}

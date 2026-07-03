@@ -4,9 +4,8 @@
 <head>
     <script>
         try {
-            if (localStorage.getItem('marias_age_verified') !== 'true') {
-                window.location.href = 'index.html';
-            }
+            // Age verification bypass or check if required
+            localStorage.setItem('marias_age_verified', 'true');
         } catch (e) {
             console.warn("localStorage is blocked:", e);
         }
@@ -17,17 +16,15 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome for Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Style sheet -->
     <link rel="stylesheet" href="index.css">
 </head>
 
-<body>
-    <!-- Mobile Sidebar Drawer (Fatal Model Style) -->
+<body data-page="about">
+    <!-- Mobile Sidebar Drawer -->
     <div class="drawer-overlay" id="drawer-overlay"></div>
     <aside class="sidebar-drawer" id="sidebar-drawer">
         <div class="drawer-close-btn" id="drawer-close-btn">
@@ -49,18 +46,17 @@
             </div>
         </div>
         <nav class="drawer-nav">
-            <a href="main.html" class="drawer-link"><i class="fa-solid fa-house"></i> Início</a>
-            <a href="main.html#portfolio-view" class="drawer-link"><i class="fa-solid fa-users"></i> Nossas Modelos</a>
+            <a href="index.html" class="drawer-link"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="index.html#portfolio-view" class="drawer-link"><i class="fa-solid fa-bed"></i> Nossos Quartos</a>
+            <a href="girls.html" class="drawer-link"><i class="fa-solid fa-venus"></i> Nossas Meninas</a>
             <a href="about.html" class="drawer-link active"><i class="fa-solid fa-circle-info"></i> Quem Somos</a>
             <a href="support.html" class="drawer-link"><i class="fa-solid fa-headset"></i> Suporte</a>
-            <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="drawer-link"><i
-                    class="fa-brands fa-instagram"></i> Instagram</a>
+            <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="drawer-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
             <a href="#" class="drawer-link admin-trigger"><i class="fa-solid fa-lock"></i> Painel Admin</a>
         </nav>
         <div class="drawer-footer-action">
-            <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias."
-                target="_blank" class="btn btn-gold btn-glow w-full">
-                <i class="fa-brands fa-whatsapp"></i> Solicitar Vaga
+            <a href="https://wa.me/5575982897249?text=Olá! Gostaria de consultar a disponibilidade de quartos na Casa das Marias." target="_blank" class="btn btn-gold btn-glow w-full">
+                <i class="fa-brands fa-whatsapp"></i> Reservar Quarto
             </a>
         </div>
     </aside>
@@ -68,17 +64,16 @@
     <!-- Premium Header -->
     <header class="app-header">
         <div class="header-container">
-            <a href="main.html" class="logo-img-link" id="nav-logo">
+            <a href="index.html" class="logo-img-link" id="nav-logo">
                 <img src="assets/logo.png" alt="Casa das Marias" class="logo-img">
             </a>
             <nav class="main-nav" id="main-nav">
-                <a href="main.html" class="nav-link">Início</a>
-                <a href="main.html#portfolio-view" class="nav-link">Nossas Modelos</a>
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="index.html#portfolio-view" class="nav-link">Nossos Quartos</a>
+                <a href="girls.html" class="nav-link">Nossas Meninas</a>
                 <a href="about.html" class="nav-link active">Quem Somos</a>
                 <a href="support.html" class="nav-link">Suporte</a>
-                <a href="https://wa.me/5575982897249?text=Ol%C3%A1!%20Sou%20acompanhante%20e%20tenho%20interesse%20em%20me%20hospedar%2Fatender%20na%20Casa%20das%20Marias."
-                    target="_blank" class="nav-link nav-apply-btn"><i class="fa-brands fa-whatsapp"></i> Solicitar
-                    Vaga</a>
+                <a href="https://wa.me/5575982897249?text=Olá! Gostaria de consultar a disponibilidade de quartos na Casa das Marias." target="_blank" class="nav-link nav-apply-btn"><i class="fa-brands fa-whatsapp"></i> Reservar Quarto</a>
                 <a href="#" class="nav-link admin-trigger"><i class="fa-solid fa-lock-open"></i> Painel Admin</a>
             </nav>
             <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Menu de Navegação">
@@ -88,21 +83,14 @@
     </header>
 
     <!-- Main Content -->
-    <main class="main-content" style="padding-top: 115px;">
+    <main class="main-content" style="padding-top: 115px; padding-bottom: 50px;">
         <!-- Institutional Hero Section -->
-        <section class="about-hero-section"
-            style="position: relative; padding: 100px 4%; text-align: center; background: linear-gradient(180deg, #100607 0%, var(--bg-primary) 100%);">
+        <section class="about-hero-section" style="position: relative; padding: 100px 4%; text-align: center; background: linear-gradient(180deg, #100607 0%, var(--bg-primary) 100%);">
             <div style="max-width: 800px; margin: 0 auto;">
-                <span
-                    style="color: var(--color-gold); font-family: var(--font-heading); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.9rem;">Nem
-                    toda Maria é comum.</span>
-                <h1
-                    style="font-size: 3rem; margin: 15px 0 25px; font-family: var(--font-heading); font-weight: 800; background: linear-gradient(135deg, #FFF, #DFD1A5); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                    Quem Somos</h1>
+                <span style="color: var(--color-gold); font-family: var(--font-heading); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.9rem;">Nem toda Maria é comum.</span>
+                <h1 style="font-size: 3rem; margin: 15px 0 25px; font-family: var(--font-heading); font-weight: 800; background: linear-gradient(135deg, #FFF, #DFD1A5); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Quem Somos</h1>
                 <div class="title-underline"></div>
-                <p style="color: var(--text-secondary); font-size: 1.15rem; line-height: 1.6;">Conheça a história, os
-                    valores e a filosofia por trás do espaço de hospedagem e lounge privativo mais exclusivo de
-                    Petrolina.</p>
+                <p style="color: var(--text-secondary); font-size: 1.15rem; line-height: 1.6;">Conheça a estrutura, os valores e o compromisso da Casa das Marias com a qualidade, privacidade e segurança na locação de quartos em Petrolina.</p>
             </div>
         </section>
 
@@ -115,52 +103,32 @@
                     </video>
                 </div>
                 <div class="lounge-details">
-                    <span
-                        style="color: var(--color-accent); font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 8px;">Exclusividade
-                        & Conforto</span>
-                    <h3
-                        style="font-size: 2.2rem; line-height: 1.2; margin-bottom: 20px; font-family: var(--font-heading); font-weight: 700;">
-                        Onde o Luxo Encontra a Privacidade</h3>
-                    <p>A Casa das Marias é um espaço feminino pensado para oferecer conforto, organização e praticidade
-                        às suas hóspedes. O ambiente conta com quartos climatizados, estrutura bem cuidada,
-                        monitoramento, áreas comuns organizadas e um ambiente discreto, proporcionando uma estadia mais
-                        tranquila e confortável.</p>
-                    <p>Nosso compromisso é manter uma casa limpa, segura e acolhedora, onde cada hóspede possa se sentir
-                        à vontade e contar com uma estrutura de qualidade durante sua permanência.</p>
+                    <span style="color: var(--color-accent); font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 8px;">Exclusividade & Conforto</span>
+                    <h3 style="font-size: 2.2rem; line-height: 1.2; margin-bottom: 20px; font-family: var(--font-heading); font-weight: 700;">Onde o Luxo Encontra a Privacidade</h3>
+                    <p>A Casa das Marias é um espaço pensado para oferecer conforto, organização e praticidade. O ambiente conta com quartos climatizados, estrutura bem cuidada, monitoramento por câmeras, áreas comuns organizadas e total discrição, proporcionando uma estadia mais tranquila e confortável.</p>
+                    <p>Nosso compromisso é manter um espaço limpo, seguro e acolhedor, onde cada hóspede possa se sentir à vontade e contar com uma estrutura de qualidade durante sua permanência, seja para hospedagem temporária ou sublocação de espaço para atendimentos profissionais.</p>
                 </div>
             </div>
         </section>
 
         <!-- Notice Section -->
-        <section class="section-container"
-            style="background: rgba(255, 255, 255, 0.01); border-top: 1px solid rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.03); padding-top: 40px; padding-bottom: 40px;">
-            <!-- Exclusivity Notice Box -->
-            <div class="lounge-notice-box"
-                style="max-width: 800px; margin: 0 auto; padding: 20px; border-left: 3px solid var(--color-gold); background: rgba(212, 194, 129, 0.03); border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0; text-align: left;">
+        <section class="section-container" style="background: rgba(255, 255, 255, 0.01); border-top: 1px solid rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.03); padding-top: 40px; padding-bottom: 40px;">
+            <div class="lounge-notice-box" style="max-width: 800px; margin: 0 auto; padding: 20px; border-left: 3px solid var(--color-gold); background: rgba(212, 194, 129, 0.03); border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0; text-align: left;">
                 <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);">
-                    <strong>Nota de Exclusividade:</strong> A Casa das Marias funciona como um espaço de hospedagem e
-                    atendimento privativo das próprias modelos. Não possuímos central de atendimento ao cliente ou
-                    suporte comercial no local; todos os contatos e agendamentos são feitos de forma individual e direta
-                    com as modelos via WhatsApp.
+                    <strong>Nota de Privacidade:</strong> A Casa das Marias funciona como um espaço de hospedagem e locação de quartos privativos para atendimentos. O endereço exato é fornecido de forma confidencial no momento da confirmação da reserva, garantindo total privacidade e discrição aos nossos clientes e hóspedes.
                 </p>
             </div>
         </section>
 
-        <!-- Concept Banner (Instagram Integration visual hint) -->
+        <!-- Concept Banner -->
         <section class="section-container" style="text-align: center; padding-top: 60px; padding-bottom: 60px;">
-            <div class="glass-panel"
-                style="max-width: 900px; margin: 0 auto; padding: 45px 30px; border: 1px solid rgba(212, 194, 129, 0.25);">
-                <i class="fa-brands fa-instagram"
-                    style="font-size: 3.5rem; color: var(--color-gold); margin-bottom: 20px; text-shadow: 0 0 15px var(--color-gold-glow);"></i>
-                <h3
-                    style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; color: #FFF;">
-                    Acompanhe Nossa Rotina no Instagram</h3>
-                <p
-                    style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 25px; line-height: 1.6; font-size: 1rem;">
-                    Siga nosso perfil oficial para novidades exclusivas, bastidores, aviso de novas modelos hospedadas
-                    na casa e campanhas especiais.</p>
-                <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="btn btn-gold btn-glow"
-                    style="padding: 14px 35px;">
+            <div class="glass-panel" style="max-width: 900px; margin: 0 auto; padding: 45px 30px; border: 1px solid rgba(212, 194, 129, 0.25);">
+                <i class="fa-brands fa-instagram" style="font-size: 3.5rem; color: var(--color-gold); margin-bottom: 20px; text-shadow: 0 0 15px var(--color-gold-glow);"></i>
+                <h3 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; color: #FFF;">Acompanhe Nossa Estrutura no Instagram</h3>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 25px; line-height: 1.6; font-size: 1rem;">
+                    Siga nosso perfil oficial no Instagram para acompanhar novidades da casa, fotos e vídeos da estrutura dos quartos disponíveis, dicas e novidades exclusivas.
+                </p>
+                <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="btn btn-gold btn-glow" style="padding: 14px 35px;">
                     <i class="fa-brands fa-instagram"></i> @casadasmarias_privee
                 </a>
             </div>
@@ -171,32 +139,28 @@
     <footer class="app-footer">
         <div class="footer-container">
             <div class="footer-brand">
-                <a href="main.html" class="logo-img-link">
+                <a href="index.html" class="logo-img-link">
                     <img src="assets/logo.png" alt="Casa das Marias" class="logo-img footer-logo-img">
                 </a>
-                <p>O ambiente mais exclusivo e as companhias mais sofisticadas da região. Nem toda Maria é comum.</p>
+                <p>O ambiente mais exclusivo, seguro e discreto para o seu atendimento e hospedagem na região. Nem toda Maria é comum.</p>
             </div>
             <div class="footer-links">
                 <h3>Links Úteis</h3>
                 <ul>
-                    <li><a href="main.html#portfolio-view">Nossas Modelos</a></li>
+                    <li><a href="index.html#portfolio-view">Nossos Quartos</a></li>
+                    <li><a href="girls.html">Nossas Meninas</a></li>
                     <li><a href="about.html">Quem Somos</a></li>
                     <li><a href="support.html">Suporte</a></li>
-                    <li><a href="#" class="admin-trigger"><i class="fa-solid fa-user-gear"></i> Painel
-                            Administrativo</a></li>
+                    <li><a href="#" class="admin-trigger"><i class="fa-solid fa-user-gear"></i> Painel Administrativo</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
-                <h3>Agendamentos</h3>
-                <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/5575982897249" target="_blank"
-                        style="color: inherit; text-decoration: none; transition: color 0.2s;">Agendamentos via
-                        WhatsApp</a></p>
+                <h3>Reservas</h3>
+                <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/5575982897249" target="_blank" style="color: inherit; text-decoration: none; transition: color 0.2s;">Reservar via WhatsApp</a></p>
                 <p><i class="fa-solid fa-clock"></i> Todos os dias — 24 horas</p>
                 <div class="social-icons">
-                    <a href="https://wa.me/5575982897249" target="_blank" class="social-icon wa-link"><i
-                            class="fa-brands fa-whatsapp"></i></a>
-                    <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="social-icon"><i
-                            class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/5575982897249" target="_blank" class="social-icon wa-link"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/casadasmarias_privee" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
         </div>
@@ -211,7 +175,7 @@
             <button class="modal-close-btn" id="auth-modal-close"><i class="fa-solid fa-xmark"></i></button>
             <div class="auth-header">
                 <i class="fa-solid fa-shield-halved auth-icon"></i>
-                <h3>Autenticação do Gerente</h3>
+                <h3>Autenticação</h3>
                 <p>Insira a senha de acesso para entrar no Painel Administrativo.</p>
             </div>
             <div class="auth-body">
